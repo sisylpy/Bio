@@ -5,7 +5,7 @@ module.exports = (function () {
 
     var mysqlInfo = {
         // host: '192.168.1.106',       //主机
-        host: 'localhost',       //主机
+        host: 'localhost3',       //主机
         user: 'admin',               //MySQL认证用户名
         password: 'Swolo12345!@#$%',        //MySQL认证用户密码
         database: 'Bio',
