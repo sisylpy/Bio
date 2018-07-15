@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+    <script src="/layui/layui.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/stylesheets/detail.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <div id="topBlack" class="bg-dark"></div>
+    <div class="navbar">
+        <div class="nav">
+            <a class="logo" href="/" >Bio管理系统</a>
+            <div class="line">添加PDF</div>
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block10"></div>
+            <form class="form-horizontal">
+                <input type="hidden" name="brand_id" value="<%=brandId%>" />
+                <input type="hidden" name="sub_brand_id" value="0" />
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">品牌:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" value="<%=brandName%>" name="BrandName" id="recipient-name" readonly>
+                    </div>
+                </div>
+                <div class="block10"></div>
+                <div class="form-group has-success has-feedback">
+                    <label for="recipient-name" class="control-label col-sm-1">子品牌:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="subBrandName" id="recipient-name">
+                    </div>
+                    <a data-toggle="modal" data-target="#selectSubBrand" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        选择
+                    </a>
+                </div>
+                <div class="block10"></div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">语言:</label>
+                    <div class="col-sm-11">
+                        <select class="form-control" name="language">
+                            <option value="0">英文</option>
+                            <option value="1">中文</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="block10"></div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">选择文件:</label>
+                    <div class="col-sm-10">
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <div class="layui-upload-list" id="uploadFileList">
+
+                            </div>
+                        </blockquote>
+                    </div>
+                    <a class="btn btn-primary btn-sm " id="fileupload">
+                        <i class="glyphicon glyphicon-upload" aria-hidden="true"></i>
+                        <span>上传</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="block20"></div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-3">
+                <button type="button" class="btn btn-default" id="cacel">取消</button>
+
+            </div>
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="button" class="btn btn-primary" id="sure">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 选择子品牌 -->
+<div class="modal fade" id="selectSubBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">选择品牌</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-condensed text-center table-hover" id="brand">
+                    <% brandRes.forEach(function(brand){ %>
+                    <tr class="handle" data-id="<%=brand.id%>" data-name="<%=brand.manuName%>">
+                        <td><%=brand.manuName%></td>
+                    </tr>
+                    <% })%>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var sub_brand_id = 0;
+
+        $(".handle").click(function (event) {
+            sub_brand_id = $(this).data('id');
+            $("input[name='sub_brand_id']").val(sub_brand_id);
+            $("input[name='subBrandName']").val($(this).data('name'));
+            $("#selectSubBrand").modal('hide');
+        });
+        var uploadFiles = [];
+        layui.use('upload',function(){
+            var upload = layui.upload;
+            var toUploadNum = 0;
+            var uploadedNum = 0;
+            var successNum = 0;
+            var failedNum = 0;
+            var successFile = [];
+            var failedFile = [];
+            var fileObj;
+            var fileInfo = [];
+            var retryUploadNum = 3;
+            var uploadInst = upload.render({
+                elem:"#fileupload",
+                url: '/admin/pdfUpload',
+                multiple:true,
+                exts:'pdf',
+                number:100,
+                bindAction:"#sure",
+                auto:false,
+                data:{
+                    brandId:function(){ return $("input[name='brand_id']").val();},
+                    subBrandId:function(){ return $("input[name='sub_brand_id']").val();},
+                    language:function(){ return $("select[name='language']").val();}
+                },
+                choose:function(obj){
+                    uploadFiles = obj.pushFile();
+                    fileObj = obj;
+                    obj.preview(function(index,file,result){
+                        var list = '<div class="form-group has-success has-feedback add_file_div">' +
+                            '<input class="form-control" type="text" value="'+file.name+'" readonly>' +
+                            '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>' +
+                            '<span class="delete_attachment" data-index='+index+' style="display:inline-block;width:30px;height:30px;position:absolute;right:13px;top:1px;z-index:100;cursor: pointer;"></span>' +
+                            '</div>';
+                        $("#uploadFileList").append(list);
+                        fileInfo[index] = {file:file,failedRetryUploadNum:0};
+                        toUploadNum++;
+                    });
+                },
+                before:function(obj){
+                    layer.load(1, {
+                        shade: [0.1,'#fff'] //0.1透明度的白色背景
+                    });
+                },
+                done: function(res, index, upload){
+                    uploadedNum++;
+                    console.log(uploadedNum+'/'+toUploadNum);
+                    console.log(res.msg);
+                    if(res.res){
+                        layer.msg(res.msg, {icon: 1});
+                        successNum ++;
+                        successFile.push(res.msg);
+                    }else{
+                        layer.msg(res.msg, {icon: 0});
+                        console.log(res.err_info);
+                        failedNum ++;
+                        failedFile.push(res.msg);
+                    }
+                    if(uploadedNum == toUploadNum) {
+                        layer.closeAll('loading'); //关闭loading
+                        layer.open({
+                            type: 1,
+                            title:"上传失败pdf信息",
+                            content: "失败文件数: "+failedNum+"<br />"+failedFile.toString(),
+                            btn: ['关闭页面', '继续上传'],
+                            yes: function(){
+                                location.href='/admin/login'
+                            },
+                            btn2:function(){
+                                location.reload();
+                            }
+                        });
+                    }
+                },
+                error: function(index, upload){
+                    // layer.closeAll('loading'); //关闭loading
+                  console.log('------');
+                    layer.msg('上传失败！'+fileInfo[index].file.name, {icon: 0});
+                    fileInfo[index].failedRetryUploadNum++;
+                    if(fileInfo[index].failedRetryUploadNum <= retryUploadNum) {
+                        fileObj.upload(index, fileInfo[index].file);
+                    }
+                }
+            })
+        });
+        /**
+         * 删除要上传的文件
+         */
+        $(document).on("click",".delete_attachment",function(event){
+            delete uploadFiles[$(this).data('index')];
+            $(this).parents("div.add_file_div").remove();
+            toUploadNum--;
+        })
+    });
+</script>
+</body>
+
+</html>

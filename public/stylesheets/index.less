@@ -1,0 +1,484 @@
+@charset "utf-8";
+@import "../../myless/main";
+
+main .article-col {
+
+  height: 30rem;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: 28rem;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: 28rem;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: 22rem;
+
+  }
+
+  .Splash-content {
+    width: 100%;
+    //background-color: darkslategrey;
+    background: url("../images/yuan-assets/brand.png") no-repeat left top;
+    border-top: 1px solid gray;
+
+  }
+}
+
+//reset Bootstrap
+.container {
+
+  .row {
+    //padding-left: 0;
+    //padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+//1,搜索
+.esjy-col-1 {
+  width: 100%;
+  //height: 100%;
+  //border: 1px solid hotpink;
+  .row {
+    height: @searchHeight-mob;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: @searchHeight-pc;
+
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: @searchHeight-pc-lg;
+
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: @searchHeight-pc-lg;
+    }
+  }
+}
+
+//1，搜索左侧"/生物实验"部分
+.word {
+
+  height: @searchHeight-mob;
+  line-height: @searchHeight-mob;
+  color: #0076a3;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @searchHeight-pc;
+    line-height: @searchHeight-pc;
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @searchHeight-pc-lg;
+    line-height: @searchHeight-pc-lg;
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @searchHeight-pc-lg;
+    line-height: @searchHeight-pc-lg;
+  }
+
+  .word-content {
+    font-size: 2em;
+    font-weight: 500;
+    height: @searchHeight-mob;
+    line-height: @searchHeight-mob;
+    text-align: left;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      font-size: 1.6em;
+      font-weight: 500;
+      height: @searchHeight-pc;
+      line-height: @searchHeight-pc;
+      text-align: left;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      font-size: 2em;
+      font-weight: 500;
+      height: @searchHeight-pc-lg;
+      line-height: @searchHeight-pc-lg;
+      text-align: left;
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      font-size: 2em;
+      font-weight: 500;
+      height: @searchHeight-pc-lg;
+      line-height: @searchHeight-pc-lg;
+      text-align: left;
+      padding-left: 3rem;
+
+
+    }
+  }
+
+}
+
+//2，输入框部分
+.searchPart {
+  height: @searchHeight-mob;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @searchHeight-pc;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @searchHeight-pc-lg;
+    //border: 1px solid green;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @searchHeight-pc-lg;
+
+  }
+
+  .search {
+    height: @searchHeight-mob;
+    width: 90%;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: @searchHeight-pc;
+      width: 90%;
+
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: @searchHeight-pc-lg;
+      width: 90%;
+
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: @searchHeight-pc-lg;
+      width: 90%;
+    }
+
+    input {
+      height: @searchInputHeight-mob;
+      position: relative;
+      float: left;
+      width: 100%;
+      padding-left: 1rem;
+      display: block;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        height: @searchInputHeight-pc;
+        top: (@searchHeight-pc - @searchInputHeight-pc)/2;
+        font-size: 1em;
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        height: @searchInputHeight-pc-lg;
+        top: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        height: @searchInputHeight-pc-lg;
+        top: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+      }
+    }
+
+    .mySearch-btn {
+
+      height: @searchInputHeight-mob;
+      line-height: @searchInputHeight-mob;
+      text-align: center;
+      width: @searchInputHeight-mob;
+      position: relative;
+      float: right;
+      bottom: @searchInputHeight-mob;
+      //border: 1px solid purple;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        height: @searchInputHeight-pc;
+        line-height: @searchInputHeight-pc;
+        text-align: center;
+        width: @searchInputHeight-pc;
+        bottom: @searchHeight-pc - @searchInputHeight-pc;
+
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        height: @searchInputHeight-pc-lg;
+        line-height: @searchInputHeight-pc-lg;
+        text-align: center;
+        width: @searchInputHeight-pc-lg;
+        bottom: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        height: @searchInputHeight-pc-lg;
+        line-height: @searchInputHeight-pc-lg;
+        text-align: center;
+        width: @searchInputHeight-pc-lg;
+        bottom: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+      }
+
+    }
+
+    .iconBtn {
+
+      height: @searchInputHeight-mob;
+      line-height: @searchInputHeight-mob;
+      text-align: center;
+      width: @searchInputHeight-mob;
+      position: relative;
+      float: right;
+      //border: 1px solid green;
+      bottom: @searchInputHeight-mob;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        height: @searchInputHeight-pc;
+        line-height: @searchInputHeight-pc;
+        text-align: center;
+        width: @searchInputHeight-pc;
+        bottom: @searchHeight-pc - @searchInputHeight-pc;
+
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        height: @searchInputHeight-pc-lg;
+        line-height: @searchInputHeight-pc-lg;
+        text-align: center;
+        width: @searchInputHeight-pc-lg;
+        bottom: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        height: @searchInputHeight-pc-lg;
+        line-height: @searchInputHeight-pc-lg;
+        text-align: center;
+        width: @searchInputHeight-pc-lg;
+        bottom: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+      }
+    }
+  }
+
+}
+
+//3， 下拉显示搜索词汇
+.mySearch-content {
+
+  position: relative;
+  float: left;
+  top: -@selectHeight-mob - (@searchHeight-mob - @searchInputHeight-mob)/2;
+  width: 100%;
+  background-color: purple;
+  padding-left: 1rem;
+  z-index: 2;
+
+  display: none;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    top: -(@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    top: -(@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    top: -(@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+
+  span {
+    display: block;
+    background-color: red;
+    position: relative;
+    float: left;
+    width: 100%;
+    text-align: left;
+    line-height: @mySearchHeight-mob;
+    height: @mySearchHeight-mob;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      line-height: @mySearchHeight-pc;
+      height: @mySearchHeight-pc;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      line-height: @mySearchHeight-pc-lg;
+      height: @mySearchHeight-pc-lg;
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      line-height: @mySearchHeight-pc-lg;
+      height: @mySearchHeight-pc-lg;
+    }
+
+  }
+  .mySearchList {
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+
+    .mySearch {
+
+      position: relative;
+      float: left;
+      width: 100%;
+      display: block;
+      text-align: left;
+      background-color: #3c3c3c;
+      color: red;
+
+      line-height: @mySearchHeight-mob;
+      height: @mySearchHeight-mob;
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        line-height: @mySearchHeight-pc;
+        height: @mySearchHeight-pc;
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        line-height: @mySearchHeight-pc-lg;
+        height: @mySearchHeight-pc-lg;
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+
+        line-height: @mySearchHeight-pc-lg;
+        height: @mySearchHeight-pc-lg;
+      }
+    }
+  }
+
+}
+
+//4,搜索右侧选择"文献，视频"
+.select {
+
+  height: @searchHeight-mob;
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @searchHeight-pc;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @searchHeight-pc-lg;
+    //border: 1px solid green;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @searchHeight-pc-lg;
+
+  }
+
+  select {
+    position: relative;
+    float: left;
+    width: 40%;
+    height: @searchInputHeight-mob;
+    border: 1px solid gray;
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: @searchInputHeight-pc;
+      top: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: @searchInputHeight-pc-lg;
+      //border: 1px solid green;
+      top: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: @searchInputHeight-pc-lg;
+      top: (@searchHeight-pc-lg - @searchInputHeight-pc-lg)/2;
+
+    }
+
+  }
+}
+
+//.esjy-rule {
+//  position: relative;
+//  border-top: 1px dotted #c7c7c7;
+//  min-height: 1px;
+//  width: 90%;
+//  left: 5%;
+//}
+
+/* 小屏幕（平板，大于等于 768px） */
+@media (min-width: @screen-sm-min) {
+
+}
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media (min-width: @screen-md-min) {
+
+}
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media (min-width: @screen-lg-min) {
+
+}

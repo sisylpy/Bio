@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+    <script src="/layui/layui.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/stylesheets/detail.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <div id="topBlack" class="bg-dark"></div>
+
+    <div class="navbar">
+        <a class="logo" href="/" style="float:left;">Bio管理系统</a>
+        <div class="line">添加商品</div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block10"></div>
+            <form class="form-horizontal" id="productForm">
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">类型:</label>
+                    <div class="col-sm-11">
+                        <select class="form-control" name="type_id">
+                            <option value="0" <%if(type_id == 0){%>selected <%}%>>商品</option>
+                            <option value="1" <%if(type_id == 1){%>selected <%}%>>试用品</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">选择文件:</label>
+                    <div class="col-sm-10">
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <div class="layui-upload-list" id="uploadFileList">
+
+                            </div>
+                        </blockquote>
+                    </div>
+                    <a class="btn btn-primary btn-sm " id="fileupload">
+                        <i class="glyphicon glyphicon-upload" aria-hidden="true"></i>
+                        <span>上传</span>
+                    </a>
+                </div>
+                <div class="block20"></div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-3">
+                        <button type="reset" class="btn btn-default" onclick="javascript:location.href='/admin/product'">取消</button>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="button" class="btn btn-primary" id="addExcel">添加</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+
+        var currentModal;
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show')
+        });
+
+        layui.use('upload',function(){
+            var upload = layui.upload;
+
+            var uploadFileInfo = [];
+            var uploadInst = upload.render({
+                elem:"#fileupload",
+                url: '/admin/importExcel',
+                multiple:false,
+                exts:'xlsx',
+                bindAction:"#addExcel",
+                auto:false,
+                dataType:'json',
+                data:{
+                    type_id:function(){ return $("select[name='type_id']").val();}
+                },
+                choose:function(obj){
+                    obj.preview(function(index,file,result){
+                        var list = '<div class="form-group">' +
+                            '<input class="form-control" type="text" value="'+file.name+'" readonly>' +
+                            '</div>';
+                        $("#uploadFileList").append(list);
+                    });
+                },
+                before:function(obj){
+                    layer.load(1, {
+                        shade: [0.1,'#fff'] //0.1透明度的白色背景
+                    });
+                },
+                done: function(res, index, upload){
+                    layer.closeAll('loading');
+                    if(res.res){
+                        layer.msg(res.mes, {icon: 1},function (e) {
+                            location.href='/admin/product'
+                        });
+                    }else{
+                        layer.msg(res.mes, {icon: 0});
+                    }
+                },
+                error: function(index, upload){
+                    layer.closeAll('loading'); //关闭loading
+                    layer.msg('添加失败！', {icon: 0});
+                }
+            })
+        })
+
+    })
+
+</script>
+</body>
+
+</html>

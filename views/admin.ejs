@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>问吧</title>
+    <meta charset="UTF-8">
+    <!--wang-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+  <!--<link rel="stylesheet" href="/stylesheets/aboutLtd.css">-->
+
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+<body>
+<div class="esjy-col">
+    <div class="container">
+        <!--justify-content-md-center-->
+        <div class="row ">
+            <div class="col-5" id="page-left" >
+
+                <div id="page-left-up">
+                    <h2>后台管理系统</h2>
+                    <form method="post" action="./admin/adminLogin">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputEmail4">用户名</label>
+                                <input name="email"  class="form-control" id="inputEmail4" placeholder="aa">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="inputPassword4">密码</label>
+                                <input name="pwd" type="password" class="form-control" id="inputPassword4" placeholder="aa">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    记住密码
+                                </label>
+                            </div>
+                        </div>
+                        <td colspan="2" align="center" valign="middle">
+                            <input type="hidden" name="subflag" value="1">
+                            <input type="submit" value="登录" class="btn btn-primary"/>
+                        </td>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-7" id="page-right"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

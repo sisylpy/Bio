@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--wang-->
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/stylesheets/adminLogin.css">
+    <link rel="stylesheet" href="/stylesheets/adminNav.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <%- include adminNav %>
+    <div class="subNav bg-dark ">
+        <a class="navitem-name" href="javascript:;">文献</a>
+        <div class="subitems" id="myTabs">
+            <button type="button" class="btn btn-dark add-btn addNew" id="addNewLiterature">
+                <a href="/admin/addliterature" target="_blank">添加文献</a>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block20"></div>
+            <div class="tab-content" id="tab-content">
+                <div class="data-list tab-pane fade in active" id="product_number">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th class="has-success has-feedback literature-click-sort" style="cursor:pointer" width="70%">
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                文献篇名
+                            </th>
+                            <th>上传日期</th>
+                            <th>货号</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-left">
+                        <% literatureRes.forEach(function(literature,index){ %>
+                        <tr>
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= literature.experiment_name %></td>
+                            <td><%= literature.create_time %></td>
+                            <td><%= literature.item_name %></td>
+                            <td>
+                                <!--<a class="text-primary" data-toggle="modal" data-target="#experimentNumberModel"
+                                   data-id="<%= literature.id %>" data-name="<%= literature.experiment_name %>"
+                                   href="javascript:;">修改</a>
+                                <a class="delete_literature text-primary" href="javascript:;"
+                                   data-id="<%= literature.id %>">删除</a>-->
+                                <button id="edit-btn" type="button" class="btn btn-secondary">
+                                    <a  href="/admin/editLiterature?literature_id=<%=literature.id%>" target="_blank">修改</a>
+                                </button>
+                                <button id="delate-btn" type="button" class="btn btn-dark">
+                                    <a class="delete_literature" data-id="<%= literature.id %>" href="javascript:;" target="_blank">删除</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pull-right">
+                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                                <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <% pageList.forEach(function(page){%>
+                            <li <% if(currentPage == page){%> class="active" <%}%>>
+                                <a href="javascript:;" class="page" data-page="<%=page%>">
+                                    <%=page%>
+                                    <% if(currentPage == page){%>
+                                    <span class="sr-only">(current)</span>
+                                    <%}%>
+                                </a>
+                            </li>
+                            <%})%>
+                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
+                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改文献名称 -->
+<div class="modal fade" id="experimentNumberModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">修改文献名称</h4>
+                <input type="hidden" name="experimentId" value=""/>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">文献名称:</label>
+                        <input type="text" class="form-control" name="experimentName" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="modify_experiment_name">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var pageNow = 1;
+        var order = {literature:'asc'};
+        $('#experimentNumberModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('name') // Extract info from data-* attributes
+            var experimentId = button.data('id');
+            var modal = $(this)
+            modal.find('.modal-title').text('修改文献名称 ' + (recipient ? recipient : ''))
+            modal.find('.modal-body input[name="experimentName"]').val(recipient)
+            modal.find('.modal-header input[name="experimentId"]').val(experimentId)
+        });
+        for(var key in order){
+            if(order[key] == 'asc'){
+                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
+            }else{
+                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            }
+        }
+        $(document).on('click','.page',function (e) {
+            var current_page = $(this).data('page');
+            pageNow = current_page;
+            window.history.pushState(null,null,"/admin/literature?order="+order.literature+"&current_page="+current_page);
+            $("#tab-content").load("/admin/literature?order="+order.literature+"&current_page="+current_page+" #tab-content>div",function(){
+                for(var key in order){
+                    if(order[key] == 'asc'){
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    }else{
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+                    }
+                }
+            });
+        });
+
+        $(document).on("click",".literature-click-sort",function(){
+            if(order.literature == 'asc'){
+                order.literature = 'desc';
+            }else{
+                order.literature = 'asc';
+            }
+            $("#tab-content").load("/admin/literature?order="+order.literature+"&current_page="+pageNow+" #tab-content>div",function () {
+                if(order.literature == 'asc'){
+                    $(".literature-click-sort").find('span').addClass('glyphicon-chevron-up');
+                }else{
+                    $(".literature-click-sort").find('span').addClass('glyphicon-chevron-down');
+                }
+            });
+        })
+
+        /**
+         * 修改文献名称
+         */
+        $("#modify_experiment_name").click(function (event) {
+            var experimentName = $("input[name='experimentName']").val();
+            var experimentId = $("input[name='experimentId']").val()
+            $.ajax({
+                url: '/admin/modifyExperimentName',
+                type: 'put',
+                dataType: 'json',
+                data: {
+                    experimentName: experimentName,
+                    experimentId: experimentId
+
+                },
+                success: function (res) {
+                    if (!res.res) {
+                        console.log(res.mes);
+                    } else {
+                        location.reload();
+                    }
+                }
+            })
+        });
+        /**
+         * 删除文献
+         */
+        $(document).on("click", ".delete_literature", function () {
+            var that = this;
+            layer.confirm('您确定删除该文献吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url: '/admin/deleteLiterature',
+                    type: 'delete',
+                    dataType: 'json',
+                    data: {
+                        literature_id: $(that).data('id')
+                    },
+                    success: function (res) {
+                        layer.closeAll('loading')
+                        if (res.res) {
+                            layer.msg(res.mes, {icon: 1}, function (e) {
+                                $(that).parents("tr").remove();
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        layer.closeAll('loading')
+                    }
+                });
+            }, function () {
+
+            })
+        })
+    })
+
+</script>
+</body>
+
+</html>

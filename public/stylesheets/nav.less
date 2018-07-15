@@ -1,0 +1,308 @@
+@charset "utf-8";
+@import "../../myless/main";
+
+header {
+  width: 100%;
+  height: @esjy-headerBrand-mob + @esjy-navHeight-mob;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @esjy-headerBrand-pc;
+
+  }
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @esjy-headerBrand-pc ;
+    //background-color: rebeccapurple;
+
+  }
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @esjy-headerBrand-pc-lg;
+  }
+}
+
+.Header-brand {
+  width: 100%;
+  position: relative;
+  float: left;
+
+
+  height: @esjy-headerBrand-mob;
+  background-color: @esjy-maincolor;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @esjy-headerBrand-pc;
+    //background-color: green;
+  }
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @esjy-headerBrand-pc;
+    //background-color: darkslategrey;
+
+  }
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @esjy-headerBrand-pc-lg;
+    //background-color: darkcyan;
+    //border:1px solid red;
+
+  }
+
+  .pc-logo {
+    position: relative;
+    float: left;
+    display: block;
+    z-index: 2;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: @esjy-logoHeight-pc;
+      width: @esjy-logoWidth-pc;
+
+    }
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: @esjy-logoHeight-pc;
+      width: @esjy-logoWidth-pc;
+    }
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: @esjy-logoHeight-pc-lg;
+      width: @esjy-logoWidth-pc-lg;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      //box-shadow: 5px 5px 0 rgba(0,0,13,0.3);
+    }
+  }
+
+  .mob-logo {
+    position: relative;
+    float: left;
+    display: block;
+
+    height: @esjy-logoHeight-mob;
+    width: @esjy-logoWidth-mob;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+  //p {
+  //  width: 70%;
+  //  //text-align: left;
+  //  position: relative;
+  //  float: right;
+  //  text-align: right;
+  //
+  //  /* 小屏幕（平板，大于等于 768px） */
+  //  @media (min-width: @screen-sm-min) {
+  //    font-size: 1.1em;
+  //    font-weight: 600;
+  //    background-color: hotpink;
+  //    right: 6rem;
+  //    height: @esjy-headerTelHeight-pc;
+  //    line-height: @esjy-headerTelHeight-pc;
+  //    margin-top: (@esjy-navHeight-pc - @esjy-logoHeight-pc)/2;
+  //  }
+  //
+  //  span {
+  //    height: @esjy-headerTelHeight-pc;
+  //    line-height: @esjy-headerTelHeight-pc;
+  //    text-align: center;
+  //    font-size: 1.2em;
+  //    font-weight: 400;
+  //    background-color: greenyellow;
+  //    border: 1px solid white;
+  //
+  //    /* 小屏幕（平板，大于等于 768px） */
+  //    @media (min-width: @screen-sm-min) {
+  //      font-size: 1.1em;
+  //      font-weight: 600;
+  //      background-color: gold;
+  //      right: 6rem;
+  //      height: @esjy-headerTelHeight-pc;
+  //      line-height: @esjy-headerTelHeight-pc;
+  //      margin-top: (@esjy-navHeight-pc - @esjy-logoHeight-pc)/2;
+  //    }
+  //
+  //    /* 中等屏幕（桌面显示器，大于等于 992px） */
+  //    @media (min-width: @screen-md-min) {
+  //      font-size: 1.1em;
+  //      font-weight: 600;
+  //      background-color: purple;
+  //      right: 6rem;
+  //      height: @esjy-headerTelHeight-pc;
+  //      line-height: @esjy-headerTelHeight-pc;
+  //      margin-top: (@esjy-navHeight-pc - @esjy-logoHeight-pc)/2;
+  //    }
+  //    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  //    @media (min-width: @screen-lg-min) {
+  //      font-size: 1.1em;
+  //      font-weight: 600;
+  //      background-color: black;
+  //      right: 6rem;
+  //      height: @esjy-headerTelHeight-pc;
+  //      line-height: @esjy-headerTelHeight-pc;
+  //      margin-top: (@esjy-navHeight-pc - @esjy-logoHeight-pc)/2;
+  //    }
+  //  }
+  //}
+}
+
+nav {
+  width: 100%;
+  position: relative;
+  float: left;
+  background-color: @esjy-maincolor;
+  //background-color: blue;
+  height: @esjy-navHeight-mob;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    z-index: 1;
+    top: -4rem;
+    right: 3rem;
+    width: 50%;
+    position: relative;
+    float: right;
+    height: @esjy-navHeight-pc;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    z-index: 1;
+    width: 50%;
+    top: -4rem;
+    right: 2rem;
+    position: relative;
+    float: right;
+    height: @esjy-navHeight-pc;
+
+  }
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    z-index: 1;
+    width: 50%;
+    top: -4rem;
+    right: 25%;
+    position: relative;
+    float: right;
+    height: @esjy-navHeight-pc-lg;
+
+  }
+
+  ul {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    float: right;
+
+    li {
+      position: relative;
+      float: left;
+      width: 25%;
+      display: block;
+
+      height: @esjy-navHeight-mob;
+      line-height: @esjy-navHeight-mob;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        height: @esjy-navHeight-pc;
+        line-height: @esjy-navHeight-pc;
+        //background-color: blue;
+
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        height: @esjy-navHeight-pc;
+        line-height: @esjy-navHeight-pc;
+        //border-right: 1px solid gainsboro;
+        //background-color: blue;
+        &:last-child {
+          border-right: none;
+        }
+      }
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        height: @esjy-navHeight-pc;
+        line-height: @esjy-navHeight-pc-lg;
+        //border-right: 1px solid gainsboro;
+        //background-color: red;
+        //padding: 0.5rem 0;
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      a {
+
+        display: block;
+        color: #eeeeee;
+
+        height: @esjy-navHeight-mob;
+        line-height: @esjy-navHeight-mob;
+        font-size: 3rem;
+        font-weight: 300;
+        text-align: center;
+
+        /* 小屏幕（平板，大于等于 768px） */
+        @media (min-width: @screen-sm-min) {
+          height: @esjy-navHeight-pc;
+          line-height: @esjy-navHeight-pc;
+          font-size: 1.5rem;
+          font-weight: 300;
+
+        }
+
+        /* 中等屏幕（桌面显示器，大于等于 992px） */
+        @media (min-width: @screen-md-min) {
+          height: @esjy-navHeight-pc;
+          line-height: @esjy-navHeight-pc;
+          font-size: 1.3rem;
+          font-weight: 300;
+
+        }
+        /* 大屏幕（大桌面显示器，大于等于 1200px） */
+        @media (min-width: @screen-lg-min) {
+          height: @esjy-navHeight-pc-lg;
+          line-height: @esjy-navHeight-pc-lg;
+          font-size: 1rem;
+          font-weight: 300;
+        }
+      }
+      .active {
+        color: #09f;
+      }
+      :hover {
+        color: #dee658;
+      }
+
+    }
+  }
+
+}
+
+///* 小屏幕（平板，大于等于 768px） */
+//@media (min-width: @screen-sm-min) {
+//
+//}
+//
+///* 中等屏幕（桌面显示器，大于等于 992px） */
+//@media (min-width: @screen-md-min) {
+//
+//}
+///* 大屏幕（大桌面显示器，大于等于 1200px） */
+//@media (min-width: @screen-lg-min) {
+//
+//}

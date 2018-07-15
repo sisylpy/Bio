@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--wang-->
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+    <script src="/pdfjs/build/pdf.js"></script>
+    <script src="/pdfjs/web/viewer.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/stylesheets/adminLogin.css">
+    <link rel="stylesheet" href="/stylesheets/adminNav.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <%- include adminNav %>
+    <div class="subNav bg-dark ">
+        <a class="navitem-name" href="javascript:;">视频</a>
+        <div class="subitems" id="myTabs">
+            <button type="button" class="btn btn-dark add-btn addNew" id="addNewLiterature">
+                <a href="/admin/addVideo" target="_blank">添加视频</a>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block20"></div>
+            <div class="tab-content" id="tab-content">
+                <div class="data-list tab-pane fade in active" id="product_number">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th class="has-success has-feedback video-click-sort" style="cursor:pointer">
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                视频
+                            </th>
+                            <th>上传日期</th>
+                            <th>货号</th>
+                            <th>播放次数</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-left">
+                        <% videoRes.forEach(function(video,index){ %>
+                        <tr>
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= video.video_name %></td>
+                            <td><%= video.create_time %></td>
+                            <td><%= video.item_name %></td>
+                            <td><%= video.show_times %></td>
+                            <td>
+                                <!--<a class="text-primary" data-toggle="modal" data-target="#videoNameModel"
+                                   data-id="<%= video.id %>" data-name="<%= video.video_name %>"
+                                   href="javascript:;">修改</a>
+                                <a class="delete_video text-primary" href="javascript:;"
+                                   data-id="<%= video.id %>">删除</a>-->
+                                <button id="edit-btn" type="button" class="btn btn-secondary">
+                                    <a data-toggle="modal" data-target="#videoNameModel" data-id="<%= video.id %>" data-name="<%= video.video_name %>"  href="javascript:;" target="_blank">修改</a>
+                                </button>
+                                <button id="delate-btn" type="button" class="btn btn-dark">
+                                    <a class="delete_video" data-id="<%= video.id %>" href="javascript:;" target="_blank">删除</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pull-right">
+                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                                <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <% pageList.forEach(function(page){%>
+                            <li <% if(currentPage == page){%> class="active" <%}%>>
+                                <a href="javascript:;" class="page" data-page="<%=page%>">
+                                    <%=page%>
+                                    <% if(currentPage == page){%>
+                                    <span class="sr-only">(current)</span>
+                                    <%}%>
+                                </a>
+                            </li>
+                            <%})%>
+                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
+                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改视频名称 -->
+<div class="modal fade" id="videoNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">修改视频名称</h4>
+                <input type="hidden" name="videoId" value=""/>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">视频名称:</label>
+                        <input type="text" class="form-control" name="videoName" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="modify_video_name">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var pageNow = 1;
+        var order = {video:'asc'};
+        $('#videoNameModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('name') // Extract info from data-* attributes
+            var experimentId = button.data('id');
+            var modal = $(this)
+            modal.find('.modal-title').text('修改视频名称 ' + (recipient ? recipient : ''))
+            modal.find('.modal-body input[name="videoName"]').val(recipient)
+            modal.find('.modal-header input[name="videoId"]').val(experimentId)
+        });
+        for(var key in order){
+            if(order[key] == 'asc'){
+                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
+            }else{
+                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            }
+        }
+        $(document).on('click','.page',function (e) {
+            var current_page = $(this).data('page');
+            pageNow = current_page;
+            window.history.pushState(null,null,"/admin/video?order="+order.video+"&current_page="+current_page);
+            $("#tab-content").load("/admin/video?order="+order.video+"&current_page="+current_page+" #tab-content>div",function(){
+                for(var key in order){
+                    if(order[key] == 'asc'){
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    }else{
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+                    }
+                }
+            });
+        });
+        $(document).on("click",".video-click-sort",function(){
+            if(order.video == 'asc'){
+                order.video = 'desc';
+            }else{
+                order.video = 'asc';
+            }
+            $("#tab-content").load("/admin/video?order="+order.video+"&current_page="+pageNow+" #tab-content>div",function () {
+                if(order.video == 'asc'){
+                    $(".video-click-sort").find('span').addClass('glyphicon-chevron-up');
+                }else{
+                    $(".video-click-sort").find('span').addClass('glyphicon-chevron-down');
+                }
+            });
+        })
+
+        /**
+         * 修改文献名称
+         */
+        $("#modify_video_name").click(function (event) {
+            var videoName = $("input[name='videoName']").val();
+            var videoId = $("input[name='videoId']").val()
+            $.ajax({
+                url: '/admin/modifyVideoName',
+                type: 'put',
+                dataType: 'json',
+                data: {
+                    videoName: videoName,
+                    videoId: videoId
+
+                },
+                success: function (res) {
+                    if (!res.res) {
+                        console.log(res.mes);
+                    } else {
+                        location.reload();
+                    }
+                }
+            })
+        });
+        /**
+         * 删除视频
+         */
+        $(document).on("click", ".delete_video", function () {
+            var that = this;
+            layer.confirm('您确定删除该视频？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url: '/admin/deleteVideo',
+                    type: 'delete',
+                    dataType: 'json',
+                    data: {
+                        video_id: $(that).data('id')
+                    },
+                    success: function (res) {
+                        layer.closeAll('loading')
+                        if (res.res) {
+                            layer.msg(res.mes, {icon: 1}, function (e) {
+                                $(that).parents("tr").remove();
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        layer.closeAll('loading')
+                    }
+                });
+            }, function () {
+
+            });
+        });
+        $.ajax({
+            url: '/api/getPdf',
+            type: 'get',
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                if (res.res) {
+
+                }
+            },
+            error: function (err) {
+                layer.closeAll('loading')
+            }
+        });
+    });
+    /*$(function(){
+        $("#displayPdfIframe").attr("src",'http://192.168.1.107:3005/pdfjs/web/viewer.html?file=' + encodeURIComponent('http://192.168.1.107:3005/uploads/file-1527689107799.pdf')+'&pdf_id=4');
+    });*/
+
+</script>
+</body>
+
+</html>

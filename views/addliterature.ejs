@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/stylesheets/detail.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <div id="topBlack" class="bg-dark"></div>
+    <div class="navbar">
+      <div class="nav">
+        <a class="logo" href="/" >Bio管理系统</a>
+        <div class="line">添加文献</div>
+      </div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block10"></div>
+            <form class="form-horizontal" id="experimentForm">
+                <div class="form-group row article_title">
+                    <label for="recipient-name" class="control-label col-sm-1">发表年份:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control input-lg" name="issue_year" id="recipient-name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">文献期刊名:</label>
+                    <div class="col-sm-11">
+                        <textarea name="magazine_name" class="form-control" id="recipient-name" rows="2"></textarea>
+                        <!--<input type="text" class="form-control" name="magazine_name" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">篇名:</label>
+                    <div class="col-sm-11">
+                        <textarea name="experiment_name" class="form-control" id="recipient-name" rows="2"></textarea>
+                        <!--<input type="text" class="form-control" name="experiment_name" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">作者:</label>
+                    <div class="col-sm-11">
+                        <textarea name="author" class="form-control" id="recipient-name" rows="2"></textarea>
+                        <!--<input type="text" class="form-control" name="author" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">地址:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" name="address" id="recipient-name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">摘要:</label>
+                    <div class="col-sm-11">
+                        <textarea name="summary" class="form-control" id="recipient-name" rows="3"></textarea>
+                        <!--<input type="text" class="form-control" name="summary" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="block10"></div>
+                <div class="my-input-group" id="my-input-group">
+                    <div class="form-group itemMaterials add">
+                        <label for="recipient-name" class="control-label col-sm-1">实验材料:</label>
+                        <div class="col-sm-11">
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control col-sm-4 materials" name="materials[]">
+                            </div>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" />
+                                <input type="hidden" class="form-control itemId" name="itemId[]" />
+                            </div>
+                            <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
+                                选择货号
+                            </a>
+                            <a class="btn btn-primary btn-sm addDom" style="margin-left:22px;">
+                                <span class="glyphicon glyphicon-plus " aria-hidden="true"></span>
+                                添加
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="block10"></div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">实验方法:</label>
+                    <div class="col-sm-11">
+                        <textarea name="experiment_method" class="form-control" id="recipient-name" rows="5"></textarea>
+                        <!--<input type="text" class="form-control" name="experiment_method" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">实验结果:</label>
+                    <div class="col-sm-11">
+                        <textarea name="experiment_result" class="form-control" id="recipient-name" rows="5"></textarea>
+                        <!--<input type="text" class="form-control" name="experiment_result" id="recipient-name">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label col-sm-1">发布时间:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" name="issue_time" value="<%=currentTime%>" id="recipient-name" readonly>
+                    </div>
+                </div>
+                <div class="block20"></div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-3">
+                        <button type="reset" class="btn btn-default">取消</button>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="button" class="btn btn-primary" id="addLiterature">添加</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 选择货号 -->
+<div class="modal fade" id="selectItemModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">选择货号</h4>
+            </div>
+            <div class="modal-body">
+                <select class="form-control" id="select_manufacturer">
+                    <option value="0">请选择品牌</option>
+                    <% brandRes.forEach(function(brand){ %>
+                    <option value="<%=brand.id%>"><%=brand.manuName%></option>
+                    <% })%>
+                </select>
+                <table class="table table-condensed text-center table-hover" id="item">
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+
+        var currentModal;
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show')
+        });
+
+        // 展示货号 供选择
+        $('#selectItemModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('name') // Extract info from data-* attributes
+            var modal = $(this)
+            currentModal = $(event.relatedTarget).parents(".itemMaterials");
+        });
+        $(document).on('change','#select_manufacturer',function(event){
+            var brandId = $(this).val();
+            $.ajax({
+                url: '/admin/getItemNumber?brand_id='+brandId,
+                type: 'get',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.res) {
+                        var tr = '';
+                        for (var index = 0; index < res.itemRes.length; index++) {
+                            tr += '<tr class="handle" data-id="' + res.itemRes[index].id + '" data-name="' + res.itemRes[index].item_name + '">' +
+                                '     <td>' + res.itemRes[index].item_name + '</td>' +
+                                ' </tr>';
+                        }
+                        $('#selectItemModel').find("#item").html('').append(tr);
+                    }
+                }
+            })
+        })
+
+        /**
+         * 添加节点
+         */
+        $(document).on('click', '.addDom', function (event) {
+            var addDom = '<div class="form-group itemMaterials remove">' +
+                '      <label for="recipient-name" class="control-label col-sm-1"></label>' +
+                '      <div class="col-sm-11">' +
+                '           <div class="col-xs-5">' +
+                '               <input type="text" class="form-control materials" name="materials[]">' +
+                '           </div>' +
+                '           <div class="col-xs-5">' +
+                '               <input type="text" class="form-control itemNumber" name="itemNumber[]">' +
+                '               <input type="hidden" class="form-control itemId" name="itemId[]" />' +
+                '           </div>' +
+                '           <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">' +
+                '             选择货号' +
+                '           </a>' +
+                '           <a class="btn btn-primary btn-sm deleteDom"  style="margin-left:12px;">' +
+                '               <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>' +
+                '             删除' +
+                '           </a>' +
+                '       </div>' +
+                '</div>';
+            $("#my-input-group").append(addDom);
+        });
+        /**
+         * 删除节点
+         */
+        $(document).on('click', '.deleteDom', function (event) {
+            $(this).parents('div.remove').remove();
+        })
+
+        /**
+         * 选择货号
+         */
+        $(document).on('click', ".handle", function (event) {
+            var inputNameModal = $(currentModal).find("input.itemNumber");
+            var inputIdModal = $(currentModal).find("input.itemId");
+            $(inputNameModal).val($(this).data('name'));
+            $(inputIdModal).val($(this).data('id'));
+            $("#selectItemModel").modal('hide');
+        });
+
+        $("#addLiterature").click(function (event) {
+            var literatureData = $("#experimentForm").serialize();
+            layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url: '/admin/addLiterature',
+                type: 'post',
+                dataType: 'json',
+                data: literatureData,
+                success: function (res) {
+                    layer.closeAll('loading');
+                    if (res.res) {
+                        layer.msg(res.mes, {icon: 1},function (e) {
+                            location.href = '/admin/literature';
+                        });
+                    } else {
+                        layer.msg(res.mes, {icon: 0});
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+
+</html>

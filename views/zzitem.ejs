@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+  <meta name="apple-touch-fullscreen" content="YES">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!--以上是固定必须的！-->
+
+  <meta content="ESJY 主页" name="description"/>
+  <meta content="ESJY 主页" name="keywords"/>
+  <meta content="index,follow" name="robots"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>首页</title>
+
+
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css">
+
+  <!--jquery-->
+  <script src="/jquery-3.2.1.js"></script>
+  <script src="/bootstrap/js/bootstrap.js"></script>
+
+  <!--[if IE 9]>
+  <script type="text/javascript" src="/jquery-1.12.4.min.js"></script>
+  <script src="/html5shiv.min.js"></script>
+  <script src="/respond.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="/stylesheets/item.css">
+
+</head>
+
+<script>
+  // var acolor = document.getElementById('articles');
+  // acolor.style.color = "#dee558";
+  $(document).ready(function () {
+
+
+    $('.about').mouseover(function () {
+      $(this).css("background-color", "#008cc3").siblings().css('background','none');
+    });
+
+
+    $('.about').on('click',function () {
+      $(this).addClass('active').siblings().removeClass('active');
+
+      var datalinkid = $(this).attr('data-linkedid');
+      var items = $('#rightData').children();
+
+      for(var i =0 ; i< items.length; i++) {
+        var itemData = items[i].getAttribute('id');
+
+        if ( datalinkid == itemData ){
+
+          items[i].addClass('active').siblings().removeClass('active');
+        }
+
+
+      }
+    })
+
+
+  });
+
+</script>
+<body>
+
+<!--//导航部分-->
+<%- include nav %>
+
+<!--//主体内容-->
+<main>
+  <!--名称-->
+  <div class="title">生物实验品</div>
+
+  <!--内容-->
+  <!--1，左侧——Begin-->
+  <div class="left">
+    <ul class="aboutsLists">
+      <li class="about" data-linkedid="engishFileData">英文说明数(1)</li>
+      <li class="about" data-linkedid="chineseFileData">中文说明书(0)</li>
+      <li class="about" data-linkedid="experimentsData">文献(1)</li>
+      <li class="about" data-linkedid="vedioData">视频(1)</li>
+      <li class="about" data-linkedid="othersData">其它人还下载了(12)</li>
+      <li class="about" data-linkedid="goodsData">现货(3)</li>
+      <li class="about" data-linkedid="samplesData">试用品(2)</li>
+      <li class="about" data-linkedid="messagesData">留言(3)</li>
+    </ul>
+  </div>
+
+  <!--2, 右侧-->
+  <div class="right">
+
+    <div class="item-title">
+      <img src="/images/yuan-assets/pdf.png" alt="">
+      <div class="itemName">CEDIA Mycophenolic Acid Assay Package Insert</div>
+      <div class="itemNum">商品编码：
+        <span>#A2080</span>
+        <span>#A2099</span>
+        <a href="#">分享</a>
+        <a href="#">收藏</a>
+      </div>
+    </div>
+
+    <div class="aboutList" id="rightData">
+
+      <!--1)英文说明书_Begin-->
+      <div id="engishFileData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">英文操作手册</div>
+          <div class="btns">
+            <a href="#">打印</a>
+            <a href="#">下载</a>
+          </div>
+        </div>
+        <div class="mainAbout" id="englishFile">
+        </div>
+      </div>
+      <!--2)中文说明书_Begin-->
+      <div id="chineseFileData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">中文操作手册</div>
+          <div class="btns">
+            <a href="#">打印</a>
+            <a href="#">下载</a>
+          </div>
+        </div>
+        <div class="mainAbout" id="chineseFile">
+        </div>
+      </div>
+
+      <!--3) 文献_Begin-->
+      <div id="experimentsData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">文献</div>
+          <div class="btns">
+            <a href="#">打印</a>
+            <a href="#">下载</a>
+          </div>
+        </div>
+        <div class="mainAbout container" id="experiments">
+          <div class="row">
+            <div class="esjy-card col-sx-12 col-sm-6 col-md-6 col-lg-3">
+
+              <div class="padding">
+
+                <div class="card_image">
+                  <img class="esjy_resize" alt="">
+                </div>
+                <div class="card_content">
+                  <h4>注销流程</h4>
+                  <p>。。。。。。。。。。。。。。。。。。。。</p>
+                </div>
+                <div class="card_bottom">
+                  <a>查看注销公司详细步骤   <i class="fa fa-long-arrow-right "></i></a>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!--4) 视频_Begin-->
+      <div id="vedioData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">视频</div>
+          <div class="btns">
+
+          </div>
+        </div>
+        <div class="mainAbout container" id="vedios">
+          <div class="row">
+            <div class="esjy-card col-sx-12 col-sm-6 col-md-6 col-lg-3">
+
+              <div class="padding">
+
+                <div class="card_image">
+                  <img class="esjy_resize" alt="">
+                </div>
+                <div class="card_content">
+                  <h4>视频名称</h4>
+                  <p>。。。。。。。。。。。。。。。。。。。。</p>
+                </div>
+                <div class="card_bottom">
+                  <a>观看</a>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!--5)其它人还下载了_Begin-->
+      <div id="othersData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">其它人还下载了</div>
+          <div class="btns">
+
+          </div>
+        </div>
+        <div class="mainAbout" id="others">
+
+          <!--2，列表部分-->
+          <%- include itemLine %>
+
+        </div>
+      </div>
+
+      <!--6)现货_Begin-->
+      <div id="goodsData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">现货</div>
+          <div class="btns">
+          </div>
+        </div>
+        <div class="mainAbout" id="goods">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">品牌</th>
+              <th scope="col">货号</th>
+              <th scope="col">货品规格</th>
+              <th scope="col">库存数量</th>
+              <th scope="col">单位</th>
+              <th scope="col">目录价</th>
+              <th scope="col">销售价</th>
+              <th scope="col">销售区域</th>
+              <th scope="col">经销商</th>
+              <th scope="col">联系人</th>
+              <th scope="col">联系电话</th>
+              <th scope="col">更新日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Fisher</th>
+              <td>#A910933</td>
+              <td>40次</td>
+              <td>2</td>
+              <td>盒</td>
+              <td>2908</td>
+              <td>2035.6</td>
+              <td>全国</td>
+              <td>北京泽屏科技有限公司</td>
+              <td>李小姐</td>
+              <td>13910825707</td>
+              <td>2018-05-06</td>
+            </tr>
+            <tr>
+              <th scope="row">Fisher</th>
+              <td>#A910933</td>
+              <td>40次</td>
+              <td>2</td>
+              <td>盒</td>
+              <td>2908</td>
+              <td>2035.6</td>
+              <td>全国</td>
+              <td>北京泽屏科技有限公司</td>
+              <td>李小姐</td>
+              <td>13910825707</td>
+              <td>2018-05-06</td>
+            </tr>
+            <tr>
+              <th scope="row">Fisher</th>
+              <td>#A910933</td>
+              <td>40次</td>
+              <td>2</td>
+              <td>盒</td>
+              <td>2908</td>
+              <td>2035.6</td>
+              <td>全国</td>
+              <td>北京泽屏科技有限公司</td>
+              <td>李小姐</td>
+              <td>13910825707</td>
+              <td>2018-05-06</td>
+            </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!--7)试用品_Begin-->
+      <div id="samplesData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">试用品</div>
+          <div class="btns">
+
+          </div>
+        </div>
+        <div class="mainAbout" id="samples">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">品牌</th>
+              <th scope="col">货号</th>
+              <th scope="col">试用数量</th>
+              <th scope="col">经销商</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Fisher</th>
+              <td>#A910933</td>
+              <td>4次</td>
+              <td>北京泽屏科技有限公司</td>
+              <td>现在申请</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!--8)留言_Begin-->
+      <div id="messagesData" class="about-content">
+        <div class="aboutBtns">
+          <div class="aboutName">留言</div>
+          <div class="btns">
+
+          </div>
+        </div>
+        <div class="mainAbout" id="samples">
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+@charset "utf-8";
+@media (min-width: 320px) {
+  html {
+    font-size: 4.48px;
+  }
+}
+@media (min-width: 360px) {
+  html {
+    font-size: 5.04px;
+  }
+}
+@media (min-width: 375px) {
+  html {
+    font-size: 5.25px;
+  }
+}
+@media (min-width: 384px) {
+  html {
+    font-size: 5.376px;
+  }
+}
+@media (min-width: 400px) {
+  html {
+    font-size: 5.6px;
+  }
+}
+@media (min-width: 414px) {
+  html {
+    font-size: 5.796px;
+  }
+}
+@media (min-width: 424px) {
+  html {
+    font-size: 5.936px;
+  }
+}
+@media (min-width: 480px) {
+  html {
+    font-size: 6.72px;
+  }
+}
+@media (min-width: 540px) {
+  html {
+    font-size: 7.56px;
+  }
+}
+@media (min-width: 580px) {
+  html {
+    font-size: 8.12px;
+  }
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 8.96px;
+  }
+}
+@media (min-width: 720px) {
+  html {
+    font-size: 10.08px;
+  }
+}
+@media (min-width: 750px) {
+  html {
+    font-size: 10.5px;
+  }
+}
+@media (min-width: 960px) {
+  html {
+    font-size: 13.44px;
+  }
+}
+@media (min-width: 1080px) {
+  html {
+    font-size: 15.12px;
+  }
+}
+@media (min-width: 1280px) {
+  html {
+    font-size: 17.92px;
+  }
+}
+@media (min-width: 1480px) {
+  html {
+    font-size: 20.72px;
+  }
+}
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a:hover,
+a:focus {
+  color: #23527c;
+  text-decoration: none;
+}
+a {
+  color: #323232;
+}
+li {
+  list-style: none;
+}
+.block5 {
+  clear: both;
+  width: 100%;
+  height: 5px;
+}
+.block10 {
+  clear: both;
+  width: 100%;
+  height: 10px;
+}
+.block20 {
+  clear: both;
+  width: 100%;
+  height: 20px;
+}
+.block50 {
+  clear: both;
+  width: 100%;
+  height: 50px;
+}
+.bio {
+  width: 87%;
+  margin: 0 auto;
+}
+.bio .left-list {
+  background-color: #eaeaea;
+  max-height: 640px;
+  border-radius: 5px;
+}
+.bio .left-list span {
+  font-size: 18px;
+  text-align: center;
+}
+.bio .left-list button {
+  float: right;
+}
+.bio .left-list .table {
+  font-size: 16px;
+}
+.handle {
+  cursor: pointer;
+}
+main {
+  width: 100%;
+  position: relative;
+  float: left;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 992px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 1200px) {
+  main {
+    top: -4rem;
+  }
+}
+.Splash {
+  position: relative;
+  height: 20rem;
+}
+.Splash .Splash-content {
+  height: 100%;
+  background-color: #e3e3e3;
+}
+.Splash .Splash-content .Splash-title {
+  color: black;
+}
+
+

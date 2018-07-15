@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+//length(@deviceWidthList)获取数组的长度
+//extract（@deviceWidthList，1） 获取数组序号为几的值
+//when 条件
+//@index 指数组的序号
+
+.adapterFuc(@index) when (@index <= length(@deviceWidthList)) {
+  @media (min-width: extract(@deviceWidthList,@index)) {
+    html{
+      font-size: extract(@deviceWidthList,@index) / @psdWidth * @bs;
+    }
+  }
+  .adapterFuc(@index + 1);
+}
+
+
+

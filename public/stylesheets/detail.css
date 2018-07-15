@@ -1,0 +1,390 @@
+@charset "utf-8";
+@media (min-width: 320px) {
+  html {
+    font-size: 4.48px;
+  }
+}
+@media (min-width: 360px) {
+  html {
+    font-size: 5.04px;
+  }
+}
+@media (min-width: 375px) {
+  html {
+    font-size: 5.25px;
+  }
+}
+@media (min-width: 384px) {
+  html {
+    font-size: 5.376px;
+  }
+}
+@media (min-width: 400px) {
+  html {
+    font-size: 5.6px;
+  }
+}
+@media (min-width: 414px) {
+  html {
+    font-size: 5.796px;
+  }
+}
+@media (min-width: 424px) {
+  html {
+    font-size: 5.936px;
+  }
+}
+@media (min-width: 480px) {
+  html {
+    font-size: 6.72px;
+  }
+}
+@media (min-width: 540px) {
+  html {
+    font-size: 7.56px;
+  }
+}
+@media (min-width: 580px) {
+  html {
+    font-size: 8.12px;
+  }
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 8.96px;
+  }
+}
+@media (min-width: 720px) {
+  html {
+    font-size: 10.08px;
+  }
+}
+@media (min-width: 750px) {
+  html {
+    font-size: 10.5px;
+  }
+}
+@media (min-width: 960px) {
+  html {
+    font-size: 13.44px;
+  }
+}
+@media (min-width: 1080px) {
+  html {
+    font-size: 15.12px;
+  }
+}
+@media (min-width: 1280px) {
+  html {
+    font-size: 17.92px;
+  }
+}
+@media (min-width: 1480px) {
+  html {
+    font-size: 20.72px;
+  }
+}
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a:hover,
+a:focus {
+  color: #23527c;
+  text-decoration: none;
+}
+a {
+  color: #323232;
+}
+li {
+  list-style: none;
+}
+.block5 {
+  clear: both;
+  width: 100%;
+  height: 5px;
+}
+.block10 {
+  clear: both;
+  width: 100%;
+  height: 10px;
+}
+.block20 {
+  clear: both;
+  width: 100%;
+  height: 20px;
+}
+.block50 {
+  clear: both;
+  width: 100%;
+  height: 50px;
+}
+.bio {
+  width: 100%;
+  margin: 0 auto;
+}
+.bio .left-list {
+  max-height: 640px;
+  border-radius: 5px;
+}
+.bio .left-list span {
+  font-size: 18px;
+  text-align: center;
+}
+.bio .left-list button {
+  float: right;
+}
+.bio .left-list .table {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.bio .left-list .table tr.handle td {
+  line-height: 32px;
+}
+.bio .table {
+  margin-bottom: 0px;
+}
+.handle {
+  cursor: pointer;
+}
+main {
+  width: 100%;
+  position: relative;
+  float: left;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 992px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 1200px) {
+  main {
+    top: -4rem;
+  }
+}
+.Splash {
+  position: relative;
+  height: 20rem;
+}
+.Splash .Splash-content {
+  height: 100%;
+  background-color: #e3e3e3;
+}
+.Splash .Splash-content .Splash-title {
+  color: black;
+}
+.bg-dark {
+  background-color: #343a40!important;
+}
+.subNav {
+  position: relative;
+  float: left;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  height: 4rem;
+  line-height: 4rem;
+}
+.subNav .navitem-name {
+  font-size: 2em;
+  width: 25%;
+  text-align: center;
+  position: relative;
+  float: left;
+}
+.subNav .subitems {
+  width: 55%;
+  position: relative;
+  float: right;
+  padding-right: 0;
+  margin-right: 5rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .subNav .subitems {
+    width: 55%;
+  }
+}
+@media (min-width: 992px) {
+  .subNav .subitems {
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .subNav .subitems {
+    width: 35%;
+  }
+}
+.subNav .subitems .active {
+  color: grey;
+}
+.subNav .subitems a {
+  display: block;
+  position: relative;
+  float: left;
+  text-align: center;
+  width: 20%;
+}
+.subNav .subitems .addNew {
+  border: 1px solid greenyellow;
+  margin-left: 1rem;
+}
+.navbar {
+  border-bottom: 1px solid #eaeaea;
+  height: 140px;
+}
+.navbar a.logo {
+  flot: left;
+  font-size: 1.3em;
+  color: #666;
+  line-height: 140px;
+  margin-left: 60px;
+}
+.navbar .line {
+  float: left;
+  font-size: 1.6em;
+  line-height: 140px;
+  margin-left: 20px;
+}
+#table {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+#table table tr #col-xuhao {
+  width: 3%;
+}
+#table table tr #col-title {
+  width: 30%;
+  text-align: left;
+}
+#table table tr #col-readed-num {
+  width: 10%;
+  text-align: left;
+}
+#table table tr #col-create-date {
+  width: 17%;
+  text-align: left;
+}
+#table table tr #col-edit {
+  width: 6%;
+}
+#table table tr #col-delate {
+  width: 6%;
+}
+#table table tr #edit-btn,
+#table table tr #delate-btn {
+  height: 1.8rem;
+  line-height: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.btn a {
+  color: #fff;
+}
+.btn-dark {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.brand-table tbody {
+  display: block;
+  height: 500px;
+  overflow-y: auto;
+}
+.brand-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.brand-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.esjy-col {
+  width: 100%;
+}
+.esjy-col a {
+  color: #000;
+}
+#topBlack {
+  height: 0.4rem;
+  width: 100%;
+}
+.navbar .nav {
+  width: 100%;
+  height: 5rem;
+  line-height: 5rem;
+  color: #000;
+}
+.navbar .nav a {
+  font-size: 2em;
+  margin-right: 2rem;
+  display: block;
+  position: relative;
+  float: left;
+}
+.navbar .nav .line {
+  font-size: 4em;
+  display: block;
+  position: relative;
+  float: left;
+  width: 50%;
+}
+.navbar .nav .form-group {
+  height: 3rem;
+  line-height: 3rem;
+  position: relative;
+  float: right;
+  top: 1rem;
+  width: 10%;
+  margin-right: 3rem;
+}
+.navbar .nav .form-group #inputState {
+  background-color: #3e8f3e;
+  color: #fff;
+  height: 3rem;
+  font-size: 1.2em;
+}
+.navbar .nav .form-group #inputState option {
+  font-size: 1.2em;
+}
+.navbar .nav #userFace {
+  width: 10%;
+  height: 4rem;
+  position: relative;
+  float: right;
+  top: 0.5rem;
+}
+.navbar .nav #userFace #user-btn {
+  width: 100%;
+  background: none;
+  color: #000;
+  border: none;
+  line-height: 2rem;
+}
+.navbar .nav #userFace .dropdown-menu {
+  line-height: 2rem;
+}
+.navbar .nav #userFace .dropdown-menu .dropdown-item {
+  line-height: 2rem;
+}

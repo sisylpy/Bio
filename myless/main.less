@@ -1,0 +1,287 @@
+@charset "utf-8";
+@import "variables";
+@import "mixins";
+@import "adapter";
+
+//
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+a:hover,a:focus {
+    color: #23527c;
+    text-decoration: none;
+}
+
+a {
+    color: @fontColor;
+}
+
+li {
+    list-style: none;
+}
+.block5{
+    clear:both;
+    width:100%;
+    height:5px;
+}
+.block10{
+    clear:both;
+    width:100%;
+    height:10px;
+}
+.block20{
+    clear:both;
+    width:100%;
+    height:20px;
+}
+.block50{
+    clear:both;
+    width:100%;
+    height:50px;
+}
+.bio{
+    width:100%;
+    margin:0 auto;
+    .left-list{
+        max-height:640px;
+        border-radius:5px;
+        span{
+            font-size:18px;
+            text-align:center;
+        }
+        button{
+            float:right;
+        }
+        .table{
+            font-size:16px;
+            margin-bottom:0px;
+            tr.handle{
+                td {
+                    line-height: 32px;
+                }
+            }
+        }
+    }
+    .table{
+        margin-bottom:0px;
+    }
+}
+.handle{
+    cursor:pointer;
+}
+//public esjy-stylesheets
+main {
+    width: 100%;
+    position: relative;
+    float: left;
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+        top: -@esjy-navHeight-pc;
+    }
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+        top: -@esjy-navHeight-pc;
+    }
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+        top: -@esjy-navHeight-pc-lg;
+    }
+
+}
+
+.Splash {
+    position: relative;
+    //width: 100%;
+    height: @esjy-CorulaseSlideHeight;
+    //margin-bottom: 2rem;
+    .Splash-content {
+
+        height: 100%;
+        background-color: #e3e3e3;
+
+        .Splash-title {
+            color: black;
+        }
+    }
+}
+
+.bg-dark{
+    background-color:#343a40!important;
+}
+
+.subNav {
+    position: relative;
+    float: left;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    height: 4rem;
+    line-height: 4rem;
+
+    .navitem-name{
+        font-size: 2em;
+        width: 25%;
+        text-align: center;
+        position: relative;
+        float: left;
+        //border: 1px solid gold;
+    }
+
+    .subitems{
+        //border: 1px solid red;
+        width: 55%;
+        position: relative;
+        float: right;
+        padding-right: 0;
+        margin-right: 5rem;
+
+
+
+        /* 小屏幕（平板，大于等于 768px） */
+        @media (min-width: @screen-sm-min) {
+            width: 55%;
+
+        }
+
+        /* 中等屏幕（桌面显示器，大于等于 992px） */
+        @media (min-width: @screen-md-min) {
+            width: 50%;
+
+        }
+
+        /* 大屏幕（大桌面显示器，大于等于 1200px） */
+        @media (min-width: @screen-lg-min) {
+            width: 35%;
+
+        }
+
+
+
+
+
+        .active{
+            color: grey;
+        }
+
+        a{
+            display: block;
+            position: relative;
+            float: left;
+            text-align: center;
+            width: 20%;
+        }
+        .addNew{
+            //width: 15%;
+            //position: relative;
+            //float: right;
+            border: 1px solid greenyellow;
+            margin-left: 1rem;
+            //margin-right: 5rem;
+        }
+    }
+}
+.navbar{
+    border-bottom:1px solid #eaeaea;
+    height:140px;
+        a.logo{
+            flot:left;
+            font-size:1.3em;
+            color:#666;
+            line-height:140px;
+            margin-left:60px;
+        }
+        .line{
+            float:left;
+            font-size:1.6em;
+            line-height:140px;
+            margin-left:20px;
+        }
+}
+
+#table{
+    margin-left: 5rem;
+    margin-right: 5rem;
+
+    table {
+        //display: none;
+        tr{
+            #col-xuhao {
+                width: 3%;
+                //background-color: black;
+            }
+
+            #col-title {
+                width: 30%;
+                text-align: left;
+                //background-color: red;
+            }
+
+            #col-readed-num {
+                width: 10%;
+                text-align: left;
+
+            }
+
+            #col-create-date {
+                width: 17%;
+                text-align: left;
+
+            }
+
+            #col-edit {
+                width: 6%;
+            }
+
+            #col-delate {
+                width: 6%;
+            }
+
+            #edit-btn, #delate-btn {
+                height: 1.8rem;
+                line-height: 1rem;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+        }
+    }
+
+}
+.btn{
+    a{
+        color:#fff;
+    }
+}
+.btn-dark {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.btn-secondary{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.brand-table{
+    tbody{
+        display:block;
+        height:500px;
+        overflow-y: auto;
+        tr{
+            display:table;
+            width:100%;
+            table-layout:fixed;
+        }
+    }
+    thead{
+        display:table;
+        width:100%;
+        table-layout:fixed;
+    }
+}
+

@@ -1,0 +1,33 @@
+.esjy-col {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.esjy-col .container {
+  width: 100%;
+  height: 100%;
+}
+.esjy-col .container .row {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#page-left {
+  position: relative;
+  height: 768px;
+  background-image: url("../images/loginBackLeft.png");
+  padding-top: 15%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+#page-left #page-left-up {
+  width: 100%;
+}
+#page-left #page-left-up h2 {
+  margin-bottom: 10%;
+}
+#page-right {
+  position: relative;
+  height: 768px;
+  background-image: url("../images/loginBackRight.png");
+}

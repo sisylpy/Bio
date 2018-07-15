@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+  <meta name="apple-touch-fullscreen" content="YES">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!--以上是固定必须的！-->
+
+  <meta content="ESJY 主页" name="description"/>
+  <meta content="ESJY 主页" name="keywords"/>
+  <meta content="index,follow" name="robots"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>首页</title>
+
+
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css">
+
+  <!--jquery-->
+  <script src="/jquery-3.2.1.js"></script>
+  <script src="/bootstrap/js/bootstrap.js"></script>
+
+  <!--[if IE 9]>
+  <script type="text/javascript" src="/jquery-1.12.4.min.js"></script>
+  <script src="/html5shiv.min.js"></script>
+  <script src="/respond.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="/stylesheets/index.css">
+
+</head>
+
+<script>
+  
+
+  
+  
+  $(document).ready(function () {
+
+    //菜单颜色设置
+    // var acolor = document.getElementById('articles');
+    // acolor.style.color = "#dee558";
+    
+    // 搜索按钮
+    $(".mySearch-btn").click(function () {
+      $('.mySearch-content').show();
+    });
+
+    //TODO：点击选择词汇进行查询
+    //关闭下拉搜索词汇
+    $(".mySearch").click(function () {
+      $(this).parent().parent().hide();
+    });
+    
+
+    //设置行颜色
+    $('.item:even').css('background','#fff');
+
+    //设置鼠标划过颜色
+    $('.item').mouseover(function(){
+      $(this).css("background-color","#e0e0e0");
+    });
+
+    //设置鼠标离开颜色
+    $('.item').mouseleave(function(){
+      $('.item:even').css('background','#fff');
+      $('.item:odd').css('background','none');
+    });
+
+    //TODO:打开新界面
+    //点击li事件
+    $('.item').on('click',function () {
+
+    })
+    
+    
+
+  });
+
+</script>
+<body>
+
+<!--//导航部分-->
+<%- include nav %>
+
+<!--//主体内容-->
+<main>
+  <!--//轮播图-->
+  <div class="Splash  article-col clearfix">
+    <div class="Splash-content">
+
+    </div>
+  </div>
+  <!--轮播图-end-->
+
+  <!--1，搜索部分-->
+  <div class="esjy-col-1 container">
+    <div class="row">
+
+      <div class="word col-xs-12 col-sm-3 col-md-3 col-lg-2 ">
+        <div class="word-content">/生物实验用品</div>
+      </div>
+      <div class="searchPart col-xs-12 col-sm-5 col-md-5  col-lg-5">
+        <div class="search ">
+          <input type="text" placeholder="产品编码或名称">
+          <a href="#" class="iconBtn">fd</a>
+
+          <a href="#" class="mySearch-btn">my</a>
+          <div class="mySearch-content">
+            <span href="#">我的搜索</span>
+            <ul class="mySearchList">
+              <li class="mySearch">#A2109</li>
+              <li class="mySearch">#A2109</li>
+              <li class="mySearch">#A2109</li>
+              <li class="mySearch">#A2109</li>
+              <li class="mySearch">#A2109</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="select col-xs-12 col-sm-4 col-md-4 col-lg-5">
+        <select>
+          <option value="all">手册</option>
+          <option value="vedio">视频</option>
+          <option value="experment">文献</option>
+          <option value="samples">试用品</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--//item列表部分-->
+  <%- include itemLine %>
+
+
+
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,752 @@
+@charset "utf-8";
+@media (min-width: 320px) {
+  html {
+    font-size: 4.48px;
+  }
+}
+@media (min-width: 360px) {
+  html {
+    font-size: 5.04px;
+  }
+}
+@media (min-width: 375px) {
+  html {
+    font-size: 5.25px;
+  }
+}
+@media (min-width: 384px) {
+  html {
+    font-size: 5.376px;
+  }
+}
+@media (min-width: 400px) {
+  html {
+    font-size: 5.6px;
+  }
+}
+@media (min-width: 414px) {
+  html {
+    font-size: 5.796px;
+  }
+}
+@media (min-width: 424px) {
+  html {
+    font-size: 5.936px;
+  }
+}
+@media (min-width: 480px) {
+  html {
+    font-size: 6.72px;
+  }
+}
+@media (min-width: 540px) {
+  html {
+    font-size: 7.56px;
+  }
+}
+@media (min-width: 580px) {
+  html {
+    font-size: 8.12px;
+  }
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 8.96px;
+  }
+}
+@media (min-width: 720px) {
+  html {
+    font-size: 10.08px;
+  }
+}
+@media (min-width: 750px) {
+  html {
+    font-size: 10.5px;
+  }
+}
+@media (min-width: 960px) {
+  html {
+    font-size: 13.44px;
+  }
+}
+@media (min-width: 1080px) {
+  html {
+    font-size: 15.12px;
+  }
+}
+@media (min-width: 1280px) {
+  html {
+    font-size: 17.92px;
+  }
+}
+@media (min-width: 1480px) {
+  html {
+    font-size: 20.72px;
+  }
+}
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a:hover,
+a:focus {
+  color: #23527c;
+  text-decoration: none;
+}
+a {
+  color: #323232;
+}
+li {
+  list-style: none;
+}
+.block5 {
+  clear: both;
+  width: 100%;
+  height: 5px;
+}
+.block10 {
+  clear: both;
+  width: 100%;
+  height: 10px;
+}
+.block20 {
+  clear: both;
+  width: 100%;
+  height: 20px;
+}
+.block50 {
+  clear: both;
+  width: 100%;
+  height: 50px;
+}
+.bio {
+  width: 100%;
+  margin: 0 auto;
+}
+.bio .left-list {
+  max-height: 640px;
+  border-radius: 5px;
+}
+.bio .left-list span {
+  font-size: 18px;
+  text-align: center;
+}
+.bio .left-list button {
+  float: right;
+}
+.bio .left-list .table {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.bio .left-list .table tr.handle td {
+  line-height: 32px;
+}
+.bio .table {
+  margin-bottom: 0px;
+}
+.handle {
+  cursor: pointer;
+}
+main {
+  width: 100%;
+  position: relative;
+  float: left;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 992px) {
+  main {
+    top: -3rem;
+  }
+}
+@media (min-width: 1200px) {
+  main {
+    top: -4rem;
+  }
+}
+.Splash {
+  position: relative;
+  height: 20rem;
+}
+.Splash .Splash-content {
+  height: 100%;
+  background-color: #e3e3e3;
+}
+.Splash .Splash-content .Splash-title {
+  color: black;
+}
+.bg-dark {
+  background-color: #343a40!important;
+}
+.subNav {
+  position: relative;
+  float: left;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  height: 4rem;
+  line-height: 4rem;
+}
+.subNav .navitem-name {
+  font-size: 2em;
+  width: 25%;
+  text-align: center;
+  position: relative;
+  float: left;
+}
+.subNav .subitems {
+  width: 55%;
+  position: relative;
+  float: right;
+  padding-right: 0;
+  margin-right: 5rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .subNav .subitems {
+    width: 55%;
+  }
+}
+@media (min-width: 992px) {
+  .subNav .subitems {
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .subNav .subitems {
+    width: 35%;
+  }
+}
+.subNav .subitems .active {
+  color: grey;
+}
+.subNav .subitems a {
+  display: block;
+  position: relative;
+  float: left;
+  text-align: center;
+  width: 20%;
+}
+.subNav .subitems .addNew {
+  border: 1px solid greenyellow;
+  margin-left: 1rem;
+}
+.navbar {
+  border-bottom: 1px solid #eaeaea;
+  height: 140px;
+}
+.navbar a.logo {
+  flot: left;
+  font-size: 1.3em;
+  color: #666;
+  line-height: 140px;
+  margin-left: 60px;
+}
+.navbar .line {
+  float: left;
+  font-size: 1.6em;
+  line-height: 140px;
+  margin-left: 20px;
+}
+#table {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+#table table tr #col-xuhao {
+  width: 3%;
+}
+#table table tr #col-title {
+  width: 30%;
+  text-align: left;
+}
+#table table tr #col-readed-num {
+  width: 10%;
+  text-align: left;
+}
+#table table tr #col-create-date {
+  width: 17%;
+  text-align: left;
+}
+#table table tr #col-edit {
+  width: 6%;
+}
+#table table tr #col-delate {
+  width: 6%;
+}
+#table table tr #edit-btn,
+#table table tr #delate-btn {
+  height: 1.8rem;
+  line-height: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.btn a {
+  color: #fff;
+}
+.btn-dark {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.brand-table tbody {
+  display: block;
+  height: 500px;
+  overflow-y: auto;
+}
+.brand-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.brand-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+main .article-col {
+  height: 30rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  main .article-col {
+    height: 28rem;
+  }
+}
+@media (min-width: 992px) {
+  main .article-col {
+    height: 28rem;
+  }
+}
+@media (min-width: 1200px) {
+  main .article-col {
+    height: 22rem;
+  }
+}
+main .article-col .Splash-content {
+  width: 100%;
+  background: url("../images/yuan-assets/brand.png") no-repeat left top;
+  border-top: 1px solid gray;
+}
+.container .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.esjy-col-1 {
+  width: 100%;
+}
+.esjy-col-1 .row {
+  height: 10rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .esjy-col-1 .row {
+    height: 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .esjy-col-1 .row {
+    height: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .esjy-col-1 .row {
+    height: 6rem;
+  }
+}
+.word {
+  height: 10rem;
+  line-height: 10rem;
+  color: #0076a3;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .word {
+    height: 5rem;
+    line-height: 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .word {
+    height: 6rem;
+    line-height: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .word {
+    height: 6rem;
+    line-height: 6rem;
+  }
+}
+.word .word-content {
+  font-size: 2em;
+  font-weight: 500;
+  height: 10rem;
+  line-height: 10rem;
+  text-align: left;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .word .word-content {
+    font-size: 1.6em;
+    font-weight: 500;
+    height: 5rem;
+    line-height: 5rem;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .word .word-content {
+    font-size: 2em;
+    font-weight: 500;
+    height: 6rem;
+    line-height: 6rem;
+    text-align: left;
+  }
+}
+@media (min-width: 1200px) {
+  .word .word-content {
+    font-size: 2em;
+    font-weight: 500;
+    height: 6rem;
+    line-height: 6rem;
+    text-align: left;
+    padding-left: 3rem;
+  }
+}
+.searchPart {
+  height: 10rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .searchPart {
+    height: 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .searchPart {
+    height: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .searchPart {
+    height: 6rem;
+  }
+}
+.searchPart .search {
+  height: 10rem;
+  width: 90%;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .searchPart .search {
+    height: 5rem;
+    width: 90%;
+  }
+}
+@media (min-width: 992px) {
+  .searchPart .search {
+    height: 6rem;
+    width: 90%;
+  }
+}
+@media (min-width: 1200px) {
+  .searchPart .search {
+    height: 6rem;
+    width: 90%;
+  }
+}
+.searchPart .search input {
+  height: 7rem;
+  position: relative;
+  float: left;
+  width: 100%;
+  padding-left: 1rem;
+  display: block;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .searchPart .search input {
+    height: 3rem;
+    top: 1rem;
+    font-size: 1em;
+  }
+}
+@media (min-width: 992px) {
+  .searchPart .search input {
+    height: 3rem;
+    top: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .searchPart .search input {
+    height: 3rem;
+    top: 1.5rem;
+  }
+}
+.searchPart .search .mySearch-btn {
+  height: 7rem;
+  line-height: 7rem;
+  text-align: center;
+  width: 7rem;
+  position: relative;
+  float: right;
+  bottom: 7rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .searchPart .search .mySearch-btn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .searchPart .search .mySearch-btn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .searchPart .search .mySearch-btn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 1.5rem;
+  }
+}
+.searchPart .search .iconBtn {
+  height: 7rem;
+  line-height: 7rem;
+  text-align: center;
+  width: 7rem;
+  position: relative;
+  float: right;
+  bottom: 7rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .searchPart .search .iconBtn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .searchPart .search .iconBtn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .searchPart .search .iconBtn {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    bottom: 1.5rem;
+  }
+}
+.mySearch-content {
+  position: relative;
+  float: left;
+  top: -6.5rem;
+  width: 100%;
+  background-color: purple;
+  padding-left: 1rem;
+  z-index: 2;
+  display: none;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .mySearch-content {
+    top: -1.5rem;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+}
+@media (min-width: 992px) {
+  .mySearch-content {
+    top: -1.5rem;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .mySearch-content {
+    top: -1.5rem;
+    width: 100%;
+    background-color: purple;
+    padding-left: 1rem;
+  }
+}
+.mySearch-content span {
+  display: block;
+  background-color: red;
+  position: relative;
+  float: left;
+  width: 100%;
+  text-align: left;
+  line-height: 6rem;
+  height: 6rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .mySearch-content span {
+    line-height: 2rem;
+    height: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .mySearch-content span {
+    line-height: 1.5rem;
+    height: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .mySearch-content span {
+    line-height: 1.5rem;
+    height: 1.5rem;
+  }
+}
+.mySearch-content .mySearchList {
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+.mySearch-content .mySearchList .mySearch {
+  position: relative;
+  float: left;
+  width: 100%;
+  display: block;
+  text-align: left;
+  background-color: #3c3c3c;
+  color: red;
+  line-height: 6rem;
+  height: 6rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .mySearch-content .mySearchList .mySearch {
+    line-height: 2rem;
+    height: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .mySearch-content .mySearchList .mySearch {
+    line-height: 1.5rem;
+    height: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .mySearch-content .mySearchList .mySearch {
+    line-height: 1.5rem;
+    height: 1.5rem;
+  }
+}
+.select {
+  height: 10rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .select {
+    height: 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .select {
+    height: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .select {
+    height: 6rem;
+  }
+}
+.select select {
+  position: relative;
+  float: left;
+  width: 40%;
+  height: 7rem;
+  border: 1px solid gray;
+  /* 小屏幕（平板，大于等于 768px） */
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+}
+@media (min-width: 768px) {
+  .select select {
+    height: 3rem;
+    top: 1.5rem;
+  }
+}
+@media (min-width: 992px) {
+  .select select {
+    height: 3rem;
+    top: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .select select {
+    height: 3rem;
+    top: 1.5rem;
+  }
+}
+/* 小屏幕（平板，大于等于 768px） */
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+/* 大屏幕（大桌面显示器，大于等于 1200px） */

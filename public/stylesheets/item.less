@@ -1,0 +1,598 @@
+@charset "utf-8";
+@import "../../myless/main";
+
+
+.title {
+  position: relative;
+  float: left;
+  width: 90%;
+  left: 5%;
+  border-bottom: 1px solid gray;
+
+  height: @titleHeight-mob;
+  line-height: @titleHeight-mob;
+  font-size: 1.6em;
+  font-weight: 500;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @titleHeight-pc;
+    line-height: @titleHeight-pc;
+    font-size: 2em;
+    font-weight: 500;
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @titleHeight-pc-lg;
+    line-height: @titleHeight-pc-lg;
+    font-size: 2.4em;
+    font-weight: 500;
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+
+    height: @titleHeight-pc-lg;
+    line-height: @titleHeight-pc-lg;
+    font-size: 2.4em;
+    font-weight: 500;
+  }
+
+}
+
+.left {
+  position: relative;
+  float: left;
+  width: 90%;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    width: 20%;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    width: 20%;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    width: 20%;
+
+  }
+
+  .aboutsLists {
+    height: 100%;
+    width: 100%;
+
+    .about {
+
+      height: @aboutHeight-mob;
+      border: 1px solid red;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        height: @aboutHeight-pc;
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        height: @aboutHeight-pc-lg;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+
+        height: @aboutHeight-pc-lg;
+      }
+
+    }
+    .active {
+      background-color: #008cc3;
+      color: #fff;
+    }
+  }
+}
+
+.right {
+
+  width: 100%;
+  position: relative;
+  float: left;
+  border:1px solid hotpink;
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    width: 75%;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    width: 75%;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    width: 75%;
+
+  }
+
+}
+
+.item-title {
+  display: block;
+  width: 100%;
+  //border: 1px solid green;
+  height: @titleItemHeight-mob;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @titleItemHeight-pc;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @titleItemHeight-pc-lg;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @titleItemHeight-pc-lg;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+  }
+
+  img {
+
+    position: relative;
+    float: left;
+    height: 80%;
+    width: @itemImgWidth-mob;
+    margin-right: 2rem;
+    //padding: 5px;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: 100%;
+      width: @itemImgWidth-pc-lg;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: 100%;
+      width: @itemImgWidth-pc-lg;
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: 100%;
+      width: @itemImgWidth-pc-lg;
+    }
+  }
+  .itemName {
+    width: 100%;
+    height: 50%;
+    font-size: 1.2em;
+    //border: 1px solid purple;
+    color: #0076a3;
+    //margin-bottom: 1rem;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      font-size: 1.1em;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      font-size: 1.6em;
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      font-size: 2.2em;
+    }
+
+  }
+
+  .itemNum {
+    width: 100%;
+    height: 50%;
+    line-height: @itemHeight-mob/2;
+    font-size: 1em;
+
+    //color: #908e8e;
+
+    //border: 1px solid yellow;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      font-size: 0.8em;
+      line-height: @itemHeight-pc/2;
+
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      font-size: 1.2em;
+      line-height: @itemHeight-pc-lg/2;
+
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      font-size: 1.2em;
+      line-height: @itemHeight-pc-lg/2;
+
+    }
+
+    span {
+      padding-right: 1rem;
+      //font-size: 1em;
+
+      //color: #000;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        //font-size: 0.8em;
+
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        //font-size: 0.8em;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        //font-size: 0.8em;
+
+      }
+
+    }
+
+    a {
+      padding-right: 1rem;
+      //font-size: 1em;
+
+      display: block;
+      position: relative;
+      float:right;
+      //border: 1px solid red;
+      margin-right: 3rem;
+      text-align: center;
+      //color: #000;
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        font-size: 0.8em;
+
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        font-size: 1em;
+
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        font-size: 1em;
+
+      }
+
+    }
+
+  }
+
+}
+
+.aboutList{
+
+  position: relative;
+  float: left;
+  //background-color: darkred;
+  width: 100%;
+
+  .about-content {
+    display: none;
+  }
+  .active{
+    display: block;
+  }
+
+
+
+}
+
+
+.aboutBtns{
+
+  padding-left: 1rem;
+  padding-right: 3rem;
+  height: @btnsHeight-mob;
+  line-height: @btnsHeight-mob;
+
+
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @btnsHeight-pc;
+    line-height: @btnsHeight-pc;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @btnsHeight-pc-lg;
+    line-height: @btnsHeight-pc-lg;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+
+    height: @btnsHeight-pc-lg;
+    line-height: @btnsHeight-pc-lg;
+  }
+
+
+  .aboutName{
+    position: relative;
+    float: left;
+    //background-color: darkred;
+    font-size: 1.4em;
+
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      font-size: 1.4em;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      font-size: 2em;
+
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      font-size: 2.4em;
+
+    }
+
+
+  }
+  .btns{
+    position: relative;
+    float: right;
+    //background-color: darkred;
+
+
+    a{
+      position: relative;
+      float: left;
+      font-size: 1.5em;
+      padding-left: 3rem;
+
+
+      /* 小屏幕（平板，大于等于 768px） */
+      @media (min-width: @screen-sm-min) {
+        font-size: 1em;
+        padding-left: 3rem;
+      }
+
+      /* 中等屏幕（桌面显示器，大于等于 992px） */
+      @media (min-width: @screen-md-min) {
+        font-size: 1.5em;
+        padding-left: 3rem;
+      }
+
+      /* 大屏幕（大桌面显示器，大于等于 1200px） */
+      @media (min-width: @screen-lg-min) {
+        font-size: 1.5em;
+        padding-left: 3rem;
+      }
+    }
+  }
+}
+
+
+.mainAbout{
+  padding-left: 1rem;
+  padding-right: 3rem;
+  height: @itemFileHeight-mob;
+  background-color: #e3e3e3;
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    height: @itemFileHeight-pc;
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    height: @itemFileHeight-pc-lg;
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    height: @itemFileHeight-pc-lg;
+  }
+}
+
+
+//每行图片部分
+.card_image {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  .esjy_resize {
+    height: @esjy_resizeHeight-mob;
+    width: 100%;
+    background: url("../images/yuan-assets/brand.png") center/cover ;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      height: @esjy_resizeHeight-p-sm ;
+      width: 100%;
+    }
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      height: @esjy_resizeHeight-p-md ;
+      width: 100%;
+    }
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      height: @esjy_resizeHeight-p-lg ;
+      width: 100%;
+    }
+  }
+}
+
+//每行文字部分
+.card_content {
+  margin-top: 1rem;
+  //height: @card_contentHeight-mob;
+  text-align: left;
+  position: relative;
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    //height: @card_contentHeight-p-sm ;
+
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    //height: @card_contentHeight-p-md;
+
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    //height: @card_contentHeight-p-lg;
+
+  }
+
+  h4 {
+
+    margin-bottom: 2rem;
+    font-weight: 500;
+
+    /* 小屏幕（平板，大于等于 768px） */
+    @media (min-width: @screen-sm-min) {
+      font-size: 1.2em;
+      height: 2rem;
+      line-height: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    /* 中等屏幕（桌面显示器，大于等于 992px） */
+    @media (min-width: @screen-md-min) {
+      font-size: 1.2em;
+      height: 1.3rem;
+      line-height: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    /* 大屏幕（大桌面显示器，大于等于 1200px） */
+    @media (min-width: @screen-lg-min) {
+      font-size: 1.2em;
+      height: 1.3rem;
+      line-height: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+
+  }
+  p {
+    font-size: 1.2em;
+
+
+  }
+
+
+
+}
+
+//每行底部
+.card_bottom {
+
+  //height: @card_bottomHeight-mob;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  /* 小屏幕（平板，大于等于 768px） */
+  @media (min-width: @screen-sm-min) {
+    //height: @card_bottomHeight-p-sm;
+  }
+
+  /* 中等屏幕（桌面显示器，大于等于 992px） */
+  @media (min-width: @screen-md-min) {
+    //height: @card_bottomHeight-p-md;
+  }
+
+  /* 大屏幕（大桌面显示器，大于等于 1200px） */
+  @media (min-width: @screen-lg-min) {
+    //height: @card_bottomHeight-p-lg;
+  }
+
+  a {
+    font-size: 1.2em;
+    color: #0f6dff;
+
+
+
+    i{
+      font-size: 1.2em;
+      color: #0f6dff;
+
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 小屏幕（平板，大于等于 768px） */
+@media (min-width: @screen-sm-min) {
+
+}
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media (min-width: @screen-md-min) {
+
+}
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media (min-width: @screen-lg-min) {
+
+}

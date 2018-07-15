@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理主页</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="/jquery-3.2.1.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/layer/layer.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/layer/css/layer.css">
+    <link rel="stylesheet" href="/stylesheets/adminLogin.css">
+    <link rel="stylesheet" href="/stylesheets/adminNav.css">
+
+</head>
+
+
+<body>
+
+<div class="esjy-col">
+    <%- include adminNav %>
+</div>
+<div class="container-fluid">
+    <div class="block50"></div>
+    <div class="bio row">
+        <div class="col-sm-12">
+            <div class="block20"></div>
+            <div class="tab-content" id="tab-content">
+                <div class="btn-group">
+                    <a href="javascript:;" data-type="0" class="btn btn-primary" data-toggle="modal" data-target="#addAgencyNameModel">添加经销商</a>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>经销商名称</th>
+                        <th>经销商状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-left" id="product_number_list">
+                    <% agencyRes.forEach(function(agency){ %>
+                    <tr>
+                        <th scope="row"><%= agency.id %></th>
+                        <td><%= agency.agencyName %></td>
+                        <td>
+                            <% if(agency.agencyStatus == 'Y'){ %>
+                            营业中
+                            <% }else{ %>
+                            停业
+                            <% } %>
+                        </td>
+                        <td>
+                            <a class="text-primary" data-toggle="modal" data-target="#agencyNameModel"
+                               data-id="<%= agency.id %>" data-name="<%= agency.agencyName %>" data-status="<%=agency.agencyStatus%>"
+                               href="javascript:;">修改</a>
+                            <a class="delete_agency text-primary" href="javascript:;"
+                               data-id="<%= agency.id %>">删除</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改商品名称 -->
+<div class="modal fade" id="agencyNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">修改经销商名称</h4>
+                <input type="hidden" name="agency_id" value=""/>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">经销商名称:</label>
+                        <input type="text" class="form-control" name="agency_name" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">经销商状态:</label>
+                        <select class="form-control" name="agency_status">
+                            <option value="Y">营业中</option>
+                            <option value="N">停业中</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="modify_agency_name">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加经销商 -->
+<div class="modal fade" id="addAgencyNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">添加新经销商</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">经销商名称:</label>
+                        <input type="text" class="form-control" name="agencyName" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">经销商状态:</label>
+                        <select class="form-control" name="agencyStatus">
+                            <option value="Y">营业中</option>
+                            <option value="N">停业中</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="add_agency">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 选择品牌 -->
+<script type="text/javascript">
+    $(function () {
+        $('#agencyNameModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('name') // Extract info from data-* attributes
+            var agency_id = button.data('id') // Extract info from data-* attributes
+            var agency_status = button.data('status');
+            var modal = $(this)
+            modal.find('.modal-body input[name="agency_name"]').val(recipient);
+            modal.find('.modal-header input[name="agency_id"]').val(agency_id);
+            modal.find('.modal-body select[name="agency_status"] option').each(function(event){
+                if($(this).attr('value') == agency_status){
+                    $(this).attr("selected",true);
+                }
+            });
+        });
+
+        /**
+         * 添加经销商
+         */
+        $("#add_agency").click(function (event) {
+            var agency_name = $("input[name='agencyName']").val();
+            var agency_status = $("select[name='agencyStatus']").val();
+            var index = layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url: '/admin/addAgency',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    agency_name: agency_name,
+                    agency_status: agency_status
+                },
+                success: function (res) {
+                    layer.closeAll('loading')
+                    if (res.res) {
+                        layer.msg(res.msg, {icon: 1}, function (e) {
+                            location.reload();
+                        });
+                    }else{
+                        layer.msg(res.msg, {icon: 0});
+                    }
+                },
+                error:function(err){
+                    layer.closeAll('loading');
+                    layer.msg(err.message, {icon: 0});
+                }
+            })
+        });
+        /**
+         * 修改商品或者试用品名称
+         */
+        $("#modify_agency_name").click(function (event) {
+            var agencyName = $("input[name='agency_name']").val();
+            var agencyStatus = $("select[name='agency_status']").val();
+            var agencyId = $("input[name='agency_id']").val();
+            var index = layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url: '/admin/modifyAgencyName',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    agency_name: agencyName,
+                    agency_status:agencyStatus,
+                    agency_id: agencyId
+                },
+                success: function (res) {
+                    if (res.res) {
+                        layer.msg(res.msg, {icon: 1}, function (e) {
+                            location.reload();
+                        });
+                    }else{
+                        layer.msg(res.msg, {icon: 0});
+                    }
+                },
+                error: function(err){
+                    layer.closeAll('loading');
+                    layer.msg(err.message, {icon: 0});
+                }
+            })
+        });
+
+        /**
+         * 删除商品
+         */
+        $(document).on("click", ".delete_agency", function () {
+            var that = this;
+            layer.confirm('您确定删除该经销商吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url: '/admin/deleteAgency',
+                    type: 'delete',
+                    dataType: 'json',
+                    data: {
+                        agency_id: $(that).data('id')
+                    },
+                    success: function (res) {
+                        layer.closeAll('loading')
+                        if (res.res) {
+                            layer.msg(res.msg, {icon: 1}, function (e) {
+                                $(that).parents("tr").remove();
+                            });
+                        }else{
+                            layer.msg(res.msg, {icon: 0});
+                        }
+                    },
+                    error: function (err) {
+                        layer.closeAll('loading');
+                        layer.msg(err.message, {icon: 0});
+                    }
+                });
+            }, function () {
+
+            })
+        })
+
+    })
+</script>
+</body>
+
+</html>
