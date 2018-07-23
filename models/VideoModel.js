@@ -49,6 +49,7 @@ module.exports = {
                                         video['item_name'] += ' ';
                                     }
                                     video['item_name'] += item.item_name;
+
                                 })
                                 call(null,rs);
                             });
@@ -78,6 +79,7 @@ module.exports = {
                 }
                 let totalPage = pageList[pageList.length-1];
                 pageList = Common.getPageList(currentPage,pageList);  // 获取显示的列表码
+                console.log(pageList);
                 res.render('video', {videoRes: videoRes, pageList:pageList,
                     currentPage:currentPage,totalPage:totalPage, channel: 'video'});
             });

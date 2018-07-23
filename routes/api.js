@@ -151,6 +151,7 @@ router.post('/issueComment',(req,res,next)=>{
  * 分享
  */
 router.post('/sharePdf',(req,res,next)=>{
+
     ApiModel.sharePdf(req,res);
 });
 /**
@@ -164,6 +165,8 @@ router.get('/getPdfOtherInfo',(req,res,next)=>{
  * 申请试用品
  */
 router.post('/applyTrailProduct',(req,res,next)=>{
+
+    console.log(req);
     ApiModel.applyTrailProduct(req,res);
 });
 

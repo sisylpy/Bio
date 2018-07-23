@@ -169,6 +169,13 @@ module.exports = {
             conn.release();
         });
     },
+
+
+    /**
+     * 删除品牌
+     * @param req
+     * @param res
+     */
     delete:(req,res)=>{
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {
@@ -194,6 +201,12 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 修改品牌
+     * @param req
+     * @param res
+     */
     modify:(req,res)=>{
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {

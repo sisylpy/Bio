@@ -232,7 +232,11 @@ module.exports = {
             conn.release();
         });
     },
+
+
+    //没用到
     searchPdf:(req,res)=>{
+        console.log('.......');
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
         pool.getConnection((err, conn) => {
@@ -270,6 +274,9 @@ module.exports = {
                     })
                 }
             }, (err, results) => {
+
+                console.log(results);
+                console.log('=======')
                 var type = req.query.type == undefined ? 0 : req.query.type;
                 var pdfs = results['pdfGet'];
                 var brandRes = [];
@@ -893,6 +900,7 @@ module.exports = {
         });
     },
     issueComment:(req,res)=>{
+        console.log('ppp0000')
         let pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
         pool.getConnection((err, conn) => {
@@ -1082,6 +1090,7 @@ module.exports = {
                             res.send("数据库查询错误。" + err.message);
                             return;
                         }
+                        console.log(rs);
                         callback(null, rs)
                         // conn.release();
                     })
@@ -1257,6 +1266,7 @@ module.exports = {
      * @param res
      */
     applyTrailProduct:(req,res)=>{
+
         let pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
         pool.getConnection((err, conn) => {
@@ -1287,7 +1297,12 @@ module.exports = {
                 "item_name,agency_name,sample_amount,unit,sale_price,sales_area,goods_standard,manufactur_price,manufacturer_name" +
                 ")" +
                 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            conn.query(collectSql, [userName,userPhone,userAddress,userCompany,userEmail,applyTime,productName,userIp,itemName,agencyName,sampleAmount,unit,salePrice,salesArea,goodsStandard,manufacturPrice,manufacturerName],(err, rs) => {
+
+            var params = [userName,userPhone,userAddress,userCompany,userEmail,applyTime,productName,userIp,itemName,agencyName,sampleAmount,unit,salePrice,salesArea,goodsStandard,manufacturPrice,manufacturerName]
+
+
+            console.log(params);
+            conn.query(collectSql, params,(err, rs) => {
                 if (err) {
                     res.json({
                         res:false,

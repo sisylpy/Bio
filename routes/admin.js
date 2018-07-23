@@ -34,7 +34,12 @@ router.post('/adminLogin', function (req, res, next) {
   AdminModel.adminLogin(req,res);
 });
 
-
+/**
+ * 获取品牌
+ */
+router.get('/brand',(req,res,next)=>{
+    BrandModel.show(req,res);
+});
 //后台登陆作废
 //操作手册
 router.all('/pdf', (req, res, next) => {
@@ -265,12 +270,7 @@ router.get('/users',(req,res,next)=>{
     UsersModel.show(req,res);
 });
 
-/**
- * 获取品牌
- */
-router.get('/brand',(req,res,next)=>{
-    BrandModel.show(req,res);
-});
+
 
 /**
  * 审核留言
