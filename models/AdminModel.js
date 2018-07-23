@@ -11,39 +11,36 @@ var sd = require('silly-datetime');
 let Common = new CommonBean();
 
 module.exports = {
-/**
- * 管理员登陆
- */
+    /**
+     * 管理员登陆
+     */
     adminLogin: (req, res) => {
-      let pool = connPool().pool;
-      pool.getConnection((err, conn) => {
-        if (err) {
-          res.send("获取连接错误,错误原因:" + err.message);
-          return;
-        }
-        let param = [req.body['email'], req.body['pwd']];
-        console.log(param)
-        let adminLoginSql = "select uid from admin where email=? and pwd=?";
-        conn.query(adminLoginSql,param, (err, rs) => {
-          if (err) {
-            res.send("数据库查询错误。" + err.message);
-            return;
-          }
-          console.log(rs.length);
-          if (rs.length == 0) {
-            res.send("用户名/密码错误");
-          } else {
-            res.redirect('/admin/brand');
-          }
+        let pool = connPool().pool;
+        pool.getConnection((err, conn) => {
+            if (err) {
+                res.send("获取连接错误,错误原因:" + err.message);
+                return;
+            }
+            let param = [req.body['email'], req.body['pwd']];
+            let adminLoginSql = "select uid from admin where email=? and pwd=?";
+            conn.query(adminLoginSql, param, (err, rs) => {
+                if (err) {
+                    res.send("数据库查询错误。" + err.message);
+                    return;
+                }
+                if (rs.length == 0) {
+                    res.send("用户名/密码错误");
+                } else {
+                    res.redirect('/admin/brand');
+                }
+            });
+            conn.release();
         });
-        conn.release();
-      });
     },
 
-
-/**
- * 操作手册
- */
+    /**
+     * 操作手册
+     */
     getPdf: (req, res) => {
         let pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -55,7 +52,7 @@ module.exports = {
 
             let brandId = req.query.brand_id == undefined ? 0 : req.query.brand_id;
             let currentPage = req.query['current_page'] ? req.query['current_page'] : 1;
-            let order = req.query['order']?req.query['order']:'asc';
+            let order = req.query['order'] ? req.query['order'] : 'asc';
             async.series({
                 brandGet: (callback) => {
                     let brandSql = 'SELECT id,manuName FROM manufacturer ORDER BY manuName ASC';
@@ -71,7 +68,7 @@ module.exports = {
                 itemGet: (callback) => {
                     let itemSql = 'SELECT im.id,item_name,manufacturer_id,manufacturer_sub_id,english_tag,english_tag,experiment_tag,video_tag,stock_tag,samples_tag,message_tag FROM item im' +
                         ' JOIN itemManufacturer imf ON im.id=imf.item_id' +
-                        '  WHERE manufacturer_id =' + brandId + ' or manufacturer_sub_id=' + brandId + " ORDER BY item_name  "+order+" LIMIT " + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
+                        '  WHERE manufacturer_id =' + brandId + ' or manufacturer_sub_id=' + brandId + " ORDER BY item_name  " + order + " LIMIT " + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
                     conn.query(itemSql, function (err, rs) {
                         if (err) {
                             res.send("数据库查询错误。" + err.message);
@@ -164,7 +161,7 @@ module.exports = {
                     let itemSql = 'SELECT * FROM pdf WHERE id IN (SELECT' +
                         ' pdf_id FROM itemPdf  WHERE item_id IN ' +
                         '   (SELECT item_id FROM itemManufacturer WHERE manufacturer_id=' + brandId + ' OR manufacturer_sub_id=' + brandId + ')' +
-                        ' ) ORDER BY pdf_name '+order+' LIMIT ' + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
+                        ' ) ORDER BY pdf_name ' + order + ' LIMIT ' + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
                     conn.query(itemSql, function (err, rs) {
                         if (err) {
                             res.send("数据库查询错误。" + err.message);
@@ -210,15 +207,14 @@ module.exports = {
                 },
                 pdfCount: (callback) => {
                     let countSql = 'SELECT count(id) count FROM pdf WHERE id IN (SELECT' +
-                    ' pdf_id FROM itemPdf  WHERE item_id IN ' +
-                    '   (SELECT item_id FROM itemManufacturer WHERE manufacturer_id=' + brandId + ' OR manufacturer_sub_id=' + brandId + ')' +
-                    ' ) ';
+                        ' pdf_id FROM itemPdf  WHERE item_id IN ' +
+                        '   (SELECT item_id FROM itemManufacturer WHERE manufacturer_id=' + brandId + ' OR manufacturer_sub_id=' + brandId + ')' +
+                        ' ) ';
                     conn.query(countSql, (err, rs) => {
                         if (err) {
                             res.send("数据库查询错误。" + err.message);
                             return;
                         }
-                        console.log(rs);
                         callback(null, rs);
                     })
                 }
@@ -234,15 +230,16 @@ module.exports = {
                 for (let index = 0; index < Math.ceil(length / Common.everyPage); index++) {
                     pageList.push(index + 1);
                 }
-                let totalPage = pageList[pageList.length-1];
-                pageList = Common.getPageList(currentPage,pageList);  // 获取显示的列表码
+                let totalPage = pageList[pageList.length - 1];
+                pageList = Common.getPageList(currentPage, pageList);  // 获取显示的列表码
+
                 res.render('pdf', {
                     brandRes: brandRes,
                     itemRes: itemRes,
                     pdfRes: pdfRes,
                     pageList: pageList,
                     currentPage: currentPage,
-                    totalPage:totalPage,
+                    totalPage: totalPage,
                     type: type,
                     channel: 'handle'
                 });
@@ -250,6 +247,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 搜索品牌
      * @param req
@@ -273,9 +271,9 @@ module.exports = {
                 let pdfRes = [];
                 let pageList = [];
                 let currentPage = 1;
-              console.log(rs);
+                console.log(rs);
 
-              res.render('pdf', {
+                res.render('pdf', {
                     brandRes: rs, itemRes: itemRes, pdfRes: pdfRes, type: 0, pageList: pageList,
                     currentPage: currentPage, channel: 'handle'
                 });
@@ -283,64 +281,23 @@ module.exports = {
             conn.release();
         });
     },
-    //添加品牌
-    addBrand: (req, res) => {
-        let pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let brandName = req.body.brand_name;
-            // 首先判断品牌名称是否重复
-            let checkMulti = "SELECT count(*) count FROM manufacturer WHERE manuName=?";
-            conn.query(checkMulti, [brandName], (err, checkRes) => {
-                if (err) {
-                    res.json({
-                        res: false,
-                        msg: err.message,
-                    });
-                    return;
-                }
-                if (checkRes[0].count > 0) {
-                    res.json({
-                        res: false,
-                        msg: "品牌名称已经存在，不能添加！",
-                    });
-                    return;
-                } else {
-                    let brandSql = "INSERT INTO manufacturer (manuName) values(?)";
-                    conn.query(brandSql, [brandName], (err, rs) => {
-                        if (err) {
-                            res.json({
-                                res: false,
-                                msg: err.message,
-                            })
-                            return;
-                        }
-                        res.json({
-                            res: true,
-                            msg: '添加成功',
-                        });
-                    });
-                }
-            });
-            conn.release();
-        });
-    },
+
+
+
+
     /**
      * 修改货号
      * @param req
      * @param res
      */
-    modifyProductNumber: (req, res) => {
+    modifyItemName: (req, res) => {
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {
             if (err) {
                 res.send("获取连接错误,错误原因:" + err.message);
                 return;
             }
-            let itemName = req.body.product_number;
+            let itemName = req.body.item_name;
             let itemId = req.body.item_id;
             let itemSql = "UPDATE item SET item_name=? WHERE id=?";
             conn.query(itemSql, [itemName, itemId], (err, rs) => {
@@ -357,6 +314,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 修改pdf名称
      * @param req
@@ -372,6 +330,8 @@ module.exports = {
             let pdfName = req.body.pdf_name;
             let pdfId = req.body.pdf_id;
             let pdfSql = "UPDATE pdf SET pdf_name=? WHERE id=?";
+
+            console.log(pdfName,pdfId);
             conn.query(pdfSql, [pdfName, pdfId], (err, rs) => {
                 if (err) {
                     res.json({
@@ -386,6 +346,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 删除pdf
      * @param req
@@ -423,6 +384,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 删除货号
      * @param req
@@ -437,7 +399,7 @@ module.exports = {
             }
             let itemId = req.body.item_id;
 
-          async.series({
+            async.series({
                 getExperimentCount: (call) => {
                     let experimentCountSql = 'SELECT count(id) count FROM itemMaterials WHERE item_id=?';
                     conn.query(experimentCountSql, [itemId], (err, countRes) => {
@@ -470,12 +432,12 @@ module.exports = {
                 }
             }, (err, results) => {
 
-            let experimentCount = results['getExperimentCount'][0];
+                let experimentCount = results['getExperimentCount'][0];
                 let videoCount = results['getVideoCount'][0];
                 let agencyCount = results['getAgencyCount'][0];
-            if (experimentCount.count == 0 && videoCount.count == 0 && agencyCount.count == 0) {
+                if (experimentCount.count == 0 && videoCount.count == 0 && agencyCount.count == 0) {
 
-                  let itemSql = "DELETE FROM item WHERE id=?";
+                    let itemSql = "DELETE FROM item WHERE id=?";
                     conn.query(itemSql, [itemId], (err, rs) => {
                         if (err) {
                             res.json({
@@ -491,7 +453,7 @@ module.exports = {
                     });
 
 
-                  let deleteItemGoodsSql = "DELETE FROM itemGoods WHERE item_id=?";
+                    let deleteItemGoodsSql = "DELETE FROM itemGoods WHERE item_id=?";
                     conn.query(deleteItemGoodsSql, [itemId], (err, rs) => {
                         if (err) {
                             console.log(err.message);
@@ -536,6 +498,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 增加pdf打印次数
      * @param req
@@ -562,7 +525,7 @@ module.exports = {
                 });
             });
             let operation_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
-            let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '')+'-'+Common.md5(req.headers['user-agent']);
+            let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '') + '-' + Common.md5(req.headers['user-agent']);
             let addSql = "INSERT INTO operation (pdf_id,operation_type,operation_time,user_ip,user_id) VALUES (?,?,?,?,?)";
             conn.query(addSql, [pdfId, 1, operation_time, user_ip, 1], (err, rs) => {
 
@@ -570,6 +533,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 增加pdf下载次数
      * @param req
@@ -597,7 +561,7 @@ module.exports = {
             });
 
             let operation_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
-            let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '')+'-'+Common.md5(req.headers['user-agent']);
+            let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '') + '-' + Common.md5(req.headers['user-agent']);
             console.log(user_ip);
             let addSql = "INSERT INTO operation(pdf_id,operation_type,operation_time,user_ip,user_id) VALUES (?,?,?,?,?)";
             conn.query(addSql, [pdfId, 0, operation_time, user_ip, 1], (err, rs) => {
@@ -606,6 +570,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 显示添加pdf页面
      * @param req
@@ -636,10 +601,11 @@ module.exports = {
             conn.release();
         });
     },
-  /**
-   * 上传pdf
-   */
-  //todo：上传不稳定，需要细节测试！！；
+
+    /**
+     * 上传pdf
+     */
+    //todo：上传不稳定，需要细节测试！！；
 
     parsePdf: (req, res, webUrl, storagePath) => {
         let someData = req.body;
@@ -688,7 +654,7 @@ module.exports = {
                     checkedItemRes[item['item_name']] = item['item_id'];
                 });
 
-              // 比对货号
+                // 比对货号
                 async.map(itemNumbers, (number, callback) => {
                     if (checkedItemRes[number] == undefined) {
                         if (someData.language == 0) var addSql = "INSERT INTO item (item_name,english_tag) VALUES(?,?)";  //更新英文文档数量
@@ -697,9 +663,9 @@ module.exports = {
                             if (err) {
                                 console.log(err);
                             } else {
-                              let itemId = addRes.insertId;
+                                let itemId = addRes.insertId;
                                 // 添加品牌和货号关联表
-                              let addRelationSql = "INSERT INTO itemManufacturer(item_id,manufacturer_id,manufacturer_sub_id) VALUES (?,?,?)";
+                                let addRelationSql = "INSERT INTO itemManufacturer(item_id,manufacturer_id,manufacturer_sub_id) VALUES (?,?,?)";
                                 conn.query(addRelationSql, [itemId, someData.brandId, someData.subBrandId], (err, rs) => {
                                 });
                             }
@@ -710,11 +676,9 @@ module.exports = {
 
                 }, (err, results) => {
                     (() => {
-                      let pdfImage = new PDFImage(req.file.path);
-                      console.log('1ppp');
-                      pdfImage.convertPage(0).then((imagePath) => {
-                          console.log('2ppp');
-                        //解析图片名
+                        let pdfImage = new PDFImage(req.file.path);
+                        pdfImage.convertPage(0).then((imagePath) => {
+                            //解析图片名
                             let image_name = imagePath.substr(imagePath.lastIndexOf("/") + 1);
                             let thumb_image_url = webUrl + "/" + image_name;  // 构造图片访问地址
                             let pdfParser = new PDFParser(this, 1);
@@ -752,15 +716,15 @@ module.exports = {
                             } else {
                                 res.json({
                                     res: true,
-                                    msg: pdfOriginalName+" 添加成功"
+                                    msg: pdfOriginalName + " 添加成功"
                                 })
                             }
                         });
                     }).catch((err) => {
                         res.json({
                             res: false,
-                            msg: pdfOriginalName+" 添加失败",
-                            err_info:err.message
+                            msg: pdfOriginalName + " 添加失败",
+                            err_info: err.message
                         })
                     })
                 });

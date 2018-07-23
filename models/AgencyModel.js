@@ -13,205 +13,12 @@ let Common = new CommonBean();
 
 module.exports = {
 
-    showProduct: (req, res) => {
-        var pool = connPool().pool;
-        // 从pool中获取连接(异步,取到后回调)
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let agencyId = req.query.agency_id == undefined ? 0 : req.query.agency_id;
-            let currentPage = req.query['current_page']?req.query['current_page']:1;
-            let order = req.query['order']?req.query['order']:'asc';
-            async.series({
-                agencyGet: (callback) => {
-                    let getSql = 'SELECT id,agencyName,agencyStatus FROM agency';
-                    conn.query(getSql, function (err, rs) {
-                        if (err) {
-                            res.send("数据库查询错误。" + err.message);
-                            return;
-                        }
-                        callback(null, rs)
-                        // conn.release();
-                    })
-                },
-                productsGet: (callback) => {
-                    // 查看该经销商的状态
-                    let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=?";
-                    conn.query(agencyStatusSql,[agencyId],(err,checkRes)=>{
-                        if (err) {
-                            res.send("数据库查询错误。" + err.message);
-                            return;
-                        }
-                        if(checkRes[0]!=undefined && checkRes[0].agencyStatus == 'Y'){
-                            let productSql = 'SELECT ig.id,im.item_name,manufacturer_name,item_id,goods_name,goods_standard,stock,update_time FROM itemGoods ig' +
-                                ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=0 ORDER BY goods_name '+order+' LIMIT '+(currentPage-1)*Common.everyPage+','+Common.everyPage;
-                            conn.query(productSql, (err, rs) => {
-                                if (err) {
-                                    res.send("数据库查询错误。" + err.message);
-                                    return;
-                                }
-                                callback(null, rs)
-                            })
-                        }else{
-                            callback(null,[]);
-                        }
-                    });
-
-                },
-                trailProductsGet: (callback) => {
-                    // 查看该经销商的状态
-                    let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
-                    conn.query(agencyStatusSql,[agencyId],(err,checkRes)=>{
-                        if (err) {
-                            res.send("数据库查询错误。" + err.message);
-                            return;
-                        }
-                        if(checkRes[0]!=undefined && checkRes[0].agencyStatus == 'Y'){
-                            let productSql = 'SELECT ig.id,im.item_name,manufacturer_name,item_id,goods_name,goods_standard,stock,sample_amount,update_time FROM itemGoods ig' +
-                                ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=1 ORDER BY goods_name '+order+' LIMIT '+(currentPage-1)*Common.everyPage+','+Common.everyPage;
-                            conn.query(productSql, function (err, rs) {
-                                if (err) {
-                                    res.send("数据库查询错误。" + err.message);
-                                    return;
-                                }
-                                callback(null, rs)
-                                // conn.release();
-                            })
-                        }else{
-                            callback(null,[]);
-                        }
-                    });
-                },
-                productCount:(callback)=>{
-                    let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
-                    conn.query(agencyStatusSql,[agencyId],(err,checkRes)=>{
-                        if (err) {
-                            res.send("数据库查询错误。" + err.message);
-                            return;
-                        }
-                        if(checkRes[0]!=undefined && checkRes[0].agencyStatus == 'Y'){
-                            let productSql = 'SELECT count(ig.id) count FROM itemGoods ig' +
-                                ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=0';
-                            conn.query(productSql, function (err, rs) {
-                                if (err) {
-                                    res.send("数据库查询错误。" + err.message);
-                                    return;
-                                }
-                                callback(null, rs)
-                                // conn.release();
-                            })
-                        }else{
-                            callback(null,[{count:0}]);
-                        }
-                    });
-                },
-                trailProductCount:(callback)=>{
-                    let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
-                    conn.query(agencyStatusSql,[agencyId],(err,checkRes)=>{
-                        if (err) {
-                            res.send("数据库查询错误。" + err.message);
-                            return;
-                        }
-                        if(checkRes[0]!=undefined && checkRes[0].agencyStatus == 'Y'){
-                            let productSql = 'SELECT count(ig.id) count FROM itemGoods ig' +
-                                ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=1';
-                            conn.query(productSql, function (err, rs) {
-                                if (err) {
-                                    res.send("数据库查询错误。" + err.message);
-                                    return;
-                                }
-                                callback(null, rs)
-                                // conn.release();
-                            })
-                        }else{
-                            callback(null,[{count:0}]);
-                        }
-                    });
-                }
-            }, (err, results) => {
-                var type = req.query.type == undefined ? 0 : req.query.type;
-                var agencyRes = results['agencyGet'];
-                var productsRes = type == 0 ? results['productsGet'] : [];
-                var trailProductsRes = type == 1 ? results['trailProductsGet'] : [];
-                let productCount = type==0 ? results['productCount'][0].count : 0;
-                let trailProductCount = type==1 ? results['trailProductCount'][0].count : 0;
-                let pageList = [];
-                let length = type == 0 ? productCount : trailProductCount;
-                for(let index = 0; index<Math.ceil(length/Common.everyPage); index++){
-                    pageList.push(index+1);
-                }
-                let totalPage = pageList[pageList.length-1];
-                pageList = Common.getPageList(currentPage,pageList);  // 获取显示的列表码
-                res.render('product', {
-                    agencyRes: agencyRes,
-                    productsRes: productsRes,
-                    trailProductsRes: trailProductsRes,
-                    pageList:pageList,
-                    currentPage:currentPage,
-                    totalPage:totalPage,
-                    type: type,
-                    channel: 'product'
-                });
-            });
-            conn.release();
-        });
-    },
-    show:(req,res)=>{
-        let pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let agencySql = 'SELECT id,agencyName,agencyStatus FROM agency';
-            conn.query(agencySql, function (err, rs) {
-                if (err) {
-                    res.send("数据库查询错误。" + err.message);
-                    return;
-                }
-                res.render('agency', {
-                    agencyRes: rs,
-                    channel: 'agency'
-                });
-                // conn.release();
-            });
-            conn.release();
-        });
-    },
+   
     /**
-     * 搜索品牌
+     * 添加经销商
      * @param req
      * @param res
      */
-    searchAgency: (req, res) => {
-        var pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            var agencyName = req.query['agency_name'];
-            var agencySql = "SELECT id,agencyName,agencyStatus FROM agency WHERE agencyName like '%" + agencyName + "%'";
-            conn.query(agencySql, (err, rs) => {
-                if (err) {
-                    res.send("数据库查询错误。" + err.message);
-                    return;
-                }
-                var productsRes = [];
-                var trailProductsRes = [];
-                res.render('agency', {
-                    agencyRes: rs,
-                    productsRes: productsRes,
-                    trailProductsRes: trailProductsRes,
-                    type: 0
-                });
-            });
-            conn.release();
-        });
-    },
-    //添加经销商
     addAgency: (req, res) => {
         var pool = connPool().pool;
         pool.getConnection((err, conn) => {
@@ -223,21 +30,21 @@ module.exports = {
             var agencyStatus = req.body.agency_status;
             // 首先判断经销商名称是否重复
             let checkMulti = "SELECT count(*) count FROM agency WHERE agencyName=?";
-            conn.query(checkMulti,[agencyName],(err,checkRes)=>{
-                if(err){
+            conn.query(checkMulti, [agencyName], (err, checkRes) => {
+                if (err) {
                     res.json({
                         res: false,
                         msg: err.message,
                     });
-                    return ;
+                    return;
                 }
-                if(checkRes[0].count > 0){
+                if (checkRes[0].count > 0) {
                     res.json({
                         res: false,
                         msg: "品牌名称已经存在，不能添加！",
                     });
-                    return ;
-                }else{
+                    return;
+                } else {
                     let addAgencySql = "INSERT INTO agency (agencyName,agencyStatus) values(?,?)";
                     conn.query(addAgencySql, [agencyName, agencyStatus], (err, rs) => {
                         if (err) {
@@ -249,7 +56,7 @@ module.exports = {
                         }
                         res.json({
                             res: true,
-                            msg:'添加成功'
+                            msg: '添加成功'
                         });
                     });
                 }
@@ -257,7 +64,13 @@ module.exports = {
             conn.release();
         });
     },
-    modify:(req,res)=>{
+   
+    /**
+     * 修改经销商名称
+     * @param req
+     * @param res
+     */
+    modify: (req, res) => {
         var pool = connPool().pool;
         pool.getConnection((err, conn) => {
             if (err) {
@@ -278,13 +91,19 @@ module.exports = {
                 }
                 res.json({
                     res: true,
-                    msg:'修改成功'
+                    msg: '修改成功'
                 });
             });
             conn.release();
         });
     },
-    delete:(req,res)=>{
+
+    /**
+     * 删除经销商
+     * @param req
+     * @param res
+     */
+    delete: (req, res) => {
         var pool = connPool().pool;
         pool.getConnection((err, conn) => {
             if (err) {
@@ -303,12 +122,18 @@ module.exports = {
                 }
                 res.json({
                     res: true,
-                    msg:'删除成功'
+                    msg: '删除成功'
                 });
             });
             conn.release();
         });
     },
+
+    /**
+     * 导入商品和试用品Excel
+     * @param req
+     * @Param res
+     */
     importExcel: (req, res, webUrl, storagePage) => {
         let data = req.body;
         let file = req.file;
@@ -388,12 +213,12 @@ module.exports = {
                 }
             }, (err, results) => {
                 // 首先删除原先的商品  和用户申请的试用品
-                let deleteSqls ='DELETE FROM itemGoods WHERE type_id='+data.type_id;
+                let deleteSqls = 'DELETE FROM itemGoods WHERE type_id=' + data.type_id;
                 /*let deleteSqls =
                     'DELETE FROM itemGoods;'+
                     'DELETE FROM itemApply';*/
-                conn.query(deleteSqls,(err,deleteRes)=>{
-                    if(err){
+                conn.query(deleteSqls, (err, deleteRes) => {
+                    if (err) {
                         res.json({
                             res: false,
                             mes: err.message
@@ -417,12 +242,12 @@ module.exports = {
                     let current_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
                     for (let index = 0; index < dataLength; index++) {
                         addData.push([
-                            buildAgency[excelData[0]['agency'][index]]?buildAgency[excelData[0]['agency'][index]]:0,
-                            buildItem[excelData[0]['item_name'][index]]?buildItem[excelData[0]['item_name'][index]]:0,
+                            buildAgency[excelData[0]['agency'][index]] ? buildAgency[excelData[0]['agency'][index]] : 0,
+                            buildItem[excelData[0]['item_name'][index]] ? buildItem[excelData[0]['item_name'][index]] : 0,
                             excelData[0]['manufacturer_name'][index],
                             excelData[0]['goods_name'][index],
-                            data.type_id == 0 ? excelData[0]['goods_standard'][index]:'',
-                            data.type_id == 0 ? (excelData[0]['stock'][index] == undefined ? 0: excelData[0]['stock'][index]): 0,
+                            data.type_id == 0 ? excelData[0]['goods_standard'][index] : '',
+                            data.type_id == 0 ? (excelData[0]['stock'][index] == undefined ? 0 : excelData[0]['stock'][index]) : 0,
                             data.type_id == 0 ? excelData[0]['unit'][index] : '',
                             data.type_id == 0 ? excelData[0]['manufactur_price'][index] : 0,
                             data.type_id == 0 ? excelData[0]['sale_price'][index] : 0,
@@ -431,7 +256,7 @@ module.exports = {
                             excelData[0]['person_phone'][index],
                             current_time,
                             data.type_id,
-                            data.type_id == 1 ? (excelData[0]['sample_amount'][index]==undefined?0:excelData[0]['sample_amount'][index]) : 0
+                            data.type_id == 1 ? (excelData[0]['sample_amount'][index] == undefined ? 0 : excelData[0]['sample_amount'][index]) : 0
                             // data.type_id == 1 ? excelData[0]['sample_amount'][index] : 0
                         ])
                     }
@@ -455,92 +280,312 @@ module.exports = {
             conn.release();
         })
     },
+
+    
+    
+    
+    
+//========== 以下no use
+
+
+
+    /** no use
+     * 显示经销商
+     * @param
+     */
+    // showProduct: (req, res) => {
+    //     var pool = connPool().pool;
+    //     // 从pool中获取连接(异步,取到后回调)
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         let agencyId = req.query.agency_id == undefined ? 0 : req.query.agency_id;
+    //         let currentPage = req.query['current_page'] ? req.query['current_page'] : 1;
+    //         let order = req.query['order'] ? req.query['order'] : 'asc';
+    //         async.series({
+    //             agencyGet: (callback) => {
+    //                 let getSql = 'SELECT id,agencyName,agencyStatus FROM agency';
+    //                 conn.query(getSql, function (err, rs) {
+    //                     if (err) {
+    //                         res.send("数据库查询错误。" + err.message);
+    //                         return;
+    //                     }
+    //                     callback(null, rs)
+    //                     // conn.release();
+    //                 })
+    //             },
+    //             productsGet: (callback) => {
+    //                 // 查看该经销商的状态
+    //                 let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=?";
+    //                 conn.query(agencyStatusSql, [agencyId], (err, checkRes) => {
+    //                     if (err) {
+    //                         res.send("数据库查询错误。" + err.message);
+    //                         return;
+    //                     }
+    //                     if (checkRes[0] != undefined && checkRes[0].agencyStatus == 'Y') {
+    //                         let productSql = 'SELECT ig.id,im.item_name,manufacturer_name,item_id,goods_name,goods_standard,stock,update_time FROM itemGoods ig' +
+    //                             ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=0 ORDER BY goods_name ' + order + ' LIMIT ' + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
+    //                         conn.query(productSql, (err, rs) => {
+    //                             if (err) {
+    //                                 res.send("数据库查询错误。" + err.message);
+    //                                 return;
+    //                             }
+    //                             callback(null, rs)
+    //                         })
+    //                     } else {
+    //                         callback(null, []);
+    //                     }
+    //                 });
+    //
+    //             },
+    //             trailProductsGet: (callback) => {
+    //                 // 查看该经销商的状态
+    //                 let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
+    //                 conn.query(agencyStatusSql, [agencyId], (err, checkRes) => {
+    //                     if (err) {
+    //                         res.send("数据库查询错误。" + err.message);
+    //                         return;
+    //                     }
+    //                     if (checkRes[0] != undefined && checkRes[0].agencyStatus == 'Y') {
+    //                         let productSql = 'SELECT ig.id,im.item_name,manufacturer_name,item_id,goods_name,goods_standard,stock,sample_amount,update_time FROM itemGoods ig' +
+    //                             ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=1 ORDER BY goods_name ' + order + ' LIMIT ' + (currentPage - 1) * Common.everyPage + ',' + Common.everyPage;
+    //                         conn.query(productSql, function (err, rs) {
+    //                             if (err) {
+    //                                 res.send("数据库查询错误。" + err.message);
+    //                                 return;
+    //                             }
+    //                             callback(null, rs)
+    //                             // conn.release();
+    //                         })
+    //                     } else {
+    //                         callback(null, []);
+    //                     }
+    //                 });
+    //             },
+    //             productCount: (callback) => {
+    //                 let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
+    //                 conn.query(agencyStatusSql, [agencyId], (err, checkRes) => {
+    //                     if (err) {
+    //                         res.send("数据库查询错误。" + err.message);
+    //                         return;
+    //                     }
+    //                     if (checkRes[0] != undefined && checkRes[0].agencyStatus == 'Y') {
+    //                         let productSql = 'SELECT count(ig.id) count FROM itemGoods ig' +
+    //                             ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=0';
+    //                         conn.query(productSql, function (err, rs) {
+    //                             if (err) {
+    //                                 res.send("数据库查询错误。" + err.message);
+    //                                 return;
+    //                             }
+    //                             callback(null, rs)
+    //                             // conn.release();
+    //                         })
+    //                     } else {
+    //                         callback(null, [{count: 0}]);
+    //                     }
+    //                 });
+    //             },
+    //             trailProductCount: (callback) => {
+    //                 let agencyStatusSql = "SELECT agencyStatus FROM agency WHERE id=? ";
+    //                 conn.query(agencyStatusSql, [agencyId], (err, checkRes) => {
+    //                     if (err) {
+    //                         res.send("数据库查询错误。" + err.message);
+    //                         return;
+    //                     }
+    //                     if (checkRes[0] != undefined && checkRes[0].agencyStatus == 'Y') {
+    //                         let productSql = 'SELECT count(ig.id) count FROM itemGoods ig' +
+    //                             ' LEFT JOIN item im ON im.id=ig.item_id WHERE agency_id =' + agencyId + ' and type_id=1';
+    //                         conn.query(productSql, function (err, rs) {
+    //                             if (err) {
+    //                                 res.send("数据库查询错误。" + err.message);
+    //                                 return;
+    //                             }
+    //                             callback(null, rs)
+    //                             // conn.release();
+    //                         })
+    //                     } else {
+    //                         callback(null, [{count: 0}]);
+    //                     }
+    //                 });
+    //             }
+    //         }, (err, results) => {
+    //             var type = req.query.type == undefined ? 0 : req.query.type;
+    //             var agencyRes = results['agencyGet'];
+    //             var productsRes = type == 0 ? results['productsGet'] : [];
+    //             var trailProductsRes = type == 1 ? results['trailProductsGet'] : [];
+    //             let productCount = type == 0 ? results['productCount'][0].count : 0;
+    //             let trailProductCount = type == 1 ? results['trailProductCount'][0].count : 0;
+    //             let pageList = [];
+    //             let length = type == 0 ? productCount : trailProductCount;
+    //             for (let index = 0; index < Math.ceil(length / Common.everyPage); index++) {
+    //                 pageList.push(index + 1);
+    //             }
+    //             let totalPage = pageList[pageList.length - 1];
+    //             pageList = Common.getPageList(currentPage, pageList);  // 获取显示的列表码
+    //             res.render('product', {
+    //                 agencyRes: agencyRes,
+    //                 productsRes: productsRes,
+    //                 trailProductsRes: trailProductsRes,
+    //                 pageList: pageList,
+    //                 currentPage: currentPage,
+    //                 totalPage: totalPage,
+    //                 type: type,
+    //                 channel: 'product'
+    //             });
+    //         });
+    //         conn.release();
+    //     });
+    // },
     /**
+     * no use
+     * @param
+     */
+    // show: (req, res) => {
+    //     let pool = connPool().pool;
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         let agencySql = 'SELECT id,agencyName,agencyStatus FROM agency';
+    //         conn.query(agencySql, function (err, rs) {
+    //             if (err) {
+    //                 res.send("数据库查询错误。" + err.message);
+    //                 return;
+    //             }
+    //             res.render('agency', {
+    //                 agencyRes: rs,
+    //                 channel: 'agency'
+    //             });
+    //             // conn.release();
+    //         });
+    //         conn.release();
+    //     });
+    // },
+
+    /** no use
+     * 搜索经销商
+     * @param req
+     * @param res
+     */
+    // searchAgency: (req, res) => {
+    //     var pool = connPool().pool;
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         var agencyName = req.query['agency_name'];
+    //         var agencySql = "SELECT id,agencyName,agencyStatus FROM agency WHERE agencyName like '%" + agencyName + "%'";
+    //         conn.query(agencySql, (err, rs) => {
+    //             if (err) {
+    //                 res.send("数据库查询错误。" + err.message);
+    //                 return;
+    //             }
+    //             var productsRes = [];
+    //             var trailProductsRes = [];
+    //             res.render('agency', {
+    //                 agencyRes: rs,
+    //                 productsRes: productsRes,
+    //                 trailProductsRes: trailProductsRes,
+    //                 type: 0
+    //             });
+    //         });
+    //         conn.release();
+    //     });
+    // },
+
+    /** no use!
      * 修改商品名称
      * @param req
      * @param res
      */
-    modifyProductName: (req, res) => {
-        var pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            var goodsName = req.body.product_name;
-            var goodsId = req.body.product_id;
-            var goodsSql = "UPDATE itemGoods SET goods_name=? WHERE id=?";
-            conn.query(goodsSql, [goodsName, goodsId], (err, rs) => {
-                if (err) {
-                    res.json({
-                        res: false
-                    })
-                    return;
-                }
-                res.json({
-                    res: true
-                });
-            });
-            conn.release();
-        });
-    },
-    /**
+    // modifyProductName: (req, res) => {
+    //     var pool = connPool().pool;
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         var goodsName = req.body.product_name;
+    //         var goodsId = req.body.product_id;
+    //         var goodsSql = "UPDATE itemGoods SET goods_name=? WHERE id=?";
+    //         conn.query(goodsSql, [goodsName, goodsId], (err, rs) => {
+    //             if (err) {
+    //                 res.json({
+    //                     res: false
+    //                 })
+    //                 return;
+    //             }
+    //             res.json({
+    //                 res: true
+    //             });
+    //         });
+    //         conn.release();
+    //     });
+    // },
+
+
+    /** no use!
      * 修改pdf名称
      * @param req
      * @param res
      */
-    modifyPdfName: (req, res) => {
-        let pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let pdfName = req.body.pdf_name;
-            let pdfId = req.body.pdf_id;
-            let pdfSql = "UPDATE pdf SET pdf_name=? WHERE id=?";
-            conn.query(pdfSql, [pdfName, pdfId], (err, rs) => {
-                if (err) {
-                    res.json({
-                        res: false
-                    })
-                    return;
-                }
-                res.json({
-                    res: true
-                });
-            });
-            conn.release();
-        });
-    },
-    /**
+    // modifyPdfName: (req, res) => {
+    //     let pool = connPool().pool;
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         let pdfName = req.body.pdf_name;
+    //         let pdfId = req.body.pdf_id;
+    //         let pdfSql = "UPDATE pdf SET pdf_name=? WHERE id=?";
+    //         conn.query(pdfSql, [pdfName, pdfId], (err, rs) => {
+    //             if (err) {
+    //                 res.json({
+    //                     res: false
+    //                 })
+    //                 return;
+    //             }
+    //             res.json({
+    //                 res: true
+    //             });
+    //         });
+    //         conn.release();
+    //     });
+    // },
+
+    /** no use!
      * 删除商品/试用品
      * @param req
      * @param res
      */
-    deleteProduct: (req, res) => {
-        let pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let productId = req.body.product_id;
-            let productSql = "DELETE FROM itemGoods WHERE id=?";
-            conn.query(productSql, [productId], (err, rs) => {
-                if (err) {
-                    res.json({
-                        res: false,
-                        mes: "删除失败"
-                    });
-                    return;
-                }
-                res.json({
-                    res: true,
-                    mes: "删除成功"
-                });
-            });
-            conn.release();
-        });
-    }
+    // deleteProduct: (req, res) => {
+    //     let pool = connPool().pool;
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //         let productId = req.body.product_id;
+    //         let productSql = "DELETE FROM itemGoods WHERE id=?";
+    //         conn.query(productSql, [productId], (err, rs) => {
+    //             if (err) {
+    //                 res.json({
+    //                     res: false,
+    //                     mes: "删除失败"
+    //                 });
+    //                 return;
+    //             }
+    //             res.json({
+    //                 res: true,
+    //                 mes: "删除成功"
+    //             });
+    //         });
+    //         conn.release();
+    //     });
+    // }
 };

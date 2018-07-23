@@ -138,6 +138,7 @@
 <!-- 选择品牌 -->
 <script type="text/javascript">
     $(function () {
+
         $('#agencyNameModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('name') // Extract info from data-* attributes
@@ -186,6 +187,7 @@
                 }
             })
         });
+
         /**
          * 修改商品或者试用品名称
          */

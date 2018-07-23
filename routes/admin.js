@@ -40,7 +40,7 @@ router.post('/adminLogin', function (req, res, next) {
 router.get('/brand',(req,res,next)=>{
     BrandModel.show(req,res);
 });
-//后台登陆作废
+
 //操作手册
 router.all('/pdf', (req, res, next) => {
     AdminModel.getPdf(req, res);
@@ -56,13 +56,13 @@ router.get('/searchBrand', (req, res, next) => {
  * 添加品牌
  */
 router.post('/addBrand', (req, res, next) => {
-    AdminModel.addBrand(req, res);
+    BrandModel.addBrand(req, res);
 });
 /**
  *  修改货号
  */
-router.post('/modifyProductNumber', (req, res, next) => {
-    AdminModel.modifyProductNumber(req, res);
+router.post('/modifyItemName', (req, res, next) => {
+    AdminModel.modifyItemName(req, res);
 });
 /**
  * 修改pdf名称
@@ -96,15 +96,16 @@ router.delete('/deleteVideo', (req, res, next) => {
 router.delete('/deleteLiterature', (req, res, next) => {
     LiteratureModel.delete(req, res);
 });
-/**
+
+/** no use!
  * 删除商品/试用品
  */
-router.delete('/deleteProduct', (req, res, next) => {
-    AgencyModel.deleteProduct(req, res);
-});
+// router.delete('/deleteProduct', (req, res, next) => {
+    // AgencyModel.deleteProduct(req, res);
+// });
 
 /**
- * 添加pdf页面
+ * 新打开添加pdf页面
  */
 router.get('/showAddPdf', (req, res, next) => {
     AdminModel.showAddPdf(req, res);
@@ -191,18 +192,6 @@ router.put('/modifyVideoName', (req, res, next) => {
     VideoModel.modifyName(req, res);
 });
 
-/**
- * 商品列表
- */
-router.get('/product', (req, res, next) => {
-    AgencyModel.showProduct(req, res);
-});
-/**
- * 经销商列表
- */
-router.get('/agency', (req, res, next) => {
-    AgencyModel.show(req, res);
-});
 
 /**
  * 添加经销商
@@ -239,19 +228,38 @@ router.post('/importExcel', upload.single('file'), (req, res, next) => {
     AgencyModel.importExcel(req, res, webUrl, storagePath);
 });
 
-/**
+
+
+
+/** no use
+ * 商品列表
+ */
+// router.get('/product', (req, res, next) => {
+//     AgencyModel.showProduct(req, res);
+// });
+
+/** no use
+ * 经销商列表
+ */
+// router.get('/agency', (req, res, next) => {
+//     AgencyModel.show(req, res);
+// });
+
+
+/** no use
  * 修改货物名称
  */
-router.post('/modifyProductName', (req, res, next) => {
-    AgencyModel.modifyProductName(req, res);
-});
+// router.post('/modifyProductName', (req, res, next) => {
+//     AgencyModel.modifyProductName(req, res);
+// });
 
-/**
+/** no use
  * 搜索经销商
  */
-router.get('/searchAgency', (req, res, next) => {
-    AgencyModel.searchAgency(req, res);
-});
+// router.get('/searchAgency', (req, res, next) => {
+//     AgencyModel.searchAgency(req, res);
+// });
+
 /**
  * 打印pdf次数
  */

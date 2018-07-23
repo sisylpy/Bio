@@ -170,6 +170,86 @@ module.exports = {
         });
     },
 
+    /**
+     * 添加品牌
+     */
+    addBrand: (req, res) => {
+        let pool = connPool().pool;
+        pool.getConnection((err, conn) => {
+            if (err) {
+                res.send("获取连接错误,错误原因:" + err.message);
+                return;
+            }
+            let brandName = req.body.brand_name;
+            // 首先判断品牌名称是否重复
+            let checkMulti = "SELECT count(*) count FROM manufacturer WHERE manuName=?";
+            conn.query(checkMulti, [brandName], (err, checkRes) => {
+                if (err) {
+                    res.json({
+                        res: false,
+                        msg: err.message,
+                    });
+                    return;
+                }
+                if (checkRes[0].count > 0) {
+                    res.json({
+                        res: false,
+                        msg: "品牌名称已经存在，不能添加！",
+                    });
+                    return;
+                } else {
+                    let brandSql = "INSERT INTO manufacturer (manuName) values(?)";
+                    conn.query(brandSql, [brandName], (err, rs) => {
+                        if (err) {
+                            res.json({
+                                res: false,
+                                msg: err.message,
+                            })
+                            return;
+                        }
+                        res.json({
+                            res: true,
+                            msg: '添加成功',
+                        });
+                    });
+                }
+            });
+            conn.release();
+        });
+    },
+
+
+    /**
+     * 修改品牌
+     * @param req
+     * @param res
+     */
+    modify:(req,res)=>{
+        let pool = connPool().pool;
+        pool.getConnection((err, conn) => {
+            if (err) {
+                res.send("获取连接错误,错误原因:" + err.message);
+                return;
+            }
+            let brandId = req.body.brand_id;
+            let brandName = req.body.brand_name;
+            let brandSql = 'UPDATE manufacturer SET manuName=? WHERE id=?';
+            conn.query(brandSql, [brandName,brandId],function (err, rs) {
+                if (err) {
+                    res.json({
+                        res:false,
+                        msg:'更新失败'
+                    })
+                }
+                res.json({
+                    res:true,
+                    msg:"更新成功"
+                })
+                // conn.release();
+            });
+            conn.release();
+        });
+    },
 
     /**
      * 删除品牌
@@ -202,36 +282,5 @@ module.exports = {
         });
     },
 
-    /**
-     * 修改品牌
-     * @param req
-     * @param res
-     */
-    modify:(req,res)=>{
-        let pool = connPool().pool;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
-            let brandId = req.body.brand_id;
-            let brandName = req.body.brand_name;
-            let brandSql = 'UPDATE manufacturer SET manuName=? WHERE id=?';
-            conn.query(brandSql, [brandName,brandId],function (err, rs) {
-                if (err) {
-                    res.json({
-                        res:false,
-                        msg:'更新失败'
-                    })
-                }
-                res.json({
-                    res:true,
-                    msg:"更新成功"
-                })
-                // conn.release();
-            });
-            conn.release();
-        });
-    }
 
 };

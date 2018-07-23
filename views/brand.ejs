@@ -28,7 +28,9 @@
 <body>
 
 <div class="esjy-col">
+    <!--导航菜单-->
     <%- include adminNav %>
+    <!--子菜单-->
     <div class="subNav bg-dark ">
         <a class="navitem-name" href="javascript:;">品牌和经销商</a>
         <div class="subitems" id="myTabs">
@@ -47,11 +49,14 @@
         </div>
     </div>
 </div>
+
+<!--列表部分-->
 <div class="container-fluid">
     <div class="bio row">
         <div class="col-sm-12">
             <div class="block20"></div>
             <div class="tab-content" id="tab-content">
+                <!--品牌-->
                 <div class="data-list tab-pane fade <% if(type == 0){ %>in active<% } %>" id="brand_list">
                     <table class="table table-striped">
                         <thead>
@@ -81,7 +86,9 @@
                                        data-name="<%= brand.manuName %>" href="javascript:;" target="_blank">修改</a>
                                 </button>
                                 <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_brand" data-id="<%= brand.id %>" data-z_count="<%=brand.z_count%>" data-e_count="<%=brand.e_count%>" href="javascript:;"
+                                    <a class="delete_brand" data-id="<%= brand.id %>"
+                                       data-z_count="<%= brand.z_count %>" data-e_count="<%= brand.e_count %>"
+                                       href="javascript:;"
                                        target="_blank">删除</a>
                                 </button>
                             </td>
@@ -91,30 +98,43 @@
                     </table>
                     <nav aria-label="Page navigation">
                         <ul class="pagination pull-right">
-                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                            <li
+                                    <% if(currentPage == 1){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
                                 <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <% pageList.forEach(function(page){%>
-                            <li <% if(currentPage == page){%> class="active" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=page%>">
-                                    <%=page%>
-                                    <% if(currentPage == page){%>
+                            <% pageList.forEach(function(page){ %>
+                            <li
+                                    <% if(currentPage == page){ %>
+                                    class="active"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= page %>">
+                                    <%= page %>
+                                    <% if(currentPage == page){ %>
                                     <span class="sr-only">(current)</span>
-                                    <%}%>
+                                    <% } %>
                                 </a>
                             </li>
-                            <%})%>
-                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                            <% }) %>
+                            <li
+                                    <% if(currentPage == totalPage){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= totalPage %>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-                <div class="data-list tab-pane fade <% if(type==1){%>in active<% }%>" id="agency_list">
+                <!--经销商-->
+                <div class="data-list tab-pane fade <% if(type == 1){ %>in active<% } %>" id="agency_list">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -130,9 +150,9 @@
                         </tr>
                         </thead>
                         <tbody class="text-left" id="product_number_list">
-                        <% agencyRes.forEach(function(agency,index){ %>
+                        <% agencyRes.forEach(function(agency, index){ %>
                         <tr>
-                            <th scope="row"><%= index+1 %></th>
+                            <th scope="row"><%= index + 1 %></th>
                             <td><%= agency.agencyName %></td>
                             <td>
                                 <% if(agency.agencyStatus == 'Y'){ %>
@@ -145,10 +165,13 @@
                             <td><%= agency.item_count %></td>
                             <td>
                                 <button id="edit-btn" type="button" class="btn btn-secondary">
-                                    <a data-toggle="modal" data-target="#agencyNameModel" data-status="<%=agency.agencyStatus%>" data-id="<%=agency.id%>" data-name="<%=agency.agencyName%>" href="javascript:;" target="_blank">修改</a>
+                                    <a data-toggle="modal" data-target="#agencyNameModel"
+                                       data-status="<%= agency.agencyStatus %>" data-id="<%= agency.id %>"
+                                       data-name="<%= agency.agencyName %>" href="javascript:;" target="_blank">修改</a>
                                 </button>
                                 <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_agency" data-id="<%= agency.id %>" data-goods_count="<%=agency.goods_count%>" href="javascript:;" target="_blank">删除</a>
+                                    <a class="delete_agency" data-id="<%= agency.id %>"
+                                       data-goods_count="<%= agency.goods_count %>" href="javascript:;" target="_blank">删除</a>
                                 </button>
                             </td>
                         </tr>
@@ -157,34 +180,47 @@
                     </table>
                     <nav aria-label="Page navigation">
                         <ul class="pagination pull-right">
-                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                            <li
+                                    <% if(currentPage == 1){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
                                 <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <% pageList.forEach(function(page){%>
-                            <li <% if(currentPage == page){%> class="active" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=page%>">
-                                    <%=page%>
-                                    <% if(currentPage == page){%>
+                            <% pageList.forEach(function(page){ %>
+                            <li
+                                    <% if(currentPage == page){ %>
+                                    class="active"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= page %>">
+                                    <%= page %>
+                                    <% if(currentPage == page){ %>
                                     <span class="sr-only">(current)</span>
-                                    <%}%>
+                                    <% } %>
                                 </a>
                             </li>
-                            <%})%>
-                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                            <% }) %>
+                            <li
+                                    <% if(currentPage == totalPage){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= totalPage %>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- 修改品牌名称 -->
 <div class="modal fade" id="brandNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
@@ -302,7 +338,7 @@
 <script type="text/javascript">
     $(function () {
         var type = 0;
-        var order = {brand:'asc',agency:'asc'};
+        var order = {brand: 'asc', agency: 'asc'};
         var pageNow = 1;
         $('#myTabs a.showlist').click(function (e) {
             e.preventDefault();
@@ -310,37 +346,37 @@
             $(this).addClass('active').siblings('a').removeClass('active');
             type = $(this).data('type');
             var orderNow;
-            if(type == 0){
+            if (type == 0) {
                 orderNow = order.brand;
-            }else{
+            } else {
                 orderNow = order.agency;
             }
-            $("#tab-content").load("/admin/brand?order="+orderNow+"&type="+type+" #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            $("#tab-content").load("/admin/brand?order=" + orderNow + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                     }
                 }
             });
         });
-        $(document).on('click','.page',function (e) {
+        $(document).on('click', '.page', function (e) {
             var current_page = $(this).data('page');
             pageNow = current_page;
             var orderNow;
-            if(type == 0){
+            if (type == 0) {
                 orderNow = order.brand;
-            }else{
+            } else {
                 orderNow = order.agency;
             }
-            window.history.pushState(null,null,"/admin/brand?order="+orderNow+"&current_page="+current_page+"&type="+type);
-            $("#tab-content").load("/admin/brand?order="+orderNow+"&current_page="+current_page+"&type="+type+" #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            window.history.pushState(null, null, "/admin/brand?order=" + orderNow + "&current_page=" + current_page + "&type=" + type);
+            $("#tab-content").load("/admin/brand?order=" + orderNow + "&current_page=" + current_page + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                     }
                 }
             });
@@ -355,41 +391,81 @@
             modal.find('.modal-header input[name="brandId"]').val(experimentId)
         });
 
-        for(var key in order){
-            if(order[key] == 'asc'){
-                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-            }else{
-                $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+        for (var key in order) {
+            if (order[key] == 'asc') {
+                $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+            } else {
+                $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
             }
         }
-        $(document).on("click",".agency-click-sort",function(){
-            if(order.agency == 'asc'){
+
+        /**
+         * 排序-经销商
+         */
+        $(document).on("click", ".agency-click-sort", function () {
+            if (order.agency == 'asc') {
                 order.agency = 'desc';
-            }else{
+            } else {
                 order.agency = 'asc';
             }
-            $("#tab-content").load("/admin/brand?current_page="+pageNow+"&order="+order.agency+"&type="+type+" #tab-content>div",function () {
-                if(order.agency == 'asc'){
+            $("#tab-content").load("/admin/brand?current_page=" + pageNow + "&order=" + order.agency + "&type=" + type + " #tab-content>div", function () {
+                if (order.agency == 'asc') {
                     $(".agency-click-sort").find('span').addClass('glyphicon-chevron-up');
-                }else{
+                } else {
                     $(".agency-click-sort").find('span').addClass('glyphicon-chevron-down');
                 }
             });
         })
-        $(document).on("click",".brand-click-sort",function(){
-            if(order.brand == 'asc'){
+
+        /**
+         * 排序-品牌
+         */
+        $(document).on("click", ".brand-click-sort", function () {
+            if (order.brand == 'asc') {
                 order.brand = 'desc';
-            }else{
+            } else {
                 order.brand = 'asc';
             }
-            $("#tab-content").load("/admin/brand?current_page="+pageNow+"&order="+order.brand+"&type="+type+" #tab-content>div",function () {
-                if(order.brand == 'asc'){
+            $("#tab-content").load("/admin/brand?current_page=" + pageNow + "&order=" + order.brand + "&type=" + type + " #tab-content>div", function () {
+                if (order.brand == 'asc') {
                     $(".brand-click-sort").find('span').addClass('glyphicon-chevron-up');
-                }else{
+                } else {
                     $(".brand-click-sort").find('span').addClass('glyphicon-chevron-down');
                 }
             });
         })
+
+        /**
+         * 添加品牌
+         */
+        $("#add_brand").click(function (event) {
+            var brand_name = $("input[name='addBrandName']").val();
+            var index = layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url: '/admin/addBrand',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    brand_name: brand_name
+                },
+                success: function (res) {
+                    layer.closeAll('loading')
+                    if (res.res) {
+                        layer.msg(res.msg, {icon: 1}, function (e) {
+                            location.reload();
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 0});
+                    }
+                },
+                error: function (err) {
+                    layer.closeAll('loading');
+                    layer.msg(err.message, {icon: 0});
+                }
+            })
+        });
 
         /**
          * 修改品牌名称
@@ -425,6 +501,7 @@
                 }
             })
         });
+
         /**
          * 删除品牌
          */
@@ -433,7 +510,7 @@
             layer.confirm('您确定删除该品牌？', {
                 btn: ['确定', '取消'] //按钮
             }, function () {
-                if($(that).data('e_count') > 0 || $(that).data('z_count') > 0){
+                if ($(that).data('e_count') > 0 || $(that).data('z_count') > 0) {
                     layer.msg("该品牌下面有pdf数量不为0 不能删除", {icon: 0});
                     return;
                 }
@@ -463,40 +540,10 @@
 
             });
         });
-        /**
-         * 添加品牌
-         */
-        $("#add_brand").click(function (event) {
-            var brand_name = $("input[name='addBrandName']").val();
-            var index = layer.load(1, {
-                shade: [0.1, '#fff'] //0.1透明度的白色背景
-            });
-            $.ajax({
-                url: '/admin/addBrand',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    brand_name: brand_name
-                },
-                success: function (res) {
-                    layer.closeAll('loading')
-                    if (res.res) {
-                        layer.msg(res.msg, {icon: 1}, function (e) {
-                            location.reload();
-                        });
-                    }else{
-                        layer.msg(res.msg, {icon: 0});
-                    }
-                },
-                error:function(err){
-                    layer.closeAll('loading');
-                    layer.msg(err.message, {icon: 0});
-                }
-            })
-        });
+
 
         /**
-         * 修改经销商
+         * 打开修改经销商页面
          */
         $('#agencyNameModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -506,9 +553,9 @@
             var modal = $(this)
             modal.find('.modal-body input[name="agency_name"]').val(recipient);
             modal.find('.modal-header input[name="agency_id"]').val(agency_id);
-            modal.find('.modal-body select[name="agency_status"] option').each(function(event){
-                if($(this).attr('value') == agency_status){
-                    $(this).attr("selected",true);
+            modal.find('.modal-body select[name="agency_status"] option').each(function (event) {
+                if ($(this).attr('value') == agency_status) {
+                    $(this).attr("selected", true);
                 }
             });
         });
@@ -536,18 +583,18 @@
                         layer.msg(res.msg, {icon: 1}, function (e) {
                             location.reload();
                         });
-                    }else{
+                    } else {
                         layer.msg(res.msg, {icon: 0});
                     }
                 },
-                error:function(err){
+                error: function (err) {
                     layer.closeAll('loading');
                     layer.msg(err.message, {icon: 0});
                 }
             })
         });
         /**
-         * 修改经销商
+         * 修改经销商名称
          */
         $("#modify_agency_name").click(function (event) {
             var agencyName = $("input[name='agency_name']").val();
@@ -555,14 +602,14 @@
             var agencyId = $("input[name='agency_id']").val();
             var index = layer.load(1, {
                 shade: [0.1, '#fff'] //0.1透明度的白色背景
-            });
+        });
             $.ajax({
                 url: '/admin/modifyAgencyName',
                 type: 'post',
                 dataType: 'json',
                 data: {
                     agency_name: agencyName,
-                    agency_status:agencyStatus,
+                    agency_status: agencyStatus,
                     agency_id: agencyId
                 },
                 success: function (res) {
@@ -570,11 +617,11 @@
                         layer.msg(res.msg, {icon: 1}, function (e) {
                             location.reload();
                         });
-                    }else{
+                    } else {
                         layer.msg(res.msg, {icon: 0});
                     }
                 },
-                error: function(err){
+                error: function (err) {
                     layer.closeAll('loading');
                     layer.msg(err.message, {icon: 0});
                 }
@@ -589,7 +636,7 @@
             layer.confirm('您确定删除该经销商吗？', {
                 btn: ['确定', '取消'] //按钮
             }, function () {
-                if($(that).data('goods_count') > 0){
+                if ($(that).data('goods_count') > 0) {
                     layer.msg("该经销商下面货物数量不为0 不能删除", {icon: 0});
                     return;
                 }
@@ -609,7 +656,7 @@
                             layer.msg(res.msg, {icon: 1}, function (e) {
                                 $(that).parents("tr").remove();
                             });
-                        }else{
+                        } else {
                             layer.msg(res.msg, {icon: 0});
                         }
                     },
