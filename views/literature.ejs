@@ -63,11 +63,6 @@
                             <td><%= literature.create_time %></td>
                             <td><%= literature.item_name %></td>
                             <td>
-                                <!--<a class="text-primary" data-toggle="modal" data-target="#experimentNumberModel"
-                                   data-id="<%= literature.id %>" data-name="<%= literature.experiment_name %>"
-                                   href="javascript:;">修改</a>
-                                <a class="delete_literature text-primary" href="javascript:;"
-                                   data-id="<%= literature.id %>">删除</a>-->
                                 <button id="edit-btn" type="button" class="btn btn-secondary">
                                     <a  href="/admin/editLiterature?literature_id=<%=literature.id%>" target="_blank">修改</a>
                                 </button>
@@ -108,44 +103,13 @@
         </div>
     </div>
 </div>
-<!-- 修改文献名称 -->
-<div class="modal fade" id="experimentNumberModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">修改文献名称</h4>
-                <input type="hidden" name="experimentId" value=""/>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">文献名称:</label>
-                        <input type="text" class="form-control" name="experimentName" id="recipient-name">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="modify_experiment_name">修改</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 <script type="text/javascript">
     $(function () {
         var pageNow = 1;
         var order = {literature:'asc'};
-        $('#experimentNumberModel').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('name') // Extract info from data-* attributes
-            var experimentId = button.data('id');
-            var modal = $(this)
-            modal.find('.modal-title').text('修改文献名称 ' + (recipient ? recipient : ''))
-            modal.find('.modal-body input[name="experimentName"]').val(recipient)
-            modal.find('.modal-header input[name="experimentId"]').val(experimentId)
-        });
+
         for(var key in order){
             if(order[key] == 'asc'){
                 $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
@@ -153,6 +117,10 @@
                 $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
             }
         }
+
+        /**
+         * 下一页
+         */
         $(document).on('click','.page',function (e) {
             var current_page = $(this).data('page');
             pageNow = current_page;
@@ -168,6 +136,9 @@
             });
         });
 
+        /**
+         * 排序-文献名称
+         */
         $(document).on("click",".literature-click-sort",function(){
             if(order.literature == 'asc'){
                 order.literature = 'desc';
@@ -207,6 +178,7 @@
                 }
             })
         });
+
         /**
          * 删除文献
          */

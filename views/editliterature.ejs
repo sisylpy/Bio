@@ -36,6 +36,7 @@
         <div class="col-sm-12">
             <div class="block10"></div>
             <form class="form-horizontal" id="experimentForm">
+                <input  type="hidden" name="experiment_id" value="<%=literatureOne.id%>" id="recipient-name">
                 <div class="form-group row article_title">
                     <label for="recipient-name" class="control-label col-sm-1">发表年份:</label>
                     <div class="col-sm-11">
@@ -46,21 +47,18 @@
                     <label for="recipient-name" class="control-label col-sm-1">文献期刊名:</label>
                     <div class="col-sm-11">
                         <textarea name="magazine_name" class="form-control" id="recipient-name" rows="2"><%=literatureOne.experiment_name%></textarea>
-                        <!--<input type="text" class="form-control" name="magazine_name" id="recipient-name">-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label col-sm-1">篇名:</label>
                     <div class="col-sm-11">
                         <textarea name="experiment_name" class="form-control" id="recipient-name" rows="2"><%=literatureOne.magazine_name%></textarea>
-                        <!--<input type="text" class="form-control" name="experiment_name" id="recipient-name">-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label col-sm-1">作者:</label>
                     <div class="col-sm-11">
                         <textarea name="author" class="form-control" id="recipient-name" rows="2"><%=literatureOne.author%></textarea>
-                        <!--<input type="text" class="form-control" name="author" id="recipient-name">-->
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,19 +71,20 @@
                     <label for="recipient-name" class="control-label col-sm-1">摘要:</label>
                     <div class="col-sm-11">
                         <textarea name="summary" class="form-control" id="recipient-name" rows="3"><%=literatureOne.summary%></textarea>
-                        <!--<input type="text" class="form-control" name="summary" id="recipient-name">-->
                     </div>
                 </div>
-                <!--<div class="block10"></div>
+                <div class="block10"></div>
                 <div class="my-input-group" id="my-input-group">
-                    <div class="form-group itemMaterials add">
-                        <label for="recipient-name" class="control-label col-sm-1">实验材料:</label>
+
+                    <% itemRes.forEach(function (item,index) {  %>
+                    <div class="form-group itemMaterials remove">
+                        <label for="recipient-name" class="control-label col-sm-1">实验材料:<%=index+1%></label>
                         <div class="col-sm-11">
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control col-sm-4 materials" name="materials[]">
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control col-sm-4 materials" name="materials[]" value="<%=item.material_name%>">
                             </div>
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" />
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" value="<%=item.item_id%>" />
                                 <input type="hidden" class="form-control itemId" name="itemId[]" />
                             </div>
                             <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
@@ -95,9 +94,42 @@
                                 <span class="glyphicon glyphicon-plus " aria-hidden="true"></span>
                                 添加
                             </a>
+                            <a class="btn btn-primary btn-sm deleteDom"  style="margin-left:12px;" id="deleteMagerial">
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                删除
+                            </a>
                         </div>
                     </div>
-                </div>-->
+
+                    <% })%>
+                </div>
+                    <div class="block10"></div>
+
+                    <div class="block10"></div>
+
+                    <div class="my-input-group" id="new-material">
+                        <div class="form-group itemMaterials add">
+                            <label for="recipient-name" class="control-label col-sm-1">实验材料:</label>
+                            <div class="col-sm-11">
+                                <div class="col-xs-5">
+                                    <input type="text" class="form-control col-sm-4 materials" name="materials[]">
+                                </div>
+                                <div class="col-xs-5">
+                                    <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" />
+                                    <input type="hidden" class="form-control itemId" name="itemId[]" />
+                                </div>
+                                <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
+                                    选择货号
+                                </a>
+                                <a class="btn btn-primary btn-sm addDom" style="margin-left:22px;">
+                                    <span class="glyphicon glyphicon-plus " aria-hidden="true"></span>
+                                    添加
+                                </a>
+                            </div>
+                        </div>
+
+
+                </div>
                 <div class="block10"></div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label col-sm-1">实验方法:</label>
@@ -125,7 +157,7 @@
                         <button type="reset" class="btn btn-default">取消</button>
                     </div>
                     <div class="col-sm-offset-2 col-sm-4">
-                        <button type="button" class="btn btn-primary" id="editLiterature">修改</button>
+                        <button type="button" class="btn btn-primary" id="saveLiterature">修改</button>
                     </div>
                 </div>
             </form>
@@ -191,7 +223,7 @@
         })
 
         /**
-         * 添加节点
+         * 添加xin节点
          */
         $(document).on('click', '.addDom', function (event) {
             var addDom = '<div class="form-group itemMaterials remove">' +
@@ -213,14 +245,16 @@
                 '           </a>' +
                 '       </div>' +
                 '</div>';
-            $("#my-input-group").append(addDom);
+            $("#new-material").append(addDom);
         });
+
         /**
          * 删除节点
          */
         $(document).on('click', '.deleteDom', function (event) {
             $(this).parents('div.remove').remove();
         })
+
 
         /**
          * 选择货号
@@ -234,13 +268,13 @@
         });
 
         // 先暂时禁用修改文献接口
-        $("#ecitLiterature-bak").click(function (event) {
+        $("#saveLiterature").click(function (event) {
             var literatureData = $("#experimentForm").serialize();
             layer.load(1, {
                 shade: [0.1,'#fff'] //0.1透明度的白色背景
             });
             $.ajax({
-                url: '/admin/editLiterature',
+                url: '/admin/saveliterature',
                 type: 'post',
                 dataType: 'json',
                 data: literatureData,

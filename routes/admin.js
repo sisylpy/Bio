@@ -156,7 +156,7 @@ router.get('/addvideo', (req, res, next) => {
 });
 
 /**
- * 得到货号
+ * 获取货号-添加文献，添加视频
  */
 router.get('/getItemNumber', (req, res, next) => {
     ItemModel.getNumber(req, res);
@@ -169,9 +169,20 @@ router.post('/addLiterature', (req, res, next) => {
     LiteratureModel.add(req, res);
 });
 
+/**
+ * 修改文献-打开
+ */
 router.get('/editliterature',(req,res,next)=>{
     LiteratureModel.showEdit(req,res);
 })
+
+/**
+ * 修改文献-保存
+ */
+router.post('/saveliterature',(req,res,next)=>{
+    LiteratureModel.editSave(req,res);
+})
+
 
 /**
  * 添加视频
@@ -229,14 +240,13 @@ router.post('/importExcel', upload.single('file'), (req, res, next) => {
 });
 
 
-
-
-/** no use
- * 商品列表
+/**
+ * 货品列表
  */
-// router.get('/product', (req, res, next) => {
-//     AgencyModel.showProduct(req, res);
-// });
+router.get('/product', (req, res, next) => {
+    AgencyModel.showProduct(req, res);
+});
+
 
 /** no use
  * 经销商列表
