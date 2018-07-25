@@ -86,6 +86,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 添加视频页面
+     */
     showAdd:(req,res)=>{
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {

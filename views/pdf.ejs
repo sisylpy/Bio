@@ -40,7 +40,8 @@
                data-type="1">pdf</a>
 
             <button type="button" class="btn btn-dark add-btn addNew" id="addNewPdf">
-                <a href="javascript:;" target="_blank" data-toggle="modal" id="showAddPdf" data-target="#addBrandNameModel">上传pdf</a>
+                <a href="javascript:;" target="_blank" data-toggle="modal" id="showAddPdf"
+                   data-target="#addBrandNameModel">上传pdf</a>
             </button>
         </div>
     </div>
@@ -68,12 +69,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% brandRes.forEach(function(brand,index){ %>
-                    <tr class="handle" data-id="<%=brand.id%>">
-                        <th><%=index+1%></th>
-                        <td><%=brand.manuName%></td>
-                    </tr>
-                <% })%>
+                <% brandRes.forEach(function(brand, index){ %>
+                <tr class="handle" data-id="<%= brand.id %>">
+                    <th><%= index+1 %></th>
+                    <td><%= brand.manuName %></td>
+                </tr>
+                <% }) %>
                 </tbody>
             </table>
             <!--</div>-->
@@ -82,7 +83,7 @@
         <div class="col-sm-9">
             <div class="block20"></div>
             <div class="tab-content" id="tab-content">
-                <div class="data-list tab-pane fade <% if(type==0){%>in active<% }%>" id="product_number">
+                <div class="data-list tab-pane fade <% if(type == 0){ %>in active<% } %>" id="product_number">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -98,51 +99,67 @@
                         </tr>
                         </thead>
                         <tbody class="text-left" id="product_number_list">
-                        <% itemRes.forEach(function(item,index){ %>
+                        <% itemRes.forEach(function(item, index){ %>
                         <tr>
-                            <th scope="row"><%=index+1%></th>
-                            <td><%=item.item_name%></td>
-                            <td class="experiment_tag"><%=item.experiment_tag%></td>
-                            <td class="video_tag"><%=item.video_tag%></td>
-                            <td class="agency_tag"><%=item.agency_tag%></td>
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= item.item_name %></td>
+                            <td class="experiment_tag"><%= item.experiment_tag %></td>
+                            <td class="video_tag"><%= item.video_tag %></td>
+                            <td class="agency_tag"><%= item.agency_tag %></td>
                             <td>
                                 <button id="edit-btn" type="button" class="btn btn-secondary">
-                                    <a  data-toggle="modal" data-target="#productNumberModel" data-id="<%=item.id%>" data-name="<%=item.item_name%>" href="javascript:;" target="_blank">修改</a>
+                                    <a data-toggle="modal" data-target="#productNumberModel" data-id="<%= item.id %>"
+                                       data-name="<%= item.item_name %>" href="javascript:;" target="_blank">修改</a>
                                 </button>
                                 <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_item" data-id="<%= item.id %>"  data-experiment_tag="<%=item.experiment_tag%>" data-video_tag="<%=item.video_tag%>" data-agency_tag="<%=item.agency_tag%>"  href="javascript:;" target="_blank">删除</a>
+                                    <a class="delete_item" data-id="<%= item.id %>"
+                                       data-experiment_tag="<%= item.experiment_tag %>"
+                                       data-video_tag="<%= item.video_tag %>" data-agency_tag="<%= item.agency_tag %>"
+                                       href="javascript:;" target="_blank">删除</a>
                                 </button>
                             </td>
                         </tr>
-                        <% })%>
+                        <% }) %>
                         </tbody>
                     </table>
                     <nav aria-label="Page navigation">
                         <ul class="pagination pull-right">
-                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                            <li
+                                    <% if(currentPage == 1){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
                                 <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <% pageList.forEach(function(page){%>
-                            <li <% if(currentPage == page){%> class="active" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=page%>">
-                                    <%=page%>
-                                    <% if(currentPage == page){%>
+                            <% pageList.forEach(function(page){ %>
+                            <li
+                                    <% if(currentPage == page){ %>
+                                    class="active"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= page %>">
+                                    <%= page %>
+                                    <% if(currentPage == page){ %>
                                     <span class="sr-only">(current)</span>
-                                    <%}%>
+                                    <% } %>
                                 </a>
                             </li>
-                            <%})%>
-                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                            <% }) %>
+                            <li
+                                    <% if(currentPage == totalPage){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= totalPage %>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-                <div class="data-list tab-pane fade <% if(type==1){%>in active<% }%>" id="product_pdf">
+                <div class="data-list tab-pane fade <% if(type == 1){ %>in active<% } %>" id="product_pdf">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -153,6 +170,7 @@
                             </th>
                             <th>语言</th>
                             <th>货号</th>
+                            <th>点击量</th>
                             <th>下载</th>
                             <th>打印</th>
                             <th>分享</th>
@@ -160,48 +178,71 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody class="text-left"  id="product_pdf_list">
-                        <% pdfRes.forEach(function(pdf,index){ %>
+                        <tbody class="text-left" id="product_pdf_list">
+                        <% pdfRes.forEach(function(pdf, index){ %>
                         <tr>
-                            <th scope="row"><%=index+1%></th>
-                            <td><%=pdf.pdf_name%></td>
-                            <td><% if(pdf.language == 1){%>中文<%}else{%>英文<%}%></td>
-                            <td><%=pdf.item_name%></td>
-                            <td><%=pdf.download_num%></td>
-                            <td><%=pdf.print_num%></td>
-                            <td><%=pdf.share_num%></td>
-                            <td><%=pdf.collection_num%></td>
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= pdf.pdf_name %></td>
+                            <td>
+                                <% if(pdf.language == 1){ %>
+                                中文
+                                <% }else{ %>
+                                英文
+                                <% } %>
+                            </td>
+                            <td><%= pdf.item_name %></td>
+                            <td><%= pdf.click_num %></td>
+                            <td><%= pdf.download_num %></td>
+                            <td><%= pdf.print_num %></td>
+                            <td><%= pdf.share_num %></td>
+                            <td><%= pdf.collection_num %></td>
                             <td>
                                 <button id="edit-btn" type="button" class="btn btn-secondary">
-                                    <a data-toggle="modal" data-target="#pdfNameModel" data-id="<%=pdf.id%>" data-name="<%=pdf.pdf_name%>" href="javascript:;" target="_blank">修改</a>
+                                    <a data-toggle="modal" data-target="#pdfNameModel" data-id="<%= pdf.id %>"
+                                       data-name="<%= pdf.pdf_name %>"
+                                       data-click_num="<%= pdf.click_num %>"
+                                       href="javascript:;" target="_blank">修改</a>
                                 </button>
-                                <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_pdf" data-id="<%= pdf.id %>" href="javascript:;" target="_blank">删除</a>
+                                    <button id="delate-btn" type="button" class="btn btn-dark">
+                                    <a class="delete_pdf" data-id="<%= pdf.id %>" href="javascript:;"
+                                       target="_blank">删除</a>
                                 </button>
                             </td>
                         </tr>
-                        <%})%>
+                        <% }) %>
                         </tbody>
                     </table>
                     <nav aria-label="Page navigation">
                         <ul class="pagination pull-right">
-                            <li <% if(currentPage == 1){%> class="disabled" <%}%>>
+                            <li
+                                    <% if(currentPage == 1){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
                                 <a href="javascript:;" class="page" data-page="1" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <% pageList.forEach(function(page){%>
-                            <li <% if(currentPage == page){%> class="active" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=page%>">
-                                    <%=page%>
-                                    <% if(currentPage == page){%>
+                            <% pageList.forEach(function(page){ %>
+                            <li
+                                    <% if(currentPage == page){ %>
+                                    class="active"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= page %>">
+                                    <%= page %>
+                                    <% if(currentPage == page){ %>
                                     <span class="sr-only">(current)</span>
-                                    <%}%>
+                                    <% } %>
                                 </a>
                             </li>
-                            <%})%>
-                            <li <% if(currentPage == totalPage){%> class="disabled" <%}%>>
-                                <a href="javascript:;" class="page" data-page="<%=totalPage%>" aria-label="Next">
+                            <% }) %>
+                            <li
+                                    <% if(currentPage == totalPage){ %>
+                                    class="disabled"
+                                    <% } %>
+                            >
+                                <a href="javascript:;" class="page" data-page="<%= totalPage %>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -219,9 +260,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="exampleModalLabel">修改货号</h4>
-                <input type="hidden" name="item_id" value="" />
+                <input type="hidden" name="item_id" value=""/>
             </div>
             <div class="modal-body">
                 <form>
@@ -238,21 +280,29 @@
         </div>
     </div>
 </div>
-<!-- 修改pdf名称 -->
+<!-- 修改pdf名称和点击量 -->
 <div class="modal fade" id="pdfNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="exampleModalLabel">修改pdf</h4>
-                <input type="hidden" name="pdf_id" value="" />
+                <input type="hidden" name="pdf_id" value=""/>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">pdf名称:</label>
                         <input type="text" class="form-control" name="pdf_name" id="recipient-name">
+
                     </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">点击量:</label>
+                        <input type="text" class="form-control" click_num="click_num" id="recipient-name">
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -266,21 +316,21 @@
 
 <!-- 选择品牌 -->
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         var curr_brand_id = $("#brand tbody tr:first").data('id');
-        var type=0;
+        var type = 0;
         var pageNow = 1;
-        var order = {item:'asc',pdf:'asc'};
+        var order = {item: 'asc', pdf: 'asc'};
         var list_id = {
-            0:'product_number_list',
-            1:'product_pdf_list'
+            0: 'product_number_list',
+            1: 'product_pdf_list'
         };
-        $("#tab-content").load("/admin/pdf?brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-            for(var key in order){
-                if(order[key] == 'asc'){
-                    $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                }else{
-                    $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+        $("#tab-content").load("/admin/pdf?brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+            for (var key in order) {
+                if (order[key] == 'asc') {
+                    $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                } else {
+                    $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                 }
             }
         });
@@ -290,69 +340,69 @@
             $(this).addClass('active').siblings('a').removeClass('active');
             type = $(this).data('type');
             var orderNow;
-            if(type == 0){
+            if (type == 0) {
                 orderNow = order.item;
-            }else{
+            } else {
                 orderNow = order.pdf;
             }
-            $("#tab-content").load("/admin/pdf?order="+orderNow+"&brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            $("#tab-content").load("/admin/pdf?order=" + orderNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                     }
                 }
             });
         });
         //下一页
-        $(document).on('click','.page',function (e) {
+        $(document).on('click', '.page', function (e) {
             var current_page = $(this).data('page');
             pageNow = current_page;
             var orderNow;
-            if(type == 0){
+            if (type == 0) {
                 orderNow = order.item;
-            }else{
+            } else {
                 orderNow = order.pdf;
             }
-            $("#tab-content").load("/admin/pdf?order="+orderNow+"&current_page="+current_page+"&brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            $("#tab-content").load("/admin/pdf?order=" + orderNow + "&current_page=" + current_page + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                     }
                 }
             });
         });
 
         //排序-货号
-        $(document).on("click",".item-click-sort",function(){
-            if(order.item == 'asc'){
+        $(document).on("click", ".item-click-sort", function () {
+            if (order.item == 'asc') {
                 order.item = 'desc';
-            }else{
+            } else {
                 order.item = 'asc';
             }
-            $("#tab-content").load("/admin/pdf?order="+order.item+"&current_page="+pageNow+"&brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-                if(order.item == 'asc'){
+            $("#tab-content").load("/admin/pdf?order=" + order.item + "&current_page=" + pageNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                if (order.item == 'asc') {
                     $(".item-click-sort").find('span').addClass('glyphicon-chevron-up');
-                }else{
+                } else {
                     $(".item-click-sort").find('span').addClass('glyphicon-chevron-down');
                 }
             });
         })
 
         //排序-pdf
-        $(document).on("click",".pdf-click-sort",function(){
-            if(order.pdf == 'asc'){
+        $(document).on("click", ".pdf-click-sort", function () {
+            if (order.pdf == 'asc') {
                 order.pdf = 'desc';
-            }else{
+            } else {
                 order.pdf = 'asc';
             }
-            $("#tab-content").load("/admin/pdf?order="+order.pdf+"&current_page="+pageNow+"&brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-                if(order.pdf == 'asc'){
+            $("#tab-content").load("/admin/pdf?order=" + order.pdf + "&current_page=" + pageNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                if (order.pdf == 'asc') {
                     $(".pdf-click-sort").find('span').addClass('glyphicon-chevron-up');
-                }else{
+                } else {
                     $(".pdf-click-sort").find('span').addClass('glyphicon-chevron-down');
                 }
             });
@@ -370,34 +420,35 @@
         });
 
 
-
         //修改pdf名称模态页
         $('#pdfNameModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('name') // Extract info from data-* attributes
+            var click_num = button.data('click_num')
             var pdf_id = button.data('id');
             var modal = $(this)
             modal.find('.modal-title').text('修改pdf名称 ' + (recipient ? recipient : ''))
             modal.find('.modal-body input[name="pdf_name"]').val(recipient)
+            modal.find('.modal-body input[click_num="click_num"]').val(click_num)
             modal.find('.modal-header input[name="pdf_id"]').val(pdf_id)
         });
 
         $("#brand tbody tr:first").addClass('success');
 
-        $(document).on("click","#brand tbody tr",function(event){
+        $(document).on("click", "#brand tbody tr", function (event) {
             curr_brand_id = $(this).data('id');
             var orderNow;
-            if(type == 0){
+            if (type == 0) {
                 orderNow = order.item;
-            }else{
+            } else {
                 orderNow = order.pdf;
             }
-            $("#tab-content").load("/admin/pdf?order="+orderNow+"&brand_id="+curr_brand_id+"&type="+type+" #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+            $("#tab-content").load("/admin/pdf?order=" + orderNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
                     }
                 }
             });
@@ -407,8 +458,8 @@
         /**
          * 跳转到上传页面
          */
-        $(document).on("click","#showAddPdf",function(){
-            var url = '/admin/showAddpdf?brand_id='+curr_brand_id;
+        $(document).on("click", "#showAddPdf", function () {
+            var url = '/admin/showAddpdf?brand_id=' + curr_brand_id;
             // location.href=url;
             window.open(url);
         });
@@ -416,11 +467,11 @@
         /**
          * 删除pdf
          */
-        $(document).on("click",".delete_pdf",function(){
+        $(document).on("click", ".delete_pdf", function () {
             var that = this;
             layer.confirm('您确定删除该pdf？', {
-                btn: ['确定','取消'] //按钮
-            }, function() {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 var index = layer.load(1, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
@@ -443,7 +494,7 @@
                         layer.closeAll('loading')
                     }
                 });
-            },function(){
+            }, function () {
 
             })
         })
@@ -451,12 +502,12 @@
         /**
          * 删除货号
          */
-        $(document).on("click",".delete_item",function(){
+        $(document).on("click", ".delete_item", function () {
             var that = this;
             layer.confirm('您确定删除该货号？', {
-                btn: ['确定','取消'] //按钮
-            }, function() {
-                if($(that).data('video_tag') > 0 || $(that).data('experiment_tag') > 0 || $(that).data('agency_tag') > 0 ){
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                if ($(that).data('video_tag') > 0 || $(that).data('experiment_tag') > 0 || $(that).data('agency_tag') > 0) {
                     layer.msg("该品牌下面有pdf数量不为0 不能删除", {icon: 0});
                     return;
                 }
@@ -483,16 +534,16 @@
                         layer.closeAll('loading')
                     }
                 })
-            },function(){
+            }, function () {
 
             })
         })
 
         // 输入框搜索
-        $("#inputSearch").keypress(function(event){
-            if(event.keyCode == 13){
+        $("#inputSearch").keypress(function (event) {
+            if (event.keyCode == 13) {
                 var brand_name = $(this).val();
-                $("#brand").load("/admin/searchBrand?brand_name="+brand_name+" #brand>*");
+                $("#brand").load("/admin/searchBrand?brand_name=" + brand_name + " #brand>*");
             }
         });
 
@@ -500,20 +551,20 @@
         /**
          * 修改货号
          */
-        $("#modify_item_name").click(function(event){
+        $("#modify_item_name").click(function (event) {
             var item_name = $("input[name='item_name']").val();
             var item_id = $("input[name='item_id']").val()
             $.ajax({
-                url:'/admin/modifyItemName',
-                type:'post',
-                dataType:'json',
-                data:{
-                    item_name:item_name,
-                    item_id:item_id
+                url: '/admin/modifyItemName',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    item_name: item_name,
+                    item_id: item_id
 
                 },
-                success:function(res){
-                    if(res.res){
+                success: function (res) {
+                    if (res.res) {
                         location.reload();
                     }
                 }
@@ -523,26 +574,27 @@
         /**
          * 修改pdf名称
          */
-        $("#modify_pdf_name").click(function(event){
+        $("#modify_pdf_name").click(function (event) {
             var pdf_name = $("input[name='pdf_name']").val();
+            var click_num = $("input[click_num='click_num']").val();
             var pdf_id = $("input[name='pdf_id']").val();
             $.ajax({
-                url:'/admin/modifyPdfName',
-                type:'post',
-                dataType:'json',
-                data:{
-                    pdf_name:pdf_name,
-                    pdf_id:pdf_id
+                url: '/admin/modifyPdf',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    pdf_name: pdf_name,
+                    pdf_id: pdf_id,
+                    click_num: click_num
 
                 },
-                success:function(res){
-                    if(res.res){
+                success: function (res) {
+                    if (res.res) {
                         location.reload();
                     }
                 }
             })
         });
-
 
 
     })

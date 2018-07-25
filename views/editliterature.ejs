@@ -84,8 +84,8 @@
                                 <input type="text" class="form-control col-sm-4 materials" name="materials[]" value="<%=item.material_name%>">
                             </div>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" value="<%=item.item_id%>" />
-                                <input type="hidden" class="form-control itemId" name="itemId[]" />
+                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" value="<%=item.itemName%>" />
+                                <input type="hidden" class="form-control itemId" name="itemId" value="<%=item.item_id%>"/>
                             </div>
                             <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
                                 选择货号

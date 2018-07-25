@@ -25,6 +25,7 @@
 
 <body>
 
+<!--菜单-->
 <div class="esjy-col">
     <%- include adminNav %>
     <div class="subNav bg-dark ">
@@ -45,6 +46,8 @@
         </div>
     </div>
 </div>
+
+<!--列表-->
 <div class="container-fluid">
     <div class="bio row">
         <div class="left-list col-sm-3">
@@ -53,10 +56,6 @@
                 <span>经销商</span>
             </div>
             <div class="block20"></div>
-            <!-- <div class="form-group has-success has-feedback">
-                 <input type="text" class="form-control" id="inputSearch" aria-describedby="inputSearchStatus"/>
-                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-             </div>-->
             <div style="height:500px;overflow-y:auto;">
             <table class="table table-condensed text-center table-hover" id="agency">
                 <thead>
@@ -101,7 +100,6 @@
                             <th>库存</th>
                             <th>规格</th>
                             <th>更新日期</th>
-                            <!--<th>操作</th>-->
                         </tr>
                         </thead>
                         <tbody class="text-left" id="product_number_list">
@@ -114,18 +112,6 @@
                             <td><%= product.stock %></td>
                             <td><%= product.goods_standard %></td>
                             <td><%= product.update_time %></td>
-                            <!--<td>
-                                <a class="text-primary" data-toggle="modal" data-target="#productNameModel"
-                                   data-id="<%= product.id %>" data-name="<%= product.goods_name %>"
-                                   href="javascript:;">修改</a>
-                                <a class="delete_product text-primary" href="javascript:;" data-id="<%= product.id %>">删除</a>&ndash;&gt;
-                                <button id="edit-btn" type="button" class="btn btn-secondary">
-                                    <a data-toggle="modal" data-target="#productNameModel" data-id="<%= product.id %>" data-name="<%= product.goods_name %>"  href="javascript:;" target="_blank">修改</a>
-                                </button>
-                                <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_product" data-id="<%= product.id %>" href="javascript:;" target="_blank">删除</a>
-                                </button>
-                            </td>-->
                         </tr>
                         <% }) %>
                         </tbody>
@@ -169,7 +155,6 @@
                             <th>库存</th>
                             <th>规格</th>
                             <th>更新日期</th>
-                            <!--<th>操作</th>-->
                         </tr>
                         </thead>
                         <tbody class="text-left" id="product_pdf_list">
@@ -182,18 +167,6 @@
                             <td><%= trailProduct.sample_amount %></td>
                             <td><%= trailProduct.goods_standard %></td>
                             <td><%= trailProduct.update_time %></td>
-                            <!--<td>
-                                <a class="modify text-primary" data-toggle="modal" data-target="#productNameModel"
-                                   data-name="<%= trailProduct.goods_name %>" href="javascript:;">修改</a>
-                                <a class="delete_trailproduct text-primary" href="javascript:;"
-                                   data-id="<%= trailProduct.id %>">删除</a>
-                                <button id="edit-btn" type="button" class="btn btn-secondary">
-                                    <a data-toggle="modal" data-target="#productNameModel" data-id="<%= trailProduct.id %>" data-name="<%= trailProduct.goods_name %>"  href="javascript:;" target="_blank">修改</a>
-                                </button>
-                                <button id="delate-btn" type="button" class="btn btn-dark">
-                                    <a class="delete_product" data-id="<%= trailProduct.id %>" href="javascript:;" target="_blank">删除</a>
-                                </button>
-                            </td>-->
                         </tr>
                         <% }) %>
                         </tbody>
@@ -228,76 +201,31 @@
     </div>
 </div>
 
-<!--&lt;!&ndash; 修改商品名称 &ndash;&gt;-->
-<!--<div class="modal fade" id="productNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>-->
-                <!--</button>-->
-                <!--<h4 class="modal-title" id="exampleModalLabel">修改商品名称</h4>-->
-                <!--<input type="hidden" name="product_id" value=""/>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<form>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="recipient-name" class="control-label">商品名称:</label>-->
-                        <!--<input type="text" class="form-control" name="product_name" id="recipient-name">-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
-                <!--<button type="button" class="btn btn-primary" id="modify_product_name">修改</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash; 添加经销商 &ndash;&gt;-->
-<!--<div class="modal fade" id="agencyNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>-->
-                <!--</button>-->
-                <!--<h4 class="modal-title" id="exampleModalLabel">添加新经销商</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<form>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="recipient-name" class="control-label">经销商名称:</label>-->
-                        <!--<input type="text" class="form-control" name="agencyName" id="recipient-name">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="recipient-name" class="control-label">经销商状态:</label>-->
-                        <!--<select class="form-control" name="agencyStatus">-->
-                            <!--<option value="Y">营业中</option>-->
-                            <!--<option value="N">停业中</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
-                <!--<button type="button" class="btn btn-primary" id="add_agency">确认</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
 
 <!-- 选择品牌 -->
 <script type="text/javascript">
     $(function () {
+
+        /**
+         * 左侧第一个经销商id
+         */
         var curr_agency_id = $("#agency tbody tr:first").data('id');
-        var type = 0;
+        var type = 0; //默认显示商品
         var pageNow = 1;
         var order = {product:'asc',trailProduct:'asc'};
-        var list_id = {
-            0: 'product_number_list',
-            1: 'product_pdf_list'
-        };
-        $("#tab-content").load("/admin/product?agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
+
+        /**
+         * ?????
+         */
+        // var list_id = {
+        //     0: 'product_number_list',
+        //     1: 'product_pdf_list'
+        // };
+
+        /**
+         * 页面打开显示第一个经销商
+         */
+        $("#tab-content").load("/admin/goods?agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
             for(var key in order){
                 if(order[key] == 'asc'){
                     $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
@@ -306,6 +234,10 @@
                 }
             }
         });
+
+        /**
+         * 子菜单---商品 试用品
+         */
         $('#myTabs a.showlist').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
@@ -317,7 +249,8 @@
             }else{
                 orderNow = order.trailProduct;
             }
-            $("#tab-content").load("/admin/product?order="+order+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function(){
+
+            $("#tab-content").load("/admin/goods?order="+orderNow+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function(){
                 for(var key in order){
                     if(order[key] == 'asc'){
                         $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
@@ -327,6 +260,42 @@
                 }
             });
         });
+
+
+
+        /**
+         * 左侧选择经销商
+         */
+        $(document).on("click", "#agency tbody tr", function (event) {
+            curr_agency_id = $(this).data('id');
+            var orderNow;
+            if(type == 0){
+                orderNow = order.product;
+            }else{
+                orderNow = order.trailProduct;
+            }
+
+            $("#tab-content").load("/admin/goods?order="+orderNow+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
+                for(var key in order){
+                    if(order[key] == 'asc'){
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    }else{
+                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
+                    }
+                }
+            });
+
+            $(this).addClass('success').siblings().removeClass('success');
+        });
+        /**
+         * 经销商选中状态
+         */
+        $("#agency tbody tr:first").addClass('success');
+
+//--------
+        /**
+         * 下一页
+         */
         $(document).on('click','.page',function (e) {
             var current_page = $(this).data('page');
             pageNow = current_page;
@@ -336,8 +305,8 @@
             }else{
                 orderNow = order.trailProduct;
             }
-            window.history.pushState(null,null,"/admin/product?order="+orderNow+"&current_page="+current_page+"&agency_id=" + curr_agency_id + "&type=" + type);
-            $("#tab-content").load("/admin/product?order="+orderNow+"&current_page="+current_page+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
+            window.history.pushState(null,null,"/admin/goods?order="+orderNow+"&current_page="+current_page+"&agency_id=" + curr_agency_id + "&type=" + type);
+            $("#tab-content").load("/admin/goods?order="+orderNow+"&current_page="+current_page+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
                 for(var key in order){
                     if(order[key] == 'asc'){
                         $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
@@ -348,13 +317,16 @@
             });
         });
 
+        /**
+         * 排序-商品
+         */
         $(document).on("click",".product-click-sort",function(){
             if(order.product == 'asc'){
                 order.product = 'desc';
             }else{
                 order.product = 'asc';
             }
-            $("#tab-content").load("/admin/product?order="+order.product+"&current_page="+pageNow+"&agency_id="+curr_agency_id+"&type="+type+" #tab-content>div",function () {
+            $("#tab-content").load("/admin/goods?order="+order.product+"&current_page="+pageNow+"&agency_id="+curr_agency_id+"&type="+type+" #tab-content>div",function () {
                 if(order.product == 'asc'){
                     $(".product-click-sort").find('span').addClass('glyphicon-chevron-up');
                 }else{
@@ -362,13 +334,16 @@
                 }
             });
         })
+        /**
+         * 排序-试用品
+         */
         $(document).on("click",".trailProduct-click-sort",function(){
             if(order.trailProduct == 'asc'){
                 order.trailProduct = 'desc';
             }else{
                 order.trailProduct = 'asc';
             }
-            $("#tab-content").load("/admin/product?order="+order.trailProduct+"&current_page="+pageNow+"&agency_id="+curr_agency_id+"&type="+type+" #tab-content>div",function () {
+            $("#tab-content").load("/admin/goods?order="+order.trailProduct+"&current_page="+pageNow+"&agency_id="+curr_agency_id+"&type="+type+" #tab-content>div",function () {
                 if(order.trailProduct == 'asc'){
                     $(".trailProduct-click-sort").find('span').addClass('glyphicon-chevron-up');
                 }else{
@@ -377,87 +352,6 @@
             });
         })
 
-        $('#productNameModel').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('name') // Extract info from data-* attributes
-            var product_id = button.data('id') // Extract info from data-* attributes
-            var modal = $(this)
-            modal.find('.modal-body input[name="product_name"]').val(recipient)
-            modal.find('.modal-header input[name="product_id"]').val(product_id)
-        });
-
-        $("#agency tbody tr:first").addClass('success');
-
-        $(document).on("click", "#agency tbody tr", function (event) {
-            curr_agency_id = $(this).data('id');
-            var orderNow;
-            if(type == 0){
-                orderNow = order.product;
-            }else{
-                orderNow = order.trailProduct;
-            }
-            $("#tab-content").load("/admin/product?order="+orderNow+"&agency_id=" + curr_agency_id + "&type=" + type + " #tab-content>div",function () {
-                for(var key in order){
-                    if(order[key] == 'asc'){
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    }else{
-                        $("."+key+"-click-sort").find("span").addClass('glyphicon-chevron-down');
-                    }
-                }
-            });
-            $(this).addClass('success').siblings().removeClass('success');
-        });
-
-        // 输入框搜索
-        $("#inputSearch").keypress(function (event) {
-            if (event.keyCode == 13) {
-                var agency_name = $(this).val();
-                $("#agency").load("/admin/searchAgency?agency_name=" + agency_name + " #agency>*");
-            }
-        });
-        /**
-         * 添加经销商
-         */
-        $("#add_agency").click(function (event) {
-            var agency_name = $("input[name='agencyName']").val();
-            var agency_status = $("select[name='agencyStatus']").val();
-            $.ajax({
-                url: '/admin/addAgency',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    agency_name: agency_name,
-                    agency_status: agency_status
-                },
-                success: function (res) {
-                    if (res.res) {
-                        location.reload();
-                    }
-                }
-            })
-        });
-        /**
-         * 修改商品或者试用品名称
-         */
-        $("#modify_product_name").click(function (event) {
-            var product_name = $("input[name='product_name']").val();
-            var product_id = $("input[name='product_id']").val()
-            $.ajax({
-                url: '/admin/modifyProductName',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    product_name: product_name,
-                    product_id: product_id
-
-                },
-                success: function (res) {
-                    if (res.res) {
-                        location.reload();
-                    }
-                }
-            })
-        });
 
         /**
          * 跳转到上传页面
@@ -467,40 +361,113 @@
             window.open(url);
         });
 
-        /**
+
+
+
+
+
+
+        // no use输入框搜索
+        // $("#inputSearch").keypress(function (event) {
+        //     if (event.keyCode == 13) {
+        //         var agency_name = $(this).val();
+        //         $("#agency").load("/admin/searchAgency?agency_name=" + agency_name + " #agency>*");
+        //     }
+        // });
+
+        /** no use
+         * 添加经销商
+         */
+        // $("#add_agency").click(function (event) {
+        //     var agency_name = $("input[name='agencyName']").val();
+        //     var agency_status = $("select[name='agencyStatus']").val();
+        //     $.ajax({
+        //         url: '/admin/addAgency',
+        //         type: 'post',
+        //         dataType: 'json',
+        //         data: {
+        //             agency_name: agency_name,
+        //             agency_status: agency_status
+        //         },
+        //         success: function (res) {
+        //             if (res.res) {
+        //                 location.reload();
+        //             }
+        //         }
+        //     })
+        // });
+        /** no use
+         * 修改商品或者试用品名称
+         */
+        // $("#modify_product_name").click(function (event) {
+        //     var product_name = $("input[name='product_name']").val();
+        //     var product_id = $("input[name='product_id']").val()
+        //     $.ajax({
+        //         url: '/admin/modifyProductName',
+        //         type: 'post',
+        //         dataType: 'json',
+        //         data: {
+        //             product_name: product_name,
+        //             product_id: product_id
+        //
+        //         },
+        //         success: function (res) {
+        //             if (res.res) {
+        //                 location.reload();
+        //             }
+        //         }
+        //     })
+        // });
+
+
+
+        /** no use
          * 删除商品
          */
-        $(document).on("click", ".delete_product", function () {
-            var that = this;
-            layer.confirm('您确定删除该商品吗？', {
-                btn: ['确定', '取消'] //按钮
-            }, function () {
-                var index = layer.load(1, {
-                    shade: [0.1, '#fff'] //0.1透明度的白色背景
-                });
-                $.ajax({
-                    url: '/admin/deleteProduct',
-                    type: 'delete',
-                    dataType: 'json',
-                    data: {
-                        product_id: $(that).data('id')
-                    },
-                    success: function (res) {
-                        layer.closeAll('loading')
-                        if (res.res) {
-                            layer.msg(res.mes, {icon: 1}, function (e) {
-                                $(that).parents("tr").remove();
-                            });
-                        }
-                    },
-                    error: function (err) {
-                        layer.closeAll('loading')
-                    }
-                });
-            }, function () {
+        // $(document).on("click", ".delete_product", function () {
+        //     var that = this;
+        //     layer.confirm('您确定删除该商品吗？', {
+        //         btn: ['确定', '取消'] //按钮
+        //     }, function () {
+        //         var index = layer.load(1, {
+        //             shade: [0.1, '#fff'] //0.1透明度的白色背景
+        //         });
+        //         $.ajax({
+        //             url: '/admin/deleteProduct',
+        //             type: 'delete',
+        //             dataType: 'json',
+        //             data: {
+        //                 product_id: $(that).data('id')
+        //             },
+        //             success: function (res) {
+        //                 layer.closeAll('loading')
+        //                 if (res.res) {
+        //                     layer.msg(res.mes, {icon: 1}, function (e) {
+        //                         $(that).parents("tr").remove();
+        //                     });
+        //                 }
+        //             },
+        //             error: function (err) {
+        //                 layer.closeAll('loading')
+        //             }
+        //         });
+        //     }, function () {
+        //
+        //     })
+        // })
 
-            })
-        })
+        /** ？
+         *
+         */
+        // $('#productNameModel').on('show.bs.modal', function (event) {
+        //     var button = $(event.relatedTarget) // Button that triggered the modal
+        //     var recipient = button.data('name') // Extract info from data-* attributes
+        //     var product_id = button.data('id') // Extract info from data-* attributes
+        //     var modal = $(this)
+        //     modal.find('.modal-body input[name="product_name"]').val(recipient)
+        //     modal.find('.modal-header input[name="product_id"]').val(product_id)
+        // });
+
 
     })
 </script>

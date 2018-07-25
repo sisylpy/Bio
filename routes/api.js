@@ -51,11 +51,11 @@ router.get('/getPdfNodeBook',(req,res,next)=>{
 /**
  * 获取文献
  */
-router.get('/getMaterials',(req,res,next)=>{
-    ApiModel.getMaterials(req,res);
+router.get('/getExperiment',(req,res,next)=>{
+    ApiModel.getExperiment(req,res);
 });
 /**
- * 获取相关下载等
+ * 获取相关产品
  */
 router.get('/getRec',(req,res,next)=>{
     ApiModel.getRec(req,res);

@@ -14,6 +14,11 @@ let Common = new CommonBean();
 
 module.exports = {
 
+
+    /**
+     * pdf列表
+     * todo
+     */
     getPdf:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -306,6 +311,8 @@ module.exports = {
             conn.release();
         });
     },
+
+
     getOnePdf:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -376,6 +383,11 @@ module.exports = {
             conn.release();
         });
     },
+
+
+    /**
+     * pdf 统计数字
+     */
     getPdfOtherInfo:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -522,6 +534,11 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 中文手册
+     * todo：
+     */
     getPdfNoteBook:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -559,12 +576,11 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
-     * 获取文献
-     * @param req
-     * @param res
+     * 文献
      */
-    getMaterials:(req,res)=>{
+    getExperiment:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
         pool.getConnection((err, conn) => {
@@ -613,6 +629,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 视频
+     */
     getVideo:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -649,6 +669,12 @@ module.exports = {
             conn.release();
         });
     },
+
+
+    /** ?
+     * todo:
+     * 相关产品
+     */
     getRec:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -748,6 +774,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 现货
+     */
     getProduct:(req,res)=>{
         let pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -784,6 +814,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 试用品
+     */
     getTrailProduct:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -820,6 +854,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 留言
+     */
     getComment:(req,res)=>{
         let pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -899,6 +937,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 留言-提交
+     */
     issueComment:(req,res)=>{
         console.log('ppp0000')
         let pool = connPool().pool;
@@ -936,37 +978,39 @@ module.exports = {
             conn.release();
         });
     },
-    sharePdf:(req,res)=>{
-        let pool = connPool().pool;
-        // 从pool中获取连接(异步,取到后回调)
-        pool.getConnection((err, conn) => {
-            if (err) {
-                res.send("获取连接错误,错误原因:" + err.message);
-                return;
-            }
 
-            let pdf_id = req.body['pdf_id'];
-            let collectSql = "UPDATE pdf SET share_num=share_num+1 WHERE id=?";
-            conn.query(collectSql, [pdf_id],(err, rs) => {
-                if (err) {
-                    res.send("数据库查询错误。" + err.message);
-                    return;
-                }
-                res.json({
-                    res:true,
-                    msg:'收藏成功'
-                })
-                // conn.release();
-            });
-            let operation_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
-            let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '')+'-'+Common.md5(req.headers['user-agent']);
-            let addSql = "INSERT INTO operation(pdf_id,operation_type,operation_time,user_ip,user_id) VALUES (?,?,?,?,?)";
-            conn.query(addSql,[pdf_id,3,operation_time,user_ip,1],(err,rs)=>{
-
-            });
-            conn.release();
-        });
-    },
+    // no use
+    // sharePdf:(req,res)=>{
+    //     let pool = connPool().pool;
+    //     // 从pool中获取连接(异步,取到后回调)
+    //     pool.getConnection((err, conn) => {
+    //         if (err) {
+    //             res.send("获取连接错误,错误原因:" + err.message);
+    //             return;
+    //         }
+    //
+    //         let pdf_id = req.body['pdf_id'];
+    //         let collectSql = "UPDATE pdf SET share_num=share_num+1 WHERE id=?";
+    //         conn.query(collectSql, [pdf_id],(err, rs) => {
+    //             if (err) {
+    //                 res.send("数据库查询错误。" + err.message);
+    //                 return;
+    //             }
+    //             res.json({
+    //                 res:true,
+    //                 msg:'收藏成功'
+    //             })
+    //             // conn.release();
+    //         });
+    //         let operation_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
+    //         let user_ip = req.connection.remoteAddress.replace(/::ffff:/, '')+'-'+Common.md5(req.headers['user-agent']);
+    //         let addSql = "INSERT INTO operation(pdf_id,operation_type,operation_time,user_ip,user_id) VALUES (?,?,?,?,?)";
+    //         conn.query(addSql,[pdf_id,3,operation_time,user_ip,1],(err,rs)=>{
+    //
+    //         });
+    //         conn.release();
+    //     });
+    // },
     /**
      * 收藏pdf
      * @param req
@@ -1038,6 +1082,10 @@ module.exports = {
             conn.release();
         });
     },
+
+    /**
+     * 此用户是否收藏
+     */
     checkIsCollect:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -1066,6 +1114,9 @@ module.exports = {
             conn.release();
         });
     },
+    /**
+     * 我的收藏
+     */
     getCollect:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -1134,6 +1185,9 @@ module.exports = {
             conn.release();
         });
     },
+    /**
+     * 我的操作
+     */
     getMyOperation:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -1226,6 +1280,9 @@ module.exports = {
             conn.release();
         });
     },
+    /**
+     * 我的试用品
+     */
     getMyTrailProduct:(req,res)=>{
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
@@ -1260,6 +1317,7 @@ module.exports = {
             conn.release();
         });
     },
+
     /**
      * 申请试用品
      * @param req
@@ -1304,10 +1362,13 @@ module.exports = {
             console.log(params);
             conn.query(collectSql, params,(err, rs) => {
                 if (err) {
+                    console.log(err);
                     res.json({
                         res:false,
                         msg:"数据库查询错误"+ err.message
                     });
+                    console.log(';;;;;;;;;');
+                    console.log(rs);
                     return;
                 }
                 res.json({
@@ -1320,7 +1381,7 @@ module.exports = {
         });
     },
     /**
-     * 增加视频播放次数
+     * 播放视频
      * @param req
      * @param res
      */

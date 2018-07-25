@@ -22,6 +22,7 @@ module.exports = {
                 res.send("获取连接错误,错误原因:" + err.message);
                 return;
             }
+
             let currentPage = req.query['current_page']?req.query['current_page']:1;
             let order = req.query['order']?req.query['order']:'asc';
             async.series({
@@ -39,9 +40,12 @@ module.exports = {
                                 ' WHERE experiment_id = '+literature.id;
                             conn.query(getItemSql,(err,itemRs)=>{
                                 if (err) {
+                                    console.log('5555555');
+
                                     res.send("数据库查询错误。" + err.message);
                                     return;
                                 }
+
                                 itemRs.forEach((item)=>{
                                     if(literature['item_name'] == undefined){
                                         literature['item_name'] = '';
@@ -122,7 +126,7 @@ module.exports = {
      * @param req
      * @param res
      */
-    add: (req, res) => {
+    add0: (req, res) => {
         let data = req.body;
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {
@@ -177,16 +181,9 @@ module.exports = {
         })
     },
 
-    /**
-     * 修改文献-保存
-     */
-    editSave: (req, res) => {
+    ///
+    add: (req, res) => {
         let data = req.body;
-        console.log('======');
-        console.log(req.body);
-        console.log('======');
-
-
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {
             if (err) {
@@ -199,8 +196,85 @@ module.exports = {
             (() => {
                 let deferred = Q.defer();
                 let current_time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
-                var experiment_id = req.body.experiment_id;
+                let addSql = "INSERT INTO experiment (experiment_name,author,issue_year,issue_time,magazine_name,address,experiment_result,experiment_method,summary,user_id,create_time) values (?,?,?,?,?,?,?,?,?,?,?)";
+                conn.query(addSql, [data.experiment_name,data.author, data.issue_year, data.issue_time, data.magazine_name, data.address, data.experiment_result, data.experiment_method, data.summary, 1, current_time], (err, addRes) => {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve({
+                            experiment_id: addRes.insertId
+                        });
+                    }
+                });
+                return deferred.promise.nodeify(null);
+            })().then((addRes) => {
+                let deferred = Q.defer();
+                let addData = [];
+                for (let index = 0; index < data.itemId.length; index++) {
+                    var itemId = data.itemId[index] == '' ? 0 : data.itemId[index];
+                    addData.push([itemId, addRes.experiment_id, data.materials[index],data.itemNumber]);
+                }
+                let addSql = "INSERT INTO itemMaterials (item_id,experiment_id,material_name,itemName) VALUES ?";
+                conn.query(addSql, [addData], (err, addRes) => {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve({
+                            experiment_id: addRes.insertId
+                        });
+                    }
+                })
+                // return deferred.promise.nodeify(null);
+            }).then((updateRes) =>{
+                let updateData = [];
+                for (let index = 0; index < data.itemId.length; index++) {
+                    var itemId = data.itemId[index];
+                    updateData.push(itemId);
+                }
+                let updateSql = "UPDATE item SET  experiment_tag=experiment_tag+1  WHERE id in (?)";
+                conn.query(updateSql,[updateData],(err,updateRes) => {
+                    console.log('1111');
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            res: false,
+                            mes: err.message
+                        });
+                        return;
+                    }
+                    res.json({
+                        res: true,
+                        mes: '添加成功'
+                    })
+                })
 
+            }).catch((err) => {
+                res.json({
+                    res: false,
+                    mes: err.message
+                })
+            });
+            conn.release();
+        })
+    },
+
+    /** todo: 报错
+     * 修改文献-保存
+     */
+    editSave: (req, res) => {
+        let data = req.body;
+        let pool = connPool().pool;
+        pool.getConnection((err, conn) => {
+            if (err) {
+                res.json({
+                    res: false,
+                    mes: "数据库连接错误"
+                });
+                return;
+            }
+            (() => {
+                let deferred = Q.defer();
+                var experiment_id = req.body.experiment_id;
                 let saveSql = "UPDATE experiment SET  experiment_name=?,author=?,issue_year=?,issue_time=?,magazine_name=?,address=?,experiment_result=?,experiment_method=?,summary=?,user_id=?  WHERE id=?";
                 conn.query(saveSql, [data.experiment_name,data.author, data.issue_year, data.issue_time, data.magazine_name, data.address, data.experiment_result, data.experiment_method, data.summary, 1,experiment_id], (err, addRes) => {
                     if (err) {
@@ -212,14 +286,33 @@ module.exports = {
                     }
                 });
                 return deferred.promise.nodeify(null);
-            })().then((addRes) => {
+                })().then((updateRes) =>{
+                let deferred = Q.defer();
+                let updateData = [];
+                for (let index = 0; index < data.itemId.length; index++) {
+                    var itemId = data.itemId[index];
+                    updateData.push(itemId);
+                }
+                let updateSql = "UPDATE item SET  experiment_tag=experiment_tag-1  WHERE id in (?)";
+                conn.query(updateSql,[updateData],(err,updateRes) => {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve({
+                            experiment_id: updateRes.experiment_id
+                        });
+                    }
+                })
+                // return deferred.promise.nodeify(null);
+            }).then((updateRes) => {
                 let addData = [];
+                var experiment_id = req.body.experiment_id;
                 for (let index = 0; index < data.itemId.length; index++) {
                     var itemId = data.itemId[index] == '' ? 0 : data.itemId[index];
-                    addData.push([itemId, addRes.experiment_id, data.materials[index]]);
+                    addData.push([itemId, experiment_id, data.materials[index],data.itemNumber]);
                 }
                 console.log(addData);
-                let addSql = "INSERT INTO itemMaterials (item_id,experiment_id,material_name) VALUES ?";
+                let addSql = "INSERT INTO itemMaterials (item_id,experiment_id,material_name,itemName) VALUES ?";
                 conn.query(addSql, [addData], (err, addRes) => {
                     if (err) {
                         res.json({
@@ -230,7 +323,7 @@ module.exports = {
                     }
                     res.json({
                         res: true,
-                        mes: '保存成功'
+                        mes: '修改成功'
                     })
                 })
             }).catch((err) => {
@@ -293,20 +386,18 @@ module.exports = {
                     })
                 }
             }, (err, results) => {
-                // console.log(results);
-                // console.log('=========');
+
                 let brandRes = results['brandGet'];
                 let itemRes = results['itemGet'];
                 let literatureOne = results['literatureOne'][0];
                 let time = sd.format(new Date(), "YYYY-MM-DD HH:mm:ss");
                 res.render('editliterature', {currentTime: time, brandRes:brandRes, itemRes: itemRes,literatureOne:literatureOne, channel: 'literature'});
-                // res.render('editliterature', {currentTime: time, brandRes:brandRes, literatureOne:literatureOne, channel: 'literature'});
             });
             conn.release();
         });
     },
 
-    /**
+    /** todo：更新对应字段
      * 删除文献
      * @param req
      * @param res
@@ -333,6 +424,7 @@ module.exports = {
                     mes: "删除成功"
                 });
             });
+            //todo: 增加货号表的 experiment_tag -1；
             let deleteSql = "DELETE FROM itemMaterials WHERE experiment_id=?";
             conn.query(deleteSql, [literatureId], (err, rs) => {
                 if (err) {
@@ -344,7 +436,10 @@ module.exports = {
         });
     },
 
-    /**
+
+
+    // no use
+    /** no use
      * 修改文献名称
      * @param req
      * @param res

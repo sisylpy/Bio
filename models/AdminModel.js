@@ -54,6 +54,8 @@ module.exports = {
             let currentPage = req.query['current_page'] ? req.query['current_page'] : 1;
             let order = req.query['order'] ? req.query['order'] : 'asc';
             async.series({
+
+                // 品牌列表数据
                 brandGet: (callback) => {
                     let brandSql = 'SELECT id,manuName FROM manufacturer ORDER BY manuName ASC';
                     conn.query(brandSql, function (err, rs) {
@@ -65,6 +67,7 @@ module.exports = {
                         // conn.release();
                     })
                 },
+                // 选中品牌的货号
                 itemGet: (callback) => {
                     let itemSql = 'SELECT im.id,item_name,manufacturer_id,manufacturer_sub_id,english_tag,english_tag,experiment_tag,video_tag,stock_tag,samples_tag,message_tag FROM item im' +
                         ' JOIN itemManufacturer imf ON im.id=imf.item_id' +
@@ -260,6 +263,7 @@ module.exports = {
                 res.send("获取连接错误,错误原因:" + err.message);
                 return;
             }
+            console.log('？？？？');
             let brandName = req.query['brand_name'];
             let brandSql = "SELECT id,manuName FROM manufacturer WHERE manuName like '%" + brandName + "%' ORDER BY manuName ASC";
             conn.query(brandSql, (err, rs) => {
@@ -316,11 +320,11 @@ module.exports = {
     },
 
     /**
-     * 修改pdf名称
+     * 修改pdf名称和点击量
      * @param req
      * @param res
      */
-    modifyPdfName: (req, res) => {
+    modifyPdf: (req, res) => {
         let pool = connPool().pool;
         pool.getConnection((err, conn) => {
             if (err) {
@@ -329,10 +333,12 @@ module.exports = {
             }
             let pdfName = req.body.pdf_name;
             let pdfId = req.body.pdf_id;
-            let pdfSql = "UPDATE pdf SET pdf_name=? WHERE id=?";
+            let click_num = req.body.click_num;
 
-            console.log(pdfName,pdfId);
-            conn.query(pdfSql, [pdfName, pdfId], (err, rs) => {
+            let pdfSql = "UPDATE pdf SET pdf_name=? ,click_num=? WHERE id=?";
+
+            console.log(pdfName,click_num,pdfId);
+            conn.query(pdfSql, [pdfName, click_num,pdfId], (err, rs) => {
                 if (err) {
                     res.json({
                         res: false
@@ -609,10 +615,17 @@ module.exports = {
 
     parsePdf: (req, res, webUrl, storagePath) => {
         let someData = req.body;
+
+        console.log('========');
+        console.log(someData);
+
+
         someData.brandId = parseInt(someData.brandId);
         someData.subBrandId = parseInt(someData.subBrandId);
         someData.language = parseInt(someData.language);
         let file = req.file;
+
+
         let pdfOriginalName = file.originalname;
         let pdfPath = storagePath + "/" + file.filename;
         let pdfUrl = webUrl + "/" + file.filename;

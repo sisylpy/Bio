@@ -65,10 +65,10 @@ router.post('/modifyItemName', (req, res, next) => {
     AdminModel.modifyItemName(req, res);
 });
 /**
- * 修改pdf名称
+ * 修改pdf
  */
-router.post('/modifyPdfName', (req, res, next) => {
-    AdminModel.modifyPdfName(req, res);
+router.post('/modifyPdf', (req, res, next) => {
+    AdminModel.modifyPdf(req, res);
 
 });
 /**
@@ -241,10 +241,10 @@ router.post('/importExcel', upload.single('file'), (req, res, next) => {
 
 
 /**
- * 货品列表
+ * 货品
  */
-router.get('/product', (req, res, next) => {
-    AgencyModel.showProduct(req, res);
+router.get('/goods', (req, res, next) => {
+    AgencyModel.showGoods(req, res);
 });
 
 

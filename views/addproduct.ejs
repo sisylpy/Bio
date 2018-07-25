@@ -63,7 +63,7 @@
                 <div class="block20"></div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-3">
-                        <button type="reset" class="btn btn-default" onclick="javascript:location.href='/admin/product'">取消</button>
+                        <button type="reset" class="btn btn-default" onclick="javascript:location.href='/admin/goods'">取消</button>
                     </div>
                     <div class="col-sm-offset-2 col-sm-4">
                         <button type="button" class="btn btn-primary" id="addExcel">添加</button>
@@ -114,7 +114,7 @@
                     layer.closeAll('loading');
                     if(res.res){
                         layer.msg(res.mes, {icon: 1},function (e) {
-                            location.href='/admin/product'
+                            location.href='/admin/goods'
                         });
                     }else{
                         layer.msg(res.mes, {icon: 0});
