@@ -20,7 +20,7 @@ module.exports = {
      * @param req
      * @param res
      */
-    showProduct: (req, res) => {
+    showGoods: (req, res) => {
         var pool = connPool().pool;
         // 从pool中获取连接(异步,取到后回调)
         pool.getConnection((err, conn) => {
@@ -129,6 +129,7 @@ module.exports = {
                                     res.send("数据库查询错误。" + err.message);
                                     return;
                                 }
+
                                 callback(null, rs)
                                 // conn.release();
                             })
@@ -149,6 +150,9 @@ module.exports = {
                 for (let index = 0; index < Math.ceil(length / Common.everyPage); index++) {
                     pageList.push(index + 1);
                 }
+
+                console.log(trailProductsRes);
+                console.log('/////////');
                 let totalPage = pageList[pageList.length - 1];
                 pageList = Common.getPageList(currentPage, pageList);  // 获取显示的列表码
                 res.render('product', {
@@ -315,6 +319,8 @@ module.exports = {
                 var rowCount = sheetData.length;
                 var keyName = sheetData[0];  // 表头
                 var keys = [];  // 存储表头对应的key
+
+
                 // 转换表头名称为实际key
                 for (var index = 0; index < keyName.length; index++) {
                     keys.push(nameToKey[keyName[index]]);
@@ -328,6 +334,7 @@ module.exports = {
                         }
                         excelData[sheet][keys[j]].push(rowData[j].toString()); // data in j column of the given row
                     }
+
                 }
             }
         }
@@ -413,6 +420,7 @@ module.exports = {
                             data.type_id == 1 ? (excelData[0]['sample_amount'][index] == undefined ? 0 : excelData[0]['sample_amount'][index]) : 0
                             // data.type_id == 1 ? excelData[0]['sample_amount'][index] : 0
                         ])
+
                     }
                     let addSql = "INSERT INTO itemGoods(agency_id,item_id,manufacturer_name,goods_name,goods_standard,stock,unit,manufactur_price,sale_price,sales_area,person_name,person_phone,update_time,type_id,sample_amount) VALUES ?";
                     conn.query(addSql, [addData], (err, rs) => {
