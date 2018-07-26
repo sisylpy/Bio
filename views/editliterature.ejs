@@ -75,6 +75,9 @@
                 </div>
                 <div class="block10"></div>
                 <div class="my-input-group" id="my-input-group">
+                    <% orItemIds.forEach(function (orItemId) { %>
+                    <input type="hidden" class="form-control orItemId" name="orItemId" value="<%=orItemId.item_id%>"/>
+                    <%  })%>
 
                     <% itemRes.forEach(function (item,index) {  %>
                     <div class="form-group itemMaterials remove">
@@ -84,8 +87,9 @@
                                 <input type="text" class="form-control col-sm-4 materials" name="materials[]" value="<%=item.material_name%>">
                             </div>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" value="<%=item.itemName%>" />
-                                <input type="hidden" class="form-control itemId" name="itemId" value="<%=item.item_id%>"/>
+                                <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" value="<%=item.item_name%>" />
+                                <input type="hidden" class="form-control itemId" name="itemId" value="<%=item.id%>"/>
+                                <input type="hidden" class="form-control id" name="id" value="<%=item.imid%>"/>
                             </div>
                             <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
                                 选择货号
@@ -116,7 +120,9 @@
                                 </div>
                                 <div class="col-xs-5">
                                     <input type="text" class="form-control col-sm-4 itemNumber" name="itemNumber[]" />
-                                    <input type="hidden" class="form-control itemId" name="itemId[]" />
+                                    <input type="hidden" class="form-control itemId" name="itemId[]"/>
+                                    <input type="hidden" class="form-control id" name="id[]" value="0"/>
+                                    <input type="hidden" class="form-control orItemId" name="orItemId[]" value="0"/>
                                 </div>
                                 <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">
                                     选择货号
@@ -135,14 +141,12 @@
                     <label for="recipient-name" class="control-label col-sm-1">实验方法:</label>
                     <div class="col-sm-11">
                         <textarea name="experiment_method" class="form-control" id="recipient-name" rows="5"><%=literatureOne.experiment_method%></textarea>
-                        <!--<input type="text" class="form-control" name="experiment_method" id="recipient-name">-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label col-sm-1">实验结果:</label>
                     <div class="col-sm-11">
                         <textarea name="experiment_result" class="form-control" id="recipient-name" rows="5"><%=literatureOne.experiment_result%></textarea>
-                        <!--<input type="text" class="form-control" name="experiment_result" id="recipient-name">-->
                     </div>
                 </div>
                 <div class="form-group">
@@ -235,6 +239,7 @@
                 '           <div class="col-xs-5">' +
                 '               <input type="text" class="form-control itemNumber" name="itemNumber[]">' +
                 '               <input type="hidden" class="form-control itemId" name="itemId[]" />' +
+                '               <input type="hidden" class="form-control id" name="id[]" />' +
                 '           </div>' +
                 '           <a data-toggle="modal" data-target="#selectItemModel" class="btn btn-primary btn-sm">' +
                 '             选择货号' +

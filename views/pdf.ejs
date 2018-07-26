@@ -69,12 +69,16 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <%if(brandRes.length > 0) {%>
                 <% brandRes.forEach(function(brand, index){ %>
                 <tr class="handle" data-id="<%= brand.id %>">
                     <th><%= index+1 %></th>
                     <td><%= brand.manuName %></td>
                 </tr>
                 <% }) %>
+                <% }%>
+
                 </tbody>
             </table>
             <!--</div>-->
@@ -325,6 +329,9 @@
             0: 'product_number_list',
             1: 'product_pdf_list'
         };
+
+
+
         $("#tab-content").load("/admin/pdf?brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
             for (var key in order) {
                 if (order[key] == 'asc') {

@@ -263,7 +263,6 @@ module.exports = {
                 res.send("获取连接错误,错误原因:" + err.message);
                 return;
             }
-            console.log('？？？？');
             let brandName = req.query['brand_name'];
             let brandSql = "SELECT id,manuName FROM manufacturer WHERE manuName like '%" + brandName + "%' ORDER BY manuName ASC";
             conn.query(brandSql, (err, rs) => {
@@ -271,15 +270,15 @@ module.exports = {
                     res.send("数据库查询错误。" + err.message);
                     return;
                 }
+                console.log(rs);
                 let itemRes = [];
                 let pdfRes = [];
                 let pageList = [];
                 let currentPage = 1;
-                console.log(rs);
-
+                let totalPage = 1;
                 res.render('pdf', {
                     brandRes: rs, itemRes: itemRes, pdfRes: pdfRes, type: 0, pageList: pageList,
-                    currentPage: currentPage, channel: 'handle'
+                    currentPage: currentPage, totalPage:totalPage, channel: 'handle'
                 });
             });
             conn.release();
