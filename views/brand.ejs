@@ -5,9 +5,36 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    　<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!--wang-->
+    <!--<script src="/jquery-3.2.1.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"-->
+            <!--integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"-->
+            <!--crossorigin="anonymous"></script>-->
+    <!--<script src="/bootstrap/js/bootstrap.min.js"></script>-->
+    <!---->
+    <!--<script src="/layer/layer.js"></script>-->
+
+    <!--<script src="/pdfjs/build/pdf.js"></script>-->
+    <!--<script src="/pdfjs/web/viewer.js"></script>-->
+
+    <!--<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">-->
+    <!--<link rel="stylesheet" href="/layer/css/layer.css">-->
+    <!--<link rel="stylesheet" href="/stylesheets/adminLogin.css">-->
+    <!--<link rel="stylesheet" href="/stylesheets/adminNav.css">-->
+
     <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+
+
+        <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+
     <script src="/jquery-3.2.1.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -40,15 +67,25 @@
             <a href="#agency_list" id="agency-tab" role="tab" data-toggle="pill" aria-controls="agency"
                class="showlist <% if(type == 1){ %>active<% } %>"
                data-type="1">经销商</a>
-            <button type="button" class="btn btn-dark add-btn addNew" id="addNewBrand">
-                <a href="javascript:;" target="_blank" data-toggle="modal" data-target="#addBrandNameModel">添加品牌</a>
+            <!--<button type="button" class="btn btn-dark add-btn addNew" id="addNewBrand" target="_blank" data-toggle="modal" data-target="#addBrandNameModel">-->
+                <!--<a href="javascript:;" target="_blank" data-toggle="modal" data-target="#addBrandNameModel">添加品牌</a>-->
+            <!--</button>-->
+
+            <button type="button" class="btn btn-dark add-btn addNew" id="addTest">
+                <a href="javascript:;" target="_blank" data-toggle="modal" data-target="#addTestModel">添加品牌</a>
             </button>
+
             <button type="button" class="btn btn-dark add-btn addNew" id="addNewAgency">
                 <a href="javascript:;" target="_blank" data-toggle="modal" data-target="#addAgencyNameModel">添加经销商</a>
             </button>
         </div>
     </div>
 </div>
+
+
+<!--<div class="alert alert-primary" role="alert">-->
+    <!--This is a primary alert—check it out!-->
+<!--</div>-->
 
 <!--列表部分-->
 <div class="container-fluid">
@@ -246,14 +283,16 @@
         </div>
     </div>
 </div>
+
 <!-- 添加品牌 -->
-<div class="modal fade" id="addBrandNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="addTestModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">添加新品牌</h4>
+                <h4 class="modal-title" id="exampleModalLabel">品牌名称</h4>
+                <input type="hidden" name="brandId" value=""/>
             </div>
             <div class="modal-body">
                 <form>
@@ -265,11 +304,41 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="add_brand">确认</button>
+                <button type="button" class="btn btn-primary" id="add_brand">保存</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<!--<div class="modal fade" id="addBrandNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">-->
+    <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <!--<h4 class="modal-title" id="exampleModalLabel">添加新品牌</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<form>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="recipient-name" class="control-label">品牌名称:</label>-->
+                        <!--<input type="text" class="form-control" name="addBrandName" id="recipient-name">-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                <!--<button type="button" class="btn btn-primary" id="add_brand">确认</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+
 
 <!-- 修改经销商名称 -->
 <div class="modal fade" id="agencyNameModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -336,7 +405,17 @@
 </div>
 
 <script type="text/javascript">
+
+
+
     $(function () {
+    //    $('#addNewBrand').on('click',function () {
+      //      alert('vvvvvvv')
+        //})
+
+        var btn = document.getElementById('addNewBrand');
+
+
         var type = 0;
         var order = {brand: 'asc', agency: 'asc'};
         var pageNow = 1;
@@ -439,6 +518,7 @@
          * 添加品牌
          */
         $("#add_brand").click(function (event) {
+            console.log('kdalfaslfj');
             var brand_name = $("input[name='addBrandName']").val();
             var index = layer.load(1, {
                 shade: [0.1, '#fff'] //0.1透明度的白色背景

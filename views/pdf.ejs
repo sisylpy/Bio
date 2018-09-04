@@ -39,9 +39,8 @@
                class="showlist <% if(type == 1){ %>active<% } %>"
                data-type="1">pdf</a>
 
-            <button type="button" class="btn btn-dark add-btn addNew" id="addNewPdf">
-                <a href="javascript:;" target="_blank" data-toggle="modal" id="showAddPdf"
-                   data-target="#addBrandNameModel">上传pdf</a>
+            <button type="button" class="btn btn-dark add-btn addNew" id="addNewPdf" style="border: 1px solid pink">
+                <a href="javascript:;" target="_blank" data-toggle="modal" id="showAddPdf" data-target="#addBrandNameModel">上传pdf</a>
             </button>
         </div>
     </div>
@@ -87,6 +86,7 @@
         <div class="col-sm-9">
             <div class="block20"></div>
             <div class="tab-content" id="tab-content">
+
                 <div class="data-list tab-pane fade <% if(type == 0){ %>in active<% } %>" id="product_number">
                     <table class="table table-striped">
                         <thead>
@@ -163,6 +163,8 @@
                         </ul>
                     </nav>
                 </div>
+
+
                 <div class="data-list tab-pane fade <% if(type == 1){ %>in active<% } %>" id="product_pdf">
                     <table class="table table-striped">
                         <thead>
@@ -207,7 +209,7 @@
                                        data-click_num="<%= pdf.click_num %>"
                                        href="javascript:;" target="_blank">修改</a>
                                 </button>
-                                    <button id="delate-btn" type="button" class="btn btn-dark">
+                                <button id="delate-btn" type="button" class="btn btn-dark">
                                     <a class="delete_pdf" data-id="<%= pdf.id %>" href="javascript:;"
                                        target="_blank">删除</a>
                                 </button>
@@ -253,6 +255,8 @@
                         </ul>
                     </nav>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -341,6 +345,7 @@
                 }
             }
         });
+
         $('#myTabs a.showlist').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
@@ -362,6 +367,30 @@
                 }
             });
         });
+
+        $("#brand tbody tr:first").addClass('success');
+
+        $(document).on("click", "#brand tbody tr", function (event) {
+            curr_brand_id = $(this).data('id');
+            var orderNow;
+            if (type == 0) {
+                orderNow = order.item;
+            } else {
+                orderNow = order.pdf;
+            }
+            $("#tab-content").load("/admin/pdf?order=" + orderNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
+                for (var key in order) {
+                    if (order[key] == 'asc') {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
+                    } else {
+                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
+                    }
+                }
+            });
+            $(this).addClass('success').siblings().removeClass('success');
+        });
+
+
         //下一页
         $(document).on('click', '.page', function (e) {
             var current_page = $(this).data('page');
@@ -382,6 +411,10 @@
                 }
             });
         });
+
+
+
+
 
         //排序-货号
         $(document).on("click", ".item-click-sort", function () {
@@ -415,7 +448,10 @@
             });
         })
 
-        //修改货号模态页
+
+        /**
+         * 修改货号模态页
+         */
         $('#productNumberModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('name') // Extract info from data-* attributes
@@ -426,8 +462,9 @@
             modal.find('.modal-header input[name="item_id"]').val(item_id)
         });
 
-
-        //修改pdf名称模态页
+        /**
+         *修改pdf名称模态页
+         */
         $('#pdfNameModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('name') // Extract info from data-* attributes
@@ -440,35 +477,16 @@
             modal.find('.modal-header input[name="pdf_id"]').val(pdf_id)
         });
 
-        $("#brand tbody tr:first").addClass('success');
-
-        $(document).on("click", "#brand tbody tr", function (event) {
-            curr_brand_id = $(this).data('id');
-            var orderNow;
-            if (type == 0) {
-                orderNow = order.item;
-            } else {
-                orderNow = order.pdf;
-            }
-            $("#tab-content").load("/admin/pdf?order=" + orderNow + "&brand_id=" + curr_brand_id + "&type=" + type + " #tab-content>div", function () {
-                for (var key in order) {
-                    if (order[key] == 'asc') {
-                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-up');
-                    } else {
-                        $("." + key + "-click-sort").find("span").addClass('glyphicon-chevron-down');
-                    }
-                }
-            });
-            $(this).addClass('success').siblings().removeClass('success');
-        });
-
         /**
          * 跳转到上传页面
          */
-        $(document).on("click", "#showAddPdf", function () {
+        $(document).on("click", "#addNewPdf", function () {
+            console.log('aaa');
             var url = '/admin/showAddpdf?brand_id=' + curr_brand_id;
             // location.href=url;
+            console.log('bbb');
             window.open(url);
+            console.log('ccc');
         });
 
         /**
@@ -553,7 +571,6 @@
                 $("#brand").load("/admin/searchBrand?brand_name=" + brand_name + " #brand>*");
             }
         });
-
 
         /**
          * 修改货号

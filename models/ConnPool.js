@@ -5,16 +5,16 @@ module.exports = (function () {
 
     var mysqlInfo = {
 
-        // host: '47.104.10.19',       //fb linux
-        // user: 'root',
+         host: '47.104.10.19',       //fb linux
+         user: 'root',
 
-        // host: '47.104.10.19',       //lpy linux
-        // user: 'root',
+        //host: '120.27.19.17',       //lpy linux
+       // user: 'root',
 
-        host: '127.0.0.1',       //
-        user: 'admin',  //MySQL认证用户名
+        // host: '47.104.10.19',       //
+        // user: 'admin',  //MySQL认证用户名
 
-        password: 'Swolo12345!@#$%',        //MySQL认证用户密码
+        password: 'bio12345',        //MySQL认证用户密码
         database: 'Bio',
         port: '3306',                   //端口号
         dateStrings:true,

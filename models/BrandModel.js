@@ -191,6 +191,8 @@ module.exports = {
                     });
                     return;
                 }
+                console.log(checkRes);
+                console.log('check');
                 if (checkRes[0].count > 0) {
                     res.json({
                         res: false,

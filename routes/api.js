@@ -39,9 +39,32 @@ router.get('/searchPdf',(req,res,next)=>{
     ApiModel.searchPdf(req,res);
 });
 
+/**
+ * 打开详细pdf页面
+ */
 router.get('/getOnePdf',(req,res,next)=>{
     ApiModel.getOnePdf(req,res);
 });
+
+
+/**
+ * 打开英文pdf页面
+ */
+router.get('/getEnglishPdf',(req,res,next)=>{
+    ApiModel.getEnglishPdf(req,res);
+});
+
+
+
+/**
+ * 打开中午pdf页面
+ */
+router.get('/getChinesePdf',(req,res,next)=>{
+    ApiModel.getChinesePdf(req,res);
+});
+
+
+
 /**
  * 获取手册
  */
@@ -158,6 +181,8 @@ router.post('/sharePdf',(req,res,next)=>{
  * 获取pdf其它相关信息  每个条目右边的数字
  */
 router.get('/getPdfOtherInfo',(req,res,next)=>{
+    console.log(req.query);
+    console.log('++++++');
     ApiModel.getPdfOtherInfo(req,res);
 });
 

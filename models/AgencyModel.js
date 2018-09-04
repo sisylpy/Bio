@@ -331,7 +331,7 @@ module.exports = {
                     for (var j = 0; j < columnCount; j++) {
                         if (excelData[sheet][keys[j]] == undefined) {
                             excelData[sheet][keys[j]] = [];
-                        }
+                        }≤
                         excelData[sheet][keys[j]].push(rowData[j].toString()); // data in j column of the given row
                     }
 

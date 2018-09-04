@@ -244,20 +244,20 @@
 
             });
         });
-        $.ajax({
-            url: '/api/getPdf',
-            type: 'get',
-            dataType: 'json',
-            success: function (res) {
-                console.log(res)
-                if (res.res) {
-
-                }
-            },
-            error: function (err) {
-                layer.closeAll('loading')
-            }
-        });
+        // $.ajax({
+        //     url: '/api/getPdf',
+        //     type: 'get',
+        //     dataType: 'json',
+        //     success: function (res) {
+        //         console.log(res)
+        //         if (res.res) {
+        //
+        //         }
+        //     },
+        //     error: function (err) {
+        //         layer.closeAll('loading')
+        //     }
+        // });
     });
     /*$(function(){
         $("#displayPdfIframe").attr("src",'http://192.168.1.107:3005/pdfjs/web/viewer.html?file=' + encodeURIComponent('http://192.168.1.107:3005/uploads/file-1527689107799.pdf')+'&pdf_id=4');

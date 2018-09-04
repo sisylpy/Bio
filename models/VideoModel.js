@@ -203,8 +203,6 @@ module.exports = {
                         });
                         return;
                     }
-                  console.log('1111addd');
-
                   res.json({
                         res: true,
                         mes: '添加成功'

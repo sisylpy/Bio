@@ -25,7 +25,7 @@ module.exports = {
             let order = req.query['order']?req.query['order']:'asc';
             async.series({
                 messageGet: (callback) => {
-                    let messageSql = 'SELECT im.id,pdf_name,create_time,user_ip,goods_name,message_content,check_status FROM itemMessage im' +
+                    let messageSql = 'SELECT im.id,p.id as pid,pdf_name,create_time,user_ip,goods_name,message_content,check_status FROM itemMessage im' +
                         ' LEFT JOIN pdf p ON p.id=im.pdf_id' +
                         ' LEFT JOIN itemGoods ig ON ig.id=im.product_id ORDER BY pdf_name '+order+' LIMIT '+(currentPage-1)*Common.everyPage+','+Common.everyPage;
                     conn.query(messageSql, function (err, rs) {
@@ -33,6 +33,8 @@ module.exports = {
                             res.send("数据库查询错误。" + err.message);
                             return;
                         }
+                        console.log(rs);
+                        console.log('*****');
                         callback(null, rs);
                         // conn.release();
                     })
@@ -187,20 +189,33 @@ module.exports = {
                 res.send("获取连接错误,错误原因:" + err.message);
                 return;
             }
-
             let message_id = req.body['message_id'];
+            let pdf_id = req.body['pid'];
             let collectSql = "UPDATE itemMessage SET check_status=1 WHERE id=?";
             conn.query(collectSql, [message_id], (err, rs) => {
                 if (err) {
                     res.send("数据库查询错误。" + err.message);
                     return;
                 }
-                res.json({
-                    res: true,
-                    msg: '审核成功'
+                let messageSql = "UPDATE pdf SET message_num=message_num+1 WHERE id=?";
+                conn.query(messageSql,[pdf_id], (err,rsmess) =>{
+                    if(err) {
+                        res.send("数据库查询错误。"  + err.message);
+                        return;
+                    }
+                    else{
+                        res.json({
+                            res: true,
+                            msg: '审核成功000'
+                        })
+                    }
                 })
+
+
                 // conn.release();
             });
+
+
             conn.release();
         })
     },

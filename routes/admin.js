@@ -11,6 +11,8 @@ var VideoModel = require('../models/VideoModel');
 var UsersModel = require('../models/UsersModel');
 var BrandModel = require('../models/BrandModel');
 var multer = require('multer');
+var checkSession = require('../jsBean/CheckSession');
+
 var router = express.Router();
 var sd = require('silly-datetime');
 
@@ -28,22 +30,38 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage});
 
-
-//后台
-router.post('/adminLogin', function (req, res, next) {
-  AdminModel.adminLogin(req,res);
+/**
+ * 上传ceshi
+ */
+router.all('/testUpload', upload.single('file'), (req, res, next) => {
+    // 文件上传成功以后 将pdf转换为文本
+    console.log('000');
+    AdminModel.testUpload(req, res, webUrl, storagePath);
 });
+
+router.get('/dk', (req,res,next) =>{
+     res.render('test');
+})
+
 
 /**
  * 获取品牌
  */
 router.get('/brand',(req,res,next)=>{
-    BrandModel.show(req,res);
+    loginbean = checkSession.check(req, res);
+    if (!loginbean) {res.render('admin');}
+    else {
+        BrandModel.show(req,res);
+    }
 });
 
 //操作手册
 router.all('/pdf', (req, res, next) => {
-    AdminModel.getPdf(req, res);
+    loginbean = checkSession.check(req, res);
+    if (!loginbean) {res.render('admin');}
+    else {
+        AdminModel.getPdf(req, res);
+    }
 });
 
 /**
@@ -56,6 +74,7 @@ router.get('/searchBrand', (req, res, next) => {
  * 添加品牌
  */
 router.post('/addBrand', (req, res, next) => {
+    console.log('pinabai tianjia ');
     BrandModel.addBrand(req, res);
 });
 /**
@@ -132,6 +151,8 @@ router.all('/videoUpload', upload.single('file'), (req, res, next) => {
  */
 router.get('/literature', (req, res, next) => {
     LiteratureModel.show(req, res);
+
+
 });
 
 /**
@@ -146,6 +167,8 @@ router.get('/addliterature', (req, res, next) => {
  */
 router.get('/video', (req, res, next) => {
     VideoModel.show(req, res);
+
+
 });
 
 /**
@@ -230,7 +253,10 @@ router.delete('/deleteAgency',(req,res,next)=>{
  */
 router.get('/showAddProduct', (req, res, next) => {
     let type_id = req.query.type_id;
-    res.render('addproduct', {type_id: type_id,channel:'agency'});
+    let cur_id = req.query.cur_id;
+    let cur_name = req.query.cur_name;
+    res.render('addproduct', {type_id: type_id,cur_id: cur_id,cur_name:cur_name});
+
 });
 /**
  * 导入excel商品或者试用品
@@ -287,7 +313,6 @@ router.post('/downPdf',(req,res,next)=>{
 router.get('/users',(req,res,next)=>{
     UsersModel.show(req,res);
 });
-
 
 
 /**

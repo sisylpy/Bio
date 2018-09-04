@@ -323,6 +323,7 @@ module.exports = {
                 console.log('tag+1  ===> updateAddData ++++++++');
                 console.log(updateAddData);
 
+                //todo: 添加 文献 experiment_tag+1 已改!
                 let updateSql = "UPDATE item SET  experiment_tag=experiment_tag+1  WHERE id in (?)";
                 conn.query(updateSql,[updateAddData],(err,updateRes) => {
                     if (err) {
@@ -378,8 +379,6 @@ module.exports = {
                         mes: '修改成功'
                     })
                 })
-
-
             }).catch((err) => {
                 res.json({
                     res: false,
@@ -417,7 +416,8 @@ module.exports = {
 
                 itemGet: (callback) => {
                     let literatureId = req.query['literature_id'];
-                    let itemSql = "SELECT im.id as imid , i.id, i.item_name FROM itemMaterials  im JOIN item  i on  im.item_id = i.id WHERE experiment_id=" + literatureId;
+                    let itemSql = "SELECT im.id as imid , i.id, i.item_name FROM itemMaterials  im " +
+                        " JOIN item  i on  im.item_id = i.id WHERE experiment_id=" + literatureId ;
                     conn.query(itemSql, function (err, rs) {
                         if (err) {
                             res.send("数据库查询错误。" + err.message);
@@ -491,6 +491,7 @@ module.exports = {
                 });
             });
 
+            //todo: 删除 文献 experiment_tag-1 已改!
             let updateTagSql = "UPDATE item SET experiment_tag=experiment_tag-1 where id in " +
                 "(SELECT item_id from itemMaterials WHERE experiment_id = ?) ";
             conn.query(updateTagSql,[literatureId],(err,rs) => {

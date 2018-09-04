@@ -24,7 +24,8 @@ module.exports = {
                     let brandId = req.query.brand_id == undefined ? 0 : req.query.brand_id;
                     let itemSql = 'SELECT im.id,item_name,manufacturer_id,manufacturer_sub_id,english_tag,english_tag,experiment_tag,video_tag,stock_tag,samples_tag,message_tag FROM item im' +
                         ' JOIN itemManufacturer imf ON im.id=imf.item_id' +
-                        '  WHERE manufacturer_id =' + brandId + ' or manufacturer_sub_id=' + brandId;
+                        '  WHERE manufacturer_id =' + brandId + ' or manufacturer_sub_id=' + brandId +
+                        ' ORDER BY item_name ASC';
                     conn.query(itemSql, function (err, rs) {
                         if (err) {
                             res.send("数据库查询错误。" + err.message);

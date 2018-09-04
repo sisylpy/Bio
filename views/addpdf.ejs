@@ -28,7 +28,7 @@
     <div id="topBlack" class="bg-dark"></div>
     <div class="navbar">
         <div class="nav">
-            <a class="logo" href="/" >Bio管理系统</a>
+            <a class="logo" href="/">Bio管理系统</a>
             <div class="line">添加PDF</div>
         </div>
 
@@ -41,12 +41,13 @@
         <div class="col-sm-12">
             <div class="block10"></div>
             <form class="form-horizontal">
-                <input type="hidden" name="brand_id" value="<%=brandId%>" />
-                <input type="hidden" name="sub_brand_id" value="0" />
+                <input type="hidden" name="brand_id" value="<%= brandId %>"/>
+                <input type="hidden" name="sub_brand_id" value="0"/>
                 <div class="form-group">
                     <label for="recipient-name" class="control-label col-sm-1">品牌:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" value="<%=brandName%>" name="BrandName" id="recipient-name" readonly>
+                        <input type="text" class="form-control" value="<%= brandName %>" name="BrandName"
+                               id="recipient-name" readonly>
                     </div>
                 </div>
                 <div class="block10"></div>
@@ -76,13 +77,34 @@
                     <div class="col-sm-10">
                         <blockquote class="layui-elem-quote layui-quote-nm">
                             <div class="layui-upload-list" id="uploadFileList">
-
+                                <!-- //-->
+                                <!--<div class="layui-upload">-->
+                                <!--<button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>-->
+                                <!--<div class="layui-upload-list">-->
+                                <table class="layui-table">
+                                    <thead>
+                                    <tr>
+                                        <th type="numbers">序号</th>
+                                        <th>文件名</th>
+                                        <th>大小</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="demoList"></tbody>
+                                </table>
+                                <!--</div>-->
+                                <!--<button type="button" class="layui-btn" id="testListAction">开始上传</button>-->
+                                <!--<button type="button" class="layui-btn" id="back">返回</button>-->
+                                <!--</div>-->
+                                <!-- //-->
                             </div>
                         </blockquote>
                     </div>
-                    <a class="btn btn-primary btn-sm " id="fileupload">
-                        <i class="glyphicon glyphicon-upload" aria-hidden="true"></i>
-                        <span>上传</span>
+                    <!--<a class="btn btn-primary btn-sm " id="fileupload">-->
+                    <a class="btn btn-primary btn-sm " id="testLoad">
+                        <!--<i class="glyphicon glyphicon-upload" aria-hidden="true"></i>-->
+                        <span>上传pdf</span>
                     </a>
                 </div>
             </form>
@@ -91,7 +113,6 @@
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
                 <button type="button" class="btn btn-default" id="cacel">取消</button>
-
             </div>
             <div class="col-sm-offset-2 col-sm-4">
                 <button type="button" class="btn btn-primary" id="sure">确定</button>
@@ -105,24 +126,39 @@
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="exampleModalLabel">选择品牌</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-condensed text-center table-hover" id="brand">
+                <!--<table class="table table-condensed text-center table-hover" id="brand">-->
+                    <!--<% brandRes.forEach(function(brand){ %>-->
+                    <!--<tr class="handle" data-id="<%= brand.id %>" data-name="<%= brand.manuName %>">-->
+                        <!--<td><%= brand.manuName %></td>-->
+                    <!--</tr>-->
+                    <!--<% }) %>-->
+                <!--</table>-->
+
+                <ul class="table table-condensed text-center table-hover" id="brand">
                     <% brandRes.forEach(function(brand){ %>
-                    <tr class="handle" data-id="<%=brand.id%>" data-name="<%=brand.manuName%>">
-                        <td><%=brand.manuName%></td>
-                    </tr>
-                    <% })%>
-                </table>
+                    <li class="handle" data-id="<%= brand.id %>" data-name="<%= brand.manuName %>">
+                        <%= brand.manuName %>
+                    </li>
+                    <% }) %>
+                </ul>
+
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    $(function(){
-        var sub_brand_id = 0;
+    $(function () {
+        let sub_brand_id = 0;
+
+        let len = $('#demoList').children.length;
+        for(let i = 1;i<len;i++){
+            $('table tr:eq('+i+') td:first').text(i);
+        }
 
         $(".handle").click(function (event) {
             sub_brand_id = $(this).data('id');
@@ -131,7 +167,8 @@
             $("#selectSubBrand").modal('hide');
         });
         var uploadFiles = [];
-        layui.use('upload',function(){
+        layui.use('upload', function () {
+            var $ = layui.jquery;
             var upload = layui.upload;
             var toUploadNum = 0;
             var uploadedNum = 0;
@@ -142,74 +179,181 @@
             var fileObj;
             var fileInfo = [];
             var retryUploadNum = 3;
+
+            var demoListView = $('#demoList');
+
             var uploadInst = upload.render({
-                elem:"#fileupload",
+                elem: "#testLoad",
                 url: '/admin/pdfUpload',
-                multiple:true,
-                exts:'pdf',
-                number:100,
-                bindAction:"#sure",
-                auto:false,
-                data:{
-                    brandId:function(){ return $("input[name='brand_id']").val();},
-                    subBrandId:function(){ return $("input[name='sub_brand_id']").val();},
-                    language:function(){ return $("select[name='language']").val();}
+                multiple: true,
+                exts: 'pdf',
+                number: 100,
+                bindAction: "#sure",
+                auto: false,
+                data: {
+                    brandId: function () {
+                        return $("input[name='brand_id']").val();
+                    },
+                    subBrandId: function () {
+                        return $("input[name='sub_brand_id']").val();
+                    },
+                    language: function () {
+                        return $("select[name='language']").val();
+                    }
                 },
-                choose:function(obj){
-                    uploadFiles = obj.pushFile();
-                    fileObj = obj;
-                    obj.preview(function(index,file,result){
-                        var list = '<div class="form-group has-success has-feedback add_file_div">' +
-                            '<input class="form-control" type="text" value="'+file.name+'" readonly>' +
-                            '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>' +
-                            '<span class="delete_attachment" data-index='+index+' style="display:inline-block;width:30px;height:30px;position:absolute;right:13px;top:1px;z-index:100;cursor: pointer;"></span>' +
-                            '</div>';
-                        $("#uploadFileList").append(list);
-                        fileInfo[index] = {file:file,failedRetryUploadNum:0};
+                // choose:function(obj){
+                //     uploadFiles = obj.pushFile();
+                //     fileObj = obj;
+                //     obj.preview(function(index,file,result){
+                //         var list = '<div class="form-group has-success has-feedback add_file_div">' +
+                //             '<input class="form-control" type="text" value="'+file.name+'" readonly>' +
+                //             '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>' +
+                //             '<span class="delete_attachment" data-index='+index+' style="display:inline-block;width:30px;height:30px;position:absolute;right:13px;top:1px;z-index:100;cursor: pointer;"></span>' +
+                //             '</div>';
+                //         $("#uploadFileList").append(list);
+                //         fileInfo[index] = {file:file,failedRetryUploadNum:0};
+                //         toUploadNum++;
+                //     });
+                // },
+
+                choose: function (obj) {
+                    uploadFiles = obj.pushFile();  //yl
+                    fileObj = obj;  //yl
+                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                    //读取本地文件
+                    obj.preview(function (index, file, result) {
+                        let i = parseInt($("#demoList").children().length)+1 ;
+                        var tr = $(['<tr id="upload-' + index + '">'
+                            , '<td>' + i +'</td>'
+                            , '<td>' + file.name + '</td>'
+                            , '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>'
+                            , '<td>等待上传</td>'
+                            , '<td>'
+                            , '<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                            , '<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                            , '</td>'
+                            , '</tr>'].join(''));
+
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function () {
+                            console.log(index);
+                            console.log(file);
+                            console.log('obj');
+                            obj.upload(index, file);
+                        });
+
+                        //删除
+                        tr.find('.demo-delete').on('click', function () {
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+
+                        demoListView.append(tr);
+                        fileInfo[index] = {file: file, failedRetryUploadNum: 0};
                         toUploadNum++;
                     });
                 },
-                before:function(obj){
+
+                allDone: function(obj){
+                    console.log('total');
+                    console.log(obj.total);
+                },
+
+                before: function (obj) {
                     layer.load(1, {
-                        shade: [0.1,'#fff'] //0.1透明度的白色背景
+                        shade: [0.1, '#fff'] //0.1透明度的白色背景
                     });
                 },
-                done: function(res, index, upload){
+
+
+                // done: function(res, index, upload){
+                //    uploadedNum++;
+                //    console.log(uploadedNum+'/'+toUploadNum);
+                //    console.log(res.msg);
+                //     if(res.res){
+                //         layer.msg(res.msg, {icon: 1});
+                //         successNum ++;
+                //         successFile.push(res.msg);
+                //     }else{
+                //         layer.msg(res.msg, {icon: 0});
+                //         console.log(res.err_info);
+                //         failedNum ++;
+                //         failedFile.push(res.msg);
+                //     }
+                //
+                //     if(uploadedNum == toUploadNum) {
+                //         layer.closeAll('loading'); //关闭loading
+                //         layer.open({
+                //             type: 1,
+                //             title:"上传失败pdf信息",
+                //             content: "失败文件数: "+failedNum+"<br />"+failedFile.toString(),
+                //             btn: ['关闭页面', '继续上传'],
+                //             // yes: function(){
+                //             //     location.href='/admin/pdf'
+                //             // },
+                //             btn2:function(){
+                //                 location.reload();
+                //             }
+                //         });
+                //     }
+                //
+                //
+                //
+                // },
+
+
+                done: function (res, index, upload) {
+
                     uploadedNum++;
                     console.log(uploadedNum+'/'+toUploadNum);
                     console.log(res.msg);
-                    if(res.res){
-                        layer.msg(res.msg, {icon: 1});
+                    if (res.code == 0){
+                        var tr = demoListView.find('tr#upload-' + index)
+                            , tds = tr.children();
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(3).html(''); //清空操作
+                        delete this.files[index]; //删除文件队列已经上传成功的文件
                         successNum ++;
-                        successFile.push(res.msg);
-                    }else{
+                         successFile.push(res.msg);
+                    }else if(res.code == -1) {
+                        let item = this.item;
+                        console.log(item);
+                        console.log('item');
+                        let tr = demoListView.find('tr#upload-' + index)
+                            , tds = tr.children();
+                        tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                        tds.eq(4).find('.demo-reload').removeClass('layui-hide'); //显示重传
                         layer.msg(res.msg, {icon: 0});
                         console.log(res.err_info);
                         failedNum ++;
                         failedFile.push(res.msg);
                     }
-                    if(uploadedNum == toUploadNum) {
+
+
+                    if (uploadedNum == toUploadNum) {
                         layer.closeAll('loading'); //关闭loading
-                        layer.open({
-                            type: 1,
-                            title:"上传失败pdf信息",
-                            content: "失败文件数: "+failedNum+"<br />"+failedFile.toString(),
-                            btn: ['关闭页面', '继续上传'],
-                            // yes: function(){
-                            //     location.href='/admin/pdf'
-                            // },
-                            btn2:function(){
-                                location.reload();
-                            }
-                        });
+                          layer.open({
+                          type: 1,
+                              title: "上失败pdf信息",
+                          content: "失败r文件数: " + failedNum + "<br />" + failedFile.toString(),
+                        // btn: ['关闭页面', '继续上传'],
+                        // yes: function(){
+                        //     location.href='/admin/pdf'
+                        // },
+                        // btn2: function () {
+                        //     location.reload();
+                        // }
+                          });
                     }
-                },
-                error: function(index, upload){
-                    // layer.closeAll('loading'); //关闭loading
-                  console.log('------');
-                    layer.msg('上传失败！'+fileInfo[index].file.name, {icon: 0});
+                }, //code为后台传回来的数据，具体多少自己定，
+
+                error: function (index, upload) {
+                    layer.closeAll('loading'); //关闭loading
+                    console.log('------');
+                    // layer.msg('上传失败！' + fileInfo[index].file.name, {icon: 0});
                     fileInfo[index].failedRetryUploadNum++;
-                    if(fileInfo[index].failedRetryUploadNum <= retryUploadNum) {
+                    if (fileInfo[index].failedRetryUploadNum <= retryUploadNum) {
                         fileObj.upload(index, fileInfo[index].file);
                     }
                 }
@@ -218,7 +362,7 @@
         /**
          * 删除要上传的文件
          */
-        $(document).on("click",".delete_attachment",function(event){
+        $(document).on("click", ".delete_attachment", function (event) {
             delete uploadFiles[$(this).data('index')];
             $(this).parents("div.add_file_div").remove();
             toUploadNum--;
@@ -227,4 +371,4 @@
 </script>
 </body>
 
-</html>
+</html>                  

@@ -72,6 +72,7 @@
                             <td><%=message.user_ip%></td>
                             <td>
                                 <% if(message.check_status == 0){%>
+                                <input type="hidden" id="pid" value="<%=message.pid%>">
                                 <button id="edit-btn" type="button" class="btn btn-secondary">
                                     <a class="check_passed" data-id="<%= message.id %>"
                                        href="javascript:;" target="_blank">通过</a>
@@ -418,7 +419,8 @@
                 type:'post',
                 dataType:'json',
                 data:{
-                    message_id:$(this).data('id')
+                    message_id:$(this).data('id'),
+                    pid:$('#pid').val()
                 },
                 success:function(res){
                     layer.closeAll('loading')
